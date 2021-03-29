@@ -1,8 +1,8 @@
 #include <limits.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
 
+//mallocs memory to create a new stack with the given capacity
 Stack* createSack(unsigned capacity){
     Stack* stack = (Stack*) malloc(sizeof(Stack));
     stack->capacity = capacity;
@@ -11,14 +11,17 @@ Stack* createSack(unsigned capacity){
     return stack;
 }
 
+//returns true if the stack is full
 int isFull(Stack* stack){
     return stack->top == stack->capacity -1;
 }
 
+//returns true if the stack is empty
 int isEmpty(Stack* stack){
     return stack->top == -1;
 }
 
+//pushes a new element on the top of the stack
 int push(Stack* stack, int item){
     if(isFull(stack)){
         return INT_MIN;
@@ -26,6 +29,7 @@ int push(Stack* stack, int item){
     return stack->array[++stack->top] = item;
 }
 
+//pops the top of the stack
 int pop(Stack* stack){
     if(isEmpty(stack)){
         return INT_MIN;
@@ -34,6 +38,7 @@ int pop(Stack* stack){
     return stack->array[stack->top--];
 }
 
+//returns the top element of the stack without modiying the stack
 int peek(Stack* stack){
     if(isEmpty(stack)){
         return INT_MIN;
