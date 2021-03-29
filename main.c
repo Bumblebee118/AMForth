@@ -2,9 +2,38 @@
 #include <stdlib.h>
 #include "stack.h"
 #include "dict.h"
+#include "textint.h"
 
-int main() {
+void printSynopsis(void);
+void tests(void);
 
+
+int main(int argc, char** argv) {
+
+    //tests();
+
+    if (argc > 2){
+        printSynopsis();
+        exit(EXIT_FAILURE);
+    }
+    FILE* inputStream = stdin;
+
+    if(argc > 1){
+        inputStream = fopen(argv[1], "r");
+    }
+
+    startTextInterpreter(inputStream);
+
+    exit(EXIT_SUCCESS);
+}
+
+void printSynopsis(void){
+    fprintf(stdin, "Usage: ./forth [FILE]");
+}
+
+
+
+void tests(void){
     Stack* stack = createSack(128);
 
     push(stack, 10);
@@ -28,6 +57,4 @@ int main() {
     printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
     d = searchEntry(dict, "test3");
     printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
-
-    exit(EXIT_SUCCESS);
 }
