@@ -4,7 +4,6 @@
 
 #ifndef AMFORTH_DICT_H
 #define AMFORTH_DICT_H
-
 typedef struct DictEntry {
     struct DictEntry* next;
     char* functionName;
@@ -16,12 +15,6 @@ typedef struct Dict {
     struct DictEntry* lastElement;
 } Dict;
 
-//
-// Created by Stefan Walser on 29.03.21.
-//
-
-#include "dict.h"
-#include <stdlib.h>
 /**
  * Creates a new Dictionary. Implemented as a linked list
  * @return a pointer to the dictionary
