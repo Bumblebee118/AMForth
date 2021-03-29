@@ -2,10 +2,10 @@
 <project version="4">
   <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="WSL (7867c2a6-cead-4939-ae6b-c71a3c07f561)">
+      <paths name="Remote Host (34820ff6-96a2-4661-be11-f4139830926b)">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/tmp/AMForth" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

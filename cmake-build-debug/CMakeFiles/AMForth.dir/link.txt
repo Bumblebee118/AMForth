@@ -1,3 +1,1 @@
-"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\AMForth.dir/objects.a
-C:\MinGW\bin\ar.exe cr CMakeFiles\AMForth.dir/objects.a @CMakeFiles\AMForth.dir\objects1.rsp
-C:\MinGW\bin\gcc.exe -g   -Wl,--whole-archive CMakeFiles\AMForth.dir/objects.a -Wl,--no-whole-archive  -o AMForth.exe -Wl,--out-implib,libAMForth.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\AMForth.dir\linklibs.rsp
+/Library/Developer/CommandLineTools/usr/bin/cc -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/AMForth.dir/main.c.o CMakeFiles/AMForth.dir/stack.c.o  -o AMForth 

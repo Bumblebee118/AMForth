@@ -1,10 +1,8 @@
 file(REMOVE_RECURSE
-  "AMForth.exe"
-  "AMForth.exe.manifest"
+  "AMForth"
   "AMForth.pdb"
-  "CMakeFiles/AMForth.dir/main.c.obj"
-  "CMakeFiles/AMForth.dir/stack.c.obj"
-  "libAMForth.dll.a"
+  "CMakeFiles/AMForth.dir/main.c.o"
+  "CMakeFiles/AMForth.dir/stack.c.o"
 )
 
 # Per-language clean rules from dependency scanning.
