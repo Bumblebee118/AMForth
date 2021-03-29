@@ -77,6 +77,12 @@
 		<Unit filename="C:/_user/Alexander/_Uni/TU Wien/6. Semester/Abstrakte_Maschinen/UE/AMForth/main.c">
 			<Option target="AMForth"/>
 		</Unit>
+		<Unit filename="C:/_user/Alexander/_Uni/TU Wien/6. Semester/Abstrakte_Maschinen/UE/AMForth/stack.c">
+			<Option target="AMForth"/>
+		</Unit>
+		<Unit filename="C:/_user/Alexander/_Uni/TU Wien/6. Semester/Abstrakte_Maschinen/UE/AMForth/stack.h">
+			<Option target="AMForth"/>
+		</Unit>
 		<Unit filename="C:/_user/Alexander/_Uni/TU Wien/6. Semester/Abstrakte_Maschinen/UE/AMForth/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

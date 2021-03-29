@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "AMForth.exe.manifest"
   "AMForth.pdb"
   "CMakeFiles/AMForth.dir/main.c.obj"
+  "CMakeFiles/AMForth.dir/stack.c.obj"
   "libAMForth.dll.a"
 )
 

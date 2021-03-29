@@ -6,7 +6,15 @@
 
 #IncludeRegexTransform: 
 
-C:/_user/Alexander/_Uni/TU Wien/6. Semester/Abstrakte_Maschinen/UE/AMForth/main.c
+C:/_user/Alexander/_Uni/TU Wien/6. Semester/Abstrakte_Maschinen/UE/AMForth/stack.c
+limits.h
+-
 stdio.h
 -
+stdlib.h
+-
+stack.h
+C:/_user/Alexander/_Uni/TU Wien/6. Semester/Abstrakte_Maschinen/UE/AMForth/stack.h
+
+C:/_user/Alexander/_Uni/TU Wien/6. Semester/Abstrakte_Maschinen/UE/AMForth/stack.h
 

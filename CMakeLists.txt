@@ -3,4 +3,4 @@ project(AMForth C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(AMForth main.c)
+add_executable(AMForth main.c stack.c stack.h)

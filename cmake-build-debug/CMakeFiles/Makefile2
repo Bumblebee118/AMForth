@@ -93,12 +93,12 @@ clean: CMakeFiles/AMForth.dir/clean
 CMakeFiles/AMForth.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\AMForth.dir\build.make CMakeFiles/AMForth.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\AMForth.dir\build.make CMakeFiles/AMForth.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="C:\_user\Alexander\_Uni\TU Wien\6. Semester\Abstrakte_Maschinen\UE\AMForth\cmake-build-debug\CMakeFiles" --progress-num=1,2 "Built target AMForth"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="C:\_user\Alexander\_Uni\TU Wien\6. Semester\Abstrakte_Maschinen\UE\AMForth\cmake-build-debug\CMakeFiles" --progress-num=1,2,3 "Built target AMForth"
 .PHONY : CMakeFiles/AMForth.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/AMForth.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\_user\Alexander\_Uni\TU Wien\6. Semester\Abstrakte_Maschinen\UE\AMForth\cmake-build-debug\CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\_user\Alexander\_Uni\TU Wien\6. Semester\Abstrakte_Maschinen\UE\AMForth\cmake-build-debug\CMakeFiles" 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/AMForth.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "C:\_user\Alexander\_Uni\TU Wien\6. Semester\Abstrakte_Maschinen\UE\AMForth\cmake-build-debug\CMakeFiles" 0
 .PHONY : CMakeFiles/AMForth.dir/rule
