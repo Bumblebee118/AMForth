@@ -38,7 +38,7 @@ int pop(Stack* stack){
     return stack->array[stack->top--];
 }
 
-//returns the top element of the stack without modiying the stack
+//returns the top element of the stack without modifying the stack
 int peek(Stack* stack){
     if(isEmpty(stack)){
         return INT_MIN;
