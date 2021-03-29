@@ -5,7 +5,7 @@
 #ifndef AMFORTH_DICT_H
 #define AMFORTH_DICT_H
 typedef struct DictEntry {
-    struct DictEntry* next;
+    struct DictEntry* link; //link reference to previous DictEntry
     char* functionName;
     int functionAddress;
 } DictEntry;
