@@ -50,7 +50,11 @@ int nextToken(FILE* stream, char** token){
     int len = 0;
     //get next char from stream
     char currentChar = fgetc(stream);
-    while((currentChar != ' ') && (currentChar != '\t') && (currentChar != '\n')){
+    if(currentChar == EOF){
+        return -1;
+    }
+
+    while((currentChar != ' ') && (currentChar != '\t') && (currentChar != '\n') && (currentChar != EOF)){
         //if the lenght of the token exceeds the current size, reallocate
         if(len == size-1){
             size *= 2;
