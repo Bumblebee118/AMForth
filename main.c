@@ -19,7 +19,8 @@ int main(int argc, char** argv) {
     FILE* inputStream = stdin;
 
     if(argc > 1){
-        inputStream = fopen(argv[1], "r");
+        char* filename = argv[1];
+        inputStream = fopen(filename, "r");
 
         if(inputStream == NULL){
             printSynopsis();
