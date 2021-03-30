@@ -6,24 +6,32 @@
 #include <stdlib.h>
 #include <string.h>
 
-Dict* createDict() {
-    Dict* dict = (Dict*) malloc(sizeof(Dict));
+Dict *createDict() {
+    Dict *dict = (Dict *) malloc(sizeof(Dict));
     dict->firstElement = NULL;
     dict->lastElement = NULL;
     return dict;
 }
 
-int addEntry(Dict* dict, char* word, int functionAddress) {
-    DictEntry* dictEntry = searchEntry(dict, word);
+FunctionPool *createFunctionPool(int capacity) {
+    FunctionPool *functionPool = (FunctionPool *) malloc(sizeof(FunctionPool));
+    functionPool->capacity = capacity;
+    functionPool->freeIndex = 0;
+    functionPool->wordArray = (BASICFUNC *) malloc(capacity * sizeof(BASICFUNC));
+    return functionPool;
+}
+
+int addEntry(Dict *dict, char *word, int functionAddress) {
+    DictEntry *dictEntry = searchEntry(dict, word);
     if (dictEntry != NULL && dictEntry->mutable == 0) {
         return -2;
     }
-    DictEntry* entry = (DictEntry*) malloc(sizeof(DictEntry));
+    DictEntry *entry = (DictEntry *) malloc(sizeof(DictEntry));
     if (entry == NULL) {
         return -1;
     }
-    entry->word = (char*) malloc(sizeof(char) * strlen(word));
-    if((entry->word) == NULL){
+    entry->word = (char *) malloc(sizeof(char) * strlen(word));
+    if ((entry->word) == NULL) {
         return -1;
     }
 
@@ -41,8 +49,29 @@ int addEntry(Dict* dict, char* word, int functionAddress) {
     return 0;
 }
 
-DictEntry* searchEntry(Dict* dict, const char* word) {
-    DictEntry* currentNode = dict->lastElement;
+int addWordToPool(Dict *dict, char *word, FunctionPool *functionPool, BASICFUNC functionPtr) {
+    if (functionPool->freeIndex < functionPool->capacity) {
+        functionPool->wordArray[functionPool->freeIndex] = functionPtr;
+        addEntry(dict, word, functionPool->freeIndex);
+        functionPool->freeIndex++;
+        return 0;
+    } else {
+        return -1;
+    }
+
+}
+
+BASICFUNC getWordFromPool(Dict *dict, FunctionPool *functionPool, char *word) {
+    DictEntry *dictEntry = searchEntry(dict, word);
+    if (dictEntry != NULL) {
+        return functionPool->wordArray[dictEntry->functionAddress];
+    } else {
+        return NULL;
+    }
+}
+
+DictEntry *searchEntry(Dict *dict, const char *word) {
+    DictEntry *currentNode = dict->lastElement;
     while (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
             return currentNode;
@@ -52,8 +81,8 @@ DictEntry* searchEntry(Dict* dict, const char* word) {
     return NULL;
 }
 
-int deleteEntry(Dict* dict, char* word) {
-    DictEntry* currentNode = dict->lastElement;
+int deleteEntry(Dict *dict, char *word) {
+    DictEntry *currentNode = dict->lastElement;
     if (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
             dict->lastElement = currentNode->link;

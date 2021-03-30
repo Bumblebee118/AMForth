@@ -3,26 +3,35 @@
 #include "stack.h"
 #include "dict.h"
 #include "textint.h"
+#include "basicFunctions.h"
 
 void printSynopsis(void);
-void tests(void);
 
+void tests(Dict *dict, Stack *stack, FunctionPool *functionPool);
 
-int main(int argc, char** argv) {
+void addBasicFunctions(Dict *dict);
 
-    tests();
+int main(int argc, char **argv) {
 
-    if (argc > 2){
+    Dict *dict = createDict();
+    Stack *stack = createStack(128);
+    FunctionPool *functionPool = createFunctionPool(128);
+
+    tests(dict, stack, functionPool);
+
+    addBasicFunctions(dict);
+
+    if (argc > 2) {
         printSynopsis();
         exit(EXIT_FAILURE);
     }
-    FILE* inputStream = stdin;
+    FILE *inputStream = stdin;
 
-    if(argc > 1){
-        char* filename = argv[1];
+    if (argc > 1) {
+        char *filename = argv[1];
         inputStream = fopen(filename, "r");
 
-        if(inputStream == NULL){
+        if (inputStream == NULL) {
             printSynopsis();
         }
     }
@@ -32,59 +41,67 @@ int main(int argc, char** argv) {
     exit(EXIT_SUCCESS);
 }
 
-void printSynopsis(void){
+void printSynopsis(void) {
     fprintf(stdin, "Usage: ./forth [FILE]");
 }
 
 
-
-void tests(void){
-    Stack* stack = createSack(128);
-
+void tests(Dict *dict, Stack *stack, FunctionPool *functionPool) {
     push(stack, 10);
     push(stack, 2100);
-    push(stack,-1);
+    push(stack, -1);
     push(stack, 13);
+    printf("%d\n", peek(stack));
 
-    printf("%d popped from stack\n", pop(stack));
-    printf("%d popped from stack\n", pop(stack));
-    printf("%d popped from stack\n", pop(stack));
+//    printf("%d popped from stack\n", pop(stack));
+//    printf("%d popped from stack\n", pop(stack));
+//    printf("%d popped from stack\n", pop(stack));
 
-    Dict* dict = createDict();
-    addEntry(dict, "test1", 4);
-    addEntry(dict, "test2", 8);
-    addEntry(dict, "test3", 12);
-    addEntry(dict, "test1", 13);
+    addWordToPool(dict, "add", functionPool, &ADD);
+    addWordToPool(dict, "subtract", functionPool, &SUBTRACT);
 
-    DictEntry* d = searchEntry(dict, "test2");
-    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-    d = searchEntry(dict, "test1");
-    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-    d = searchEntry(dict, "test3");
-    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
+    getWordFromPool(dict, functionPool, "add")(stack);
 
-    int r = deleteEntry(dict, "test1");
-    printf("%d was returned from the delete function\n", r);
-    r = deleteEntry(dict, "test1");
-    printf("%d was returned from the delete function\n", r);
+    printf("%d\n", peek(stack));
 
-    d = searchEntry(dict, "test1");
-    if (d != NULL) {
-        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-    } else {
-        printf("This element was not found in the list.\n");
-    }
+//    addEntry(dict, "test1", 4);
+//    addEntry(dict, "test2", 8);
+//    addEntry(dict, "test3", 12);
+//    addEntry(dict, "test1", 13);
 
-    d = searchEntry(dict, "test2");
-    if (d != NULL) {
-        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-    } else {
-        printf("This element was not found in the list.\n");
-    }
-    d = searchEntry(dict, "test3");
-    if (d != NULL) {
-        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-    } else {
-        printf("This element was not found in the list.\n");
-    }
+//    DictEntry *d = searchEntry(dict, "test2");
+//    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
+//    d = searchEntry(dict, "test1");
+//    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
+//    d = searchEntry(dict, "test3");
+//    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
+//
+//    int r = deleteEntry(dict, "test1");
+//    printf("%d was returned from the delete function\n", r);
+//    r = deleteEntry(dict, "test1");
+//    printf("%d was returned from the delete function\n", r);
+//
+//    d = searchEntry(dict, "test1");
+//    if (d != NULL) {
+//        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
+//    } else {
+//        printf("This element was not found in the list.\n");
+//    }
+//
+//    d = searchEntry(dict, "test2");
+//    if (d != NULL) {
+//        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
+//    } else {
+//        printf("This element was not found in the list.\n");
+//    }
+//    d = searchEntry(dict, "test3");
+//    if (d != NULL) {
+//        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
+//    } else {
+//        printf("This element was not found in the list.\n");
+//    }
+}
+
+void addBasicFunctions(Dict *dict) {
+    addEntry(dict, "add", 0);
 }

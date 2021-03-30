@@ -15,7 +15,7 @@
  * tokens can be separated by an arbitrary amount of whitespaces or tabs
  * @param stream Can be a file or stdin
  */
-void startTextInterpreter(FILE* stream);
+void startTextInterpreter(FILE *stream);
 
 /**
  * Reads in the next token_ptr from the input stream 'stream'
@@ -24,6 +24,6 @@ void startTextInterpreter(FILE* stream);
  * @return Returns the length of the read token_ptr, -1 if an error occurs
  * token_ptr exceeds MAX_WORD_NAME_SIZE
  */
-int nextToken(FILE* stream, char** token_ptr);
+int nextToken(FILE *stream, char **token_ptr);
 
 #endif //AMFORTH_TEXTINT_H
