@@ -7,7 +7,7 @@
 #define AMFORTH_DICT_H
 typedef struct DictEntry {
     struct DictEntry* link; //link reference to previous DictEntry
-    char* functionName;
+    char* word;
     int functionAddress;
     int mutable; // 0 for basic words that can't be redefined
 } DictEntry;
@@ -26,26 +26,26 @@ Dict* createDict();
 /**
  * Adds an entry to the list.
  * @param dict The dictionary, the element should be added to
- * @param functionName the name of the new function
+ * @param word the name of the new function
  * @param functionAddress the address of the first function to be called in this function
  * @return -1 for failure, 0 for success, -2 when trying to redefine an immutable function
  */
-int addEntry(Dict* dict, char* functionName, int functionAddress);
+int addEntry(Dict* dict, char* word, int functionAddress);
 
 /**
  * searches the dictionary for the function name given as a parameter
  * @param dict the dictionary to search through
- * @param functionName the name of the function to search for
+ * @param word the name of the function to search for
  * @return a pointer to the element or NULL if no element was found with the given name
  */
-DictEntry* searchEntry(Dict* dict, const char* functionName);
+DictEntry* searchEntry(Dict* dict, const char* word);
 
 /**
  * deletes an entry from the dictionary
  * @param dict the dictionary to delete the item from
- * @param functionName the name of the function to delete
+ * @param word the name of the function to delete
  * @return 0 for success, -1 for failure (the function wasn't found in the dictionary)
  */
-int deleteEntry(Dict* dict, char* functionName);
+int deleteEntry(Dict* dict, char* word);
 
 #endif //AMFORTH_DICT_H

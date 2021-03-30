@@ -57,11 +57,11 @@ void tests(void){
     addEntry(dict, "test1", 13);
 
     DictEntry* d = searchEntry(dict, "test2");
-    printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
     d = searchEntry(dict, "test1");
-    printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
     d = searchEntry(dict, "test3");
-    printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 
     int r = deleteEntry(dict, "test1");
     printf("%d was returned from the delete function\n", r);
@@ -70,20 +70,20 @@ void tests(void){
 
     d = searchEntry(dict, "test1");
     if (d != NULL) {
-        printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
     } else {
         printf("This element was not found in the list.\n");
     }
 
     d = searchEntry(dict, "test2");
     if (d != NULL) {
-        printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
     } else {
         printf("This element was not found in the list.\n");
     }
     d = searchEntry(dict, "test3");
     if (d != NULL) {
-        printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
     } else {
         printf("This element was not found in the list.\n");
     }

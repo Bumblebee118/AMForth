@@ -13,8 +13,8 @@ Dict* createDict() {
     return dict;
 }
 
-int addEntry(Dict* dict, char* functionName, int functionAddress) {
-    DictEntry* dictEntry = searchEntry(dict, functionName);
+int addEntry(Dict* dict, char* word, int functionAddress) {
+    DictEntry* dictEntry = searchEntry(dict, word);
     if (dictEntry != NULL && dictEntry->mutable == 0) {
         return -2;
     }
@@ -22,12 +22,12 @@ int addEntry(Dict* dict, char* functionName, int functionAddress) {
     if (entry == NULL) {
         return -1;
     }
-    entry->functionName = (char*) malloc(sizeof(char) * strlen(functionName));
-    if((entry->functionName) == NULL){
+    entry->word = (char*) malloc(sizeof(char) * strlen(word));
+    if((entry->word) == NULL){
         return -1;
     }
 
-    strncpy(entry->functionName, functionName, strlen(functionName));
+    strncpy(entry->word, word, strlen(word));
     entry->functionAddress = functionAddress;
     entry->link = dict->lastElement;    // link to previous element
     entry->mutable = 1; // TODO: if the basic dictionary is filled at startup with this method, this assignment has to be adapted
@@ -41,10 +41,10 @@ int addEntry(Dict* dict, char* functionName, int functionAddress) {
     return 0;
 }
 
-DictEntry* searchEntry(Dict* dict, const char* functionName) {
+DictEntry* searchEntry(Dict* dict, const char* word) {
     DictEntry* currentNode = dict->lastElement;
     while (currentNode != NULL) {
-        if (strcmp(currentNode->functionName, functionName) == 0) {
+        if (strcmp(currentNode->word, word) == 0) {
             return currentNode;
         }
         currentNode = currentNode->link;
@@ -52,16 +52,16 @@ DictEntry* searchEntry(Dict* dict, const char* functionName) {
     return NULL;
 }
 
-int deleteEntry(Dict* dict, char* functionName) {
+int deleteEntry(Dict* dict, char* word) {
     DictEntry* currentNode = dict->lastElement;
     if (currentNode != NULL) {
-        if (strcmp(currentNode->functionName, functionName) == 0) {
+        if (strcmp(currentNode->word, word) == 0) {
             dict->lastElement = currentNode->link;
             free(currentNode);
             return 0;
         } else {
             while (currentNode->link != NULL) {
-                if (strcmp(currentNode->link->functionName, functionName) == 0) {
+                if (strcmp(currentNode->link->word, word) == 0) {
                     currentNode->link = currentNode->link->link;
                     free(currentNode);
                     return 0;
