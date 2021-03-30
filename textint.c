@@ -1,7 +1,7 @@
 #include "textint.h"
 #include <stdio.h>
-#include <malloc.h>
-#include <memory.h>
+#include <stdlib.h>
+#include <string.h>
 
 void startTextInterpreter(FILE* stream){
 
