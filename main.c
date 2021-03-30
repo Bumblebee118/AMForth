@@ -10,7 +10,7 @@ void tests(void);
 
 int main(int argc, char** argv) {
 
-    //tests();
+    tests();
 
     if (argc > 2){
         printSynopsis();
@@ -62,4 +62,19 @@ void tests(void){
     printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
     d = searchEntry(dict, "test3");
     printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+
+    deleteEntry(dict, "test1");
+
+    d = searchEntry(dict, "test1");
+    if (d != NULL) {
+        printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+    } else {
+        printf("This element was not found in the list.\n");
+    }
+
+    d = searchEntry(dict, "test2");
+    printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+    d = searchEntry(dict, "test3");
+    printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+
 }

@@ -6,6 +6,7 @@
 #define AMFORTH_DICT_H
 typedef struct DictEntry {
     struct DictEntry* link; //link reference to previous DictEntry
+    struct DictEntry* before; // This reference is necessary to delete entries
     char* functionName;
     int functionAddress;
 } DictEntry;
@@ -37,5 +38,13 @@ int addEntry(Dict* dict, char* functionName, int functionAddress);
  * @return a pointer to the element or NULL if no element was found with the given name
  */
 DictEntry* searchEntry(Dict* dict, const char* functionName);
+
+/**
+ *
+ * @param dict
+ * @param functionName
+ * @return
+ */
+void deleteEntry(Dict* dict, char* functionName);
 
 #endif //AMFORTH_DICT_H

@@ -4,8 +4,7 @@
 
 #include "dict.h"
 #include <stdlib.h>
-#include <stdio.h>
-#include <memory.h>
+#include <string.h>
 
 Dict* createDict() {
     Dict* dict = (Dict*) malloc(sizeof(Dict));
@@ -19,16 +18,21 @@ int addEntry(Dict* dict, char* functionName, int functionAddress) {
     if (entry == NULL) {
         return -1;
     }
-    entry->functionName = (char*) malloc(sizeof(char)*strlen(functionName));
+    entry->functionName = (char*) malloc(sizeof(char) * strlen(functionName));
     if((entry->functionName) == NULL){
         return -1;
     }
 
     strncpy(entry->functionName, functionName, strlen(functionName));
     entry->functionAddress = functionAddress;
-    entry->link = dict->lastElement;    //link to previous element
+    entry->link = dict->lastElement;    // link to previous element
+    entry->before = NULL;
+    if (entry->link != NULL) {
+        entry->link->before = entry;
+    }
 
-    dict->lastElement = entry;  //update dict entry
+
+    dict->lastElement = entry;  // update dict entry
 
     if (dict->firstElement == NULL) {
         dict->firstElement = entry;
@@ -46,4 +50,19 @@ DictEntry* searchEntry(Dict* dict, const char* functionName) {
         currentNode = currentNode->link;
     }
     return NULL;
+}
+
+void deleteEntry(Dict* dict, char* functionName) {
+    DictEntry* elementToDelete = searchEntry(dict, functionName);
+    if (elementToDelete->link != NULL) {
+        elementToDelete->link->before = elementToDelete->before;
+    } else {
+        dict->firstElement = elementToDelete->before;
+    }
+    if (elementToDelete->before != NULL) {
+        elementToDelete->before->link = elementToDelete->link;
+    } else {
+        dict->lastElement = elementToDelete->link;
+    }
+    free(elementToDelete);
 }
