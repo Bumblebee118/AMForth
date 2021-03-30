@@ -1,7 +1,7 @@
 #include "textint.h"
 #include <stdio.h>
 #include <malloc.h>
-#include <mem.h>
+#include <memory.h>
 
 void startTextInterpreter(FILE* stream){
 
@@ -13,11 +13,11 @@ void startTextInterpreter(FILE* stream){
         int len = nextToken(stream, &token);    //get next token from stream
 
         if(len == -1){          //malloc failed
-            printf("malloc has failed\n");
+            printf("error occured during parsing\n");
             quit = 1;
-        }else if(len == -2) {   //token is to big
+        }else if(len >= MAX_WORD_NAME_SIZE) {   //token is to big
             printf("size of token exceeds MAX_WORD_NAME_SIZE\n");
-            quit = 1;
+            //quit = 1;
         }else if(strcmp(token, "bye") == 0){
                 printf("see you later!\n");
                 quit = 1;
@@ -33,46 +33,66 @@ void startTextInterpreter(FILE* stream){
     }
 }
 
-int nextToken(FILE* stream, char** token){
-    //if token is not NULL, then free the space
-    if(*token != NULL){
-        free(*token);
-    }
+/*int nextToken(FILE* stream, char** token_ptr){
+    if(*token_ptr == NULL) *token_ptr = malloc(sizeof(char)*MAX_WORD_NAME_SIZE);
 
-    //acquire new memory space for the token
-    int size = MIN_WORD_NAME_SIZE;
-    *token = malloc(sizeof(char)*size);
+    if(*token_ptr == NULL) return -1;
+    int c;
 
-    if (*token == NULL){
+    if((c = fscanf(stream, "%"MAX_WORD_NAME_SIZE_STR"s", *token_ptr)) != 1){
+        printf("error at scanf, output %d\n", c);
         return -1;
     }
 
-    int len = 0;
+    int len = strlen(*token_ptr);
+    if(len == MAX_WORD_NAME_SIZE-1){
+        char nextChar = fgetc(stream);
+        if ((nextChar != ' ') && (nextChar != '\t') && (nextChar != '\n')){
+            printf("Word is too big\n");
+            return -1;
+        }
+    }
+
+    return len;
+
+}*/
+
+int nextToken(FILE* stream, char** token_ptr){
+    //if token_ptr is NULL, then acquire memory
+    if(*token_ptr == NULL) *token_ptr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
+    //check pointer again
+    if(*token_ptr == NULL) return -1;
+
     //get next char from stream
     char currentChar = fgetc(stream);
     if(currentChar == EOF){
-        return -1;
+        return -1;  //immediately return if the EOF has been reached
     }
 
-    while((currentChar != ' ') && (currentChar != '\t') && (currentChar != '\n') && (currentChar != EOF)){
-        //if the lenght of the token exceeds the current size, reallocate
-        if(len == size-1){
-            size *= 2;
-            //check boundaries
-            if(size < MAX_WORD_NAME_SIZE){
-                *token = (char*) realloc(*token, sizeof(char)*size);
-            }else{
-                return -2;
-            }
+    int len = 0;
+    while((currentChar != ' ') && (currentChar != '\t') && (currentChar != '\n') && (currentChar != '\r') && (currentChar != EOF)){
+        //only add new chars to string, it MAX_WORD_NAME_SIZE has not been exceeded
+        if(len < MAX_WORD_NAME_SIZE-1){
+            (*token_ptr)[len] = currentChar;
         }
 
-        (*token)[len] = currentChar;
         len++;
-        currentChar = fgetc(stream);
+        currentChar = fgetc(stream); //read in next char for next loop iteration, even if MAX_WORD_NAME_SIZE has been reached
+    }
+
+    //getting rid of whitespaces by recursively calling nextToken
+    //until a string with len > 0 is found
+    if(len == 0){
+        return nextToken(stream, token_ptr);
     }
 
     //add zero delimiter at the end of string
-    (*token)[len] = '\0';
+    //special handling string with size bigger than MAX_WORD_NAME_SIZE
+    if(len < MAX_WORD_NAME_SIZE-1){
+        (*token_ptr)[len] = '\0';
+    }else{
+        (*token_ptr)[MAX_WORD_NAME_SIZE - 1] = '\0';
+    }
 
     return len;
 }

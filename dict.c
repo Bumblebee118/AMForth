@@ -5,7 +5,7 @@
 #include "dict.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <mem.h>
+#include <memory.h>
 
 Dict* createDict() {
     Dict* dict = (Dict*) malloc(sizeof(Dict));
