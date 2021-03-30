@@ -1,3 +1,4 @@
+#include <__wctype.h>
 //
 // Created by Stefan Walser on 29.03.21.
 //
@@ -6,9 +7,9 @@
 #define AMFORTH_DICT_H
 typedef struct DictEntry {
     struct DictEntry* link; //link reference to previous DictEntry
-    struct DictEntry* before; // This reference is necessary to delete entries
     char* functionName;
     int functionAddress;
+    int mutable; // 0 for basic words that can't be redefined
 } DictEntry;
 
 typedef struct Dict {
@@ -27,7 +28,7 @@ Dict* createDict();
  * @param dict The dictionary, the element should be added to
  * @param functionName the name of the new function
  * @param functionAddress the address of the first function to be called in this function
- * @return -1 for failure, 0 for success
+ * @return -1 for failure, 0 for success, -2 when trying to redefine an immutable function
  */
 int addEntry(Dict* dict, char* functionName, int functionAddress);
 
@@ -40,11 +41,11 @@ int addEntry(Dict* dict, char* functionName, int functionAddress);
 DictEntry* searchEntry(Dict* dict, const char* functionName);
 
 /**
- *
- * @param dict
- * @param functionName
- * @return
+ * deletes an entry from the dictionary
+ * @param dict the dictionary to delete the item from
+ * @param functionName the name of the function to delete
+ * @return 0 for success, -1 for failure (the function wasn't found in the dictionary)
  */
-void deleteEntry(Dict* dict, char* functionName);
+int deleteEntry(Dict* dict, char* functionName);
 
 #endif //AMFORTH_DICT_H

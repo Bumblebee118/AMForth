@@ -63,7 +63,10 @@ void tests(void){
     d = searchEntry(dict, "test3");
     printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
 
-    deleteEntry(dict, "test1");
+    int r = deleteEntry(dict, "test1");
+    printf("%d was returned from the delete function\n", r);
+    r = deleteEntry(dict, "test1");
+    printf("%d was returned from the delete function\n", r);
 
     d = searchEntry(dict, "test1");
     if (d != NULL) {
@@ -73,8 +76,15 @@ void tests(void){
     }
 
     d = searchEntry(dict, "test2");
-    printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+    if (d != NULL) {
+        printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+    } else {
+        printf("This element was not found in the list.\n");
+    }
     d = searchEntry(dict, "test3");
-    printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
-
+    if (d != NULL) {
+        printf("%s was found in the dictionary with address %d\n", d->functionName, d->functionAddress);
+    } else {
+        printf("This element was not found in the list.\n");
+    }
 }
