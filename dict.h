@@ -80,6 +80,18 @@ DictEntry *searchEntry(Dict *dict, const char *word);
  * @param word the name of the function to delete
  * @return 0 for success, -1 for failure (the function wasn't found in the dictionary)
  */
-int deleteEntry(Dict *dict, char *word);
+int removeEntry(Dict *dict, char *word);
+
+/**
+ * deletes the function pool
+ * @param functionPool
+ */
+void deleteFunctionPool(FunctionPool* functionPool);
+
+/**
+ * deletes the dictionary
+ * @param dict
+ */
+void deleteDict(Dict *dict);
 
 #endif //AMFORTH_DICT_H

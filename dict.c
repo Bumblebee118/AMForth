@@ -81,7 +81,7 @@ DictEntry *searchEntry(Dict *dict, const char *word) {
     return NULL;
 }
 
-int deleteEntry(Dict *dict, char *word) {
+int removeEntry(Dict *dict, char *word) {
     DictEntry *currentNode = dict->lastElement;
     if (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
@@ -100,4 +100,12 @@ int deleteEntry(Dict *dict, char *word) {
         }
     }
     return -1;
+}
+
+void deleteDict(Dict *dict) {
+    free(dict);
+}
+
+void deleteFunctionPool(FunctionPool* functionPool) {
+    free(functionPool);
 }

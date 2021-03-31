@@ -38,6 +38,8 @@ int main(int argc, char **argv) {
 
     startTextInterpreter(inputStream);
 
+    deleteDict(dict);
+    deleteFunctionPool(functionPool);
     exit(EXIT_SUCCESS);
 }
 
@@ -76,9 +78,9 @@ void tests(Dict *dict, Stack *stack, FunctionPool *functionPool) {
 //    d = searchEntry(dict, "test3");
 //    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 //
-//    int r = deleteEntry(dict, "test1");
+//    int r = removeEntry(dict, "test1");
 //    printf("%d was returned from the delete function\n", r);
-//    r = deleteEntry(dict, "test1");
+//    r = removeEntry(dict, "test1");
 //    printf("%d was returned from the delete function\n", r);
 //
 //    d = searchEntry(dict, "test1");
