@@ -11,9 +11,17 @@
 typedef struct DictEntry {
     struct DictEntry *link; //link reference to previous DictEntry
     char *word;
-    int functionAddress;
     int mutable; // 0 for basic words that can't be redefined
+    struct DictEntry* definitions;
+    BASICFUNC basicfunc;
+    int value; // value of constant or value of variable
+    // BASICFUNC codePointer(dictEntry) // TODO: new function pointer definition
 } DictEntry;
+
+typedef struct ReturnDef {
+    int index;
+    DictEntry *dictEntry;
+} ReturnDef;
 
 typedef struct Dict {
     struct DictEntry *firstElement;
