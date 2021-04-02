@@ -1,12 +1,14 @@
-#include "textint.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "interpret.h"
 
-void startTextInterpreter(FILE *stream) {
+void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack) {
 
     int quit = 0;
     char *token = NULL;
+
+    printf("Type 'bye' to exit\n");
 
     while (quit == 0) {
 
@@ -22,7 +24,28 @@ void startTextInterpreter(FILE *stream) {
             printf("see you later!\n");
             quit = 1;
         } else if (len != 0) {
-            printf("token is: %s - len: %d\n", token, len);
+            // printf("token is: %s - len: %d\n", token, len);
+
+            DictEntry *entry = getEntry(dict, token);
+            if(entry == NULL){
+
+               char* endptr;
+               int num = strtol(token, &endptr, 10);
+
+               if (strlen(endptr)==0){
+                   push(parameterStack, num);
+                   PRINT_INPUT_OK(stream);
+               }
+               else{
+                   ERROR_WORD_NOT_FOUND(token);
+                   clearStack(parameterStack);
+               }
+
+            }else{
+                //TODO Execute function definition here
+                entry->basicfunc(parameterStack);
+                PRINT_INPUT_OK(stream);
+            }
 
         }
     }
@@ -33,29 +56,6 @@ void startTextInterpreter(FILE *stream) {
     }
 }
 
-/*int nextToken(FILE* stream, char** token_ptr){
-    if(*token_ptr == NULL) *token_ptr = malloc(sizeof(char)*MAX_WORD_NAME_SIZE);
-
-    if(*token_ptr == NULL) return -1;
-    int c;
-
-    if((c = fscanf(stream, "%"MAX_WORD_NAME_SIZE_STR"s", *token_ptr)) != 1){
-        printf("error at scanf, output %d\n", c);
-        return -1;
-    }
-
-    int len = strlen(*token_ptr);
-    if(len == MAX_WORD_NAME_SIZE-1){
-        char nextChar = fgetc(stream);
-        if ((nextChar != ' ') && (nextChar != '\t') && (nextChar != '\n')){
-            printf("Word is too big\n");
-            return -1;
-        }
-    }
-
-    return len;
-
-}*/
 
 int nextToken(FILE *stream, char **token_ptr) {
     //if token_ptr is NULL, then acquire memory
@@ -97,4 +97,12 @@ int nextToken(FILE *stream, char **token_ptr) {
     }
 
     return len;
+}
+
+void ERROR_WORD_NOT_FOUND(char* word){
+    printf("Undefined word '%s'\n", word);
+}
+
+void PRINT_INPUT_OK(FILE* stream){
+    if (stream == stdin) printf(" ok\n");
 }

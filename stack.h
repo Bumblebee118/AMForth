@@ -1,6 +1,8 @@
 #ifndef AMFORTH_STACK_H
 #define AMFORTH_STACK_H
 
+#define STANDARD_STACK_CAPACITY 128
+
 /**
  * Struct to create a stack
  * 'top' points to the last element in the array 'array'
@@ -54,5 +56,17 @@ int pop(Stack *stack);
  * @return Returns INT_MIN if the stack is empty and the top of the stack item otherwise
  */
 int peek(Stack *stack);
+
+/**
+ * Frees all memory allocated for the stack
+ * @param stack The stack struct which shall be deleted
+ */
+void deleteStack(Stack *stack);
+
+/**
+ * Resets the top of the stack back to -1
+ * @param stack The stack strcut which shall be cleared
+ */
+void clearStack(Stack* stack);
 
 #endif //AMFORTH_STACK_H

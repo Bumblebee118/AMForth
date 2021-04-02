@@ -2,23 +2,19 @@
 #include <stdlib.h>
 #include "stack.h"
 #include "dict.h"
-#include "textint.h"
+#include "interpret.h"
 
 void printSynopsis(void);
+void tests(Dict *dict, Stack *stack);
 
-void tests(Dict *dict, Stack *stack, FunctionPool *functionPool);
-
-void addBasicFunctions(Dict *dict);
 
 int main(int argc, char **argv) {
 
     Dict *dict = createDict();
-    Stack *stack = createStack(128);
-    FunctionPool *functionPool = createFunctionPool(128);
+    Stack *parameterStack = createStack(STANDARD_STACK_CAPACITY);
+    Stack *returnStack = createStack(STANDARD_STACK_CAPACITY);
 
-    tests(dict, stack, functionPool);
-
-    //addBasicFunctions(dict);
+    tests(dict, parameterStack);
 
     if (argc > 2) {
         printSynopsis();
@@ -32,13 +28,16 @@ int main(int argc, char **argv) {
 
         if (inputStream == NULL) {
             printSynopsis();
+            exit(EXIT_FAILURE);
         }
     }
 
-    startTextInterpreter(inputStream);
+    startInterpret(inputStream, dict, parameterStack);
 
     deleteDict(dict);
-    deleteFunctionPool(functionPool);
+    deleteStack(parameterStack);
+    deleteStack(returnStack);
+
     exit(EXIT_SUCCESS);
 }
 
@@ -47,30 +46,40 @@ void printSynopsis(void) {
 }
 
 
-void tests(Dict *dict, Stack *stack, FunctionPool *functionPool) {
+void tests(Dict *dict, Stack *stack) {
     push(stack, 10);
     push(stack, 2100);
     push(stack, -1);
     push(stack, 13);
-    printf("%d\n", peek(stack));
+   // printf("%d\n", peek(stack));
 
 //    printf("%d popped from stack\n", pop(stack));
 //    printf("%d popped from stack\n", pop(stack));
 //    printf("%d popped from stack\n", pop(stack));
 
-    addWordToPool(dict, "add", functionPool, &ADD);
-    addWordToPool(dict, "subtract", functionPool, &SUBTRACT);
+    addEntry(dict, "+", 0, NULL, NULL, &ADD);
+    addEntry(dict, "-", 0, NULL, NULL, &SUBTRACT);
+    addEntry(dict, ".", 0, NULL, NULL, &PRINTPOPSTACK);
+    addEntry(dict, ".s", 0, NULL, NULL, &PRINTSTACK);
+
+    getEntry(dict, "+")->basicfunc(stack);
+
+    //printf("%d\n", peek(stack));
+
+    getEntry(dict, "-")->basicfunc(stack);
+
+  //  printf("%d\n", peek(stack));
 
 
-    getWordFromPool(dict, functionPool, "add")(stack);
+    /*removeEntry(dict, "add");
 
-    printf("%d\n", peek(stack));
+    if (getEntry(dict, "add")==NULL){
+        printf("Yep this is Null!\n");
+    }
 
-    getWordFromPool(dict, functionPool, "subtract")(stack);
+    getEntry(dict, "sub")->basicfunc(stack);
 
-    printf("%d\n", peek(stack));
-
-    //removeEntry(dict, "add");
+    printf("%d\n", peek(stack));*/
 
 //    addEntry(dict, "test1", 4);
 //    addEntry(dict, "test2", 8);
@@ -108,8 +117,4 @@ void tests(Dict *dict, Stack *stack, FunctionPool *functionPool) {
 //    } else {
 //        printf("This element was not found in the list.\n");
 //    }
-}
-
-void addBasicFunctions(Dict *dict) {
-    addEntry(dict, "add", 0);
 }

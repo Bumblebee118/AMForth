@@ -31,6 +31,20 @@ void MULTIPLY(Stack *stack);
  */
 void DIVIDE(Stack *stack);
 
+/**
+ * Pops the top element of the stack in prints it to stdout
+ * @param stack
+ */
+void PRINTPOPSTACK(Stack *stack);
+
+/**
+ * Prints content of the whole stack without modifying the stack
+ * @param stack
+ */
+void PRINTSTACK(Stack *stack);
+
 typedef void (*BASICFUNC)(Stack *);
+
+typedef void (*FUNCDEF)(Stack *, int*);
 
 #endif //AMFORTH_BASICFUNCTIONS_H

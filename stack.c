@@ -47,3 +47,14 @@ int peek(Stack *stack) {
     return stack->array[stack->top];
 }
 
+void clearStack(Stack* stack){
+    stack->top = -1;
+}
+
+void deleteStack(Stack *stack){
+    if (stack != NULL){
+        free(stack->array);
+        free(stack);
+    }
+}
+

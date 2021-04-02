@@ -13,65 +13,45 @@ Dict *createDict() {
     return dict;
 }
 
-FunctionPool *createFunctionPool(int capacity) {
-    FunctionPool *functionPool = (FunctionPool *) malloc(sizeof(FunctionPool));
-    functionPool->capacity = capacity;
-    functionPool->freeIndex = 0;
-    functionPool->wordArray = (BASICFUNC *) malloc(capacity * sizeof(BASICFUNC));
-    return functionPool;
-}
 
-int addEntry(Dict *dict, char *word, int functionAddress) {
-    DictEntry *dictEntry = searchEntry(dict, word);
-    if (dictEntry != NULL && dictEntry->mutable == 0) {
+int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry* definitions, BASICFUNC basicfunc) {
+    //check if entry already exists and if it is mutable or not
+    DictEntry *oldEntry = getEntry(dict, word);
+    if (oldEntry != NULL && oldEntry->mutable == 0) {
         return -2;
     }
-    DictEntry *entry = (DictEntry *) malloc(sizeof(DictEntry));
-    if (entry == NULL) {
+
+    DictEntry *newEntry = (DictEntry *) malloc(sizeof(DictEntry));
+    if (newEntry == NULL) {
         return -1;
     }
-    entry->word = (char *) malloc(sizeof(char) * (strlen(word)+1));
-    if ((entry->word) == NULL) {
-        free(entry);
+    newEntry->word = (char *) malloc(sizeof(char) * (strlen(word)+1));
+    if ((newEntry->word) == NULL) {
+        free(newEntry);
         return -1;
     }
 
-    strncpy(entry->word, word, strlen(word)+1);
-    entry->functionAddress = functionAddress;
-    entry->link = dict->lastElement;    // link to previous element
-    entry->mutable = 1; // TODO: if the basic dictionary is filled at startup with this method, this assignment has to be adapted
+    strncpy(newEntry->word, word, strlen(word)+1);
+    newEntry->value = value;
+    newEntry->codePointer = codepointer;
+    newEntry->definitions = definitions;
+    newEntry->basicfunc = basicfunc;
 
-    dict->lastElement = entry;  // update dict entry
+    if(basicfunc == NULL) newEntry->mutable = 1;
+    else newEntry->mutable = 0;
+
+    newEntry->link = dict->lastElement;     // link to previous element
+    dict->lastElement = newEntry;           // update dict entry
 
     if (dict->firstElement == NULL) {
-        dict->firstElement = entry;
+        dict->firstElement = newEntry;
     }
 
     return 0;
 }
 
-int addWordToPool(Dict *dict, char *word, FunctionPool *functionPool, BASICFUNC functionPtr) {
-    if (functionPool->freeIndex < functionPool->capacity) {
-        functionPool->wordArray[functionPool->freeIndex] = functionPtr;
-        addEntry(dict, word, functionPool->freeIndex);
-        functionPool->freeIndex++;
-        return 0;
-    } else {
-        return -1;
-    }
 
-}
-
-BASICFUNC getWordFromPool(Dict *dict, FunctionPool *functionPool, char *word) {
-    DictEntry *dictEntry = searchEntry(dict, word);
-    if (dictEntry != NULL) {
-        return functionPool->wordArray[dictEntry->functionAddress];
-    } else {
-        return NULL;
-    }
-}
-
-DictEntry *searchEntry(Dict *dict, const char *word) {
+DictEntry *getEntry(Dict *dict, const char *word) {
     DictEntry *currentNode = dict->lastElement;
     while (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
@@ -82,7 +62,7 @@ DictEntry *searchEntry(Dict *dict, const char *word) {
     return NULL;
 }
 
-int removeEntry(Dict *dict, char *word) {
+/*int removeEntry(Dict *dict, char *word) {
     DictEntry *currentNode = dict->lastElement;
 
     if (currentNode != NULL) {
@@ -104,24 +84,47 @@ int removeEntry(Dict *dict, char *word) {
         }
     }
     return -1;
+}*/
+
+int removeEntry(Dict *dict, char *word) {
+    DictEntry *currentNode = dict->lastElement;
+    DictEntry *nextNode = NULL;
+
+    while (currentNode != NULL){
+        if (strcmp(currentNode->word, word) == 0) {
+
+            if(nextNode == NULL){
+                dict->lastElement = currentNode->link;  //if nextnode == NULL then currentnode is the last node in the dict
+            }else{
+                nextNode->link = currentNode->link;     //get rid of currentnode
+            }
+
+            free(currentNode->word);
+            free(currentNode->definitions);
+            free(currentNode);
+
+            return 0;
+        }
+
+        nextNode = currentNode;
+        currentNode = nextNode->link;
+    }
+
+    return -1;
 }
 
 void deleteDict(Dict *dict) {
     if(dict != NULL){
         DictEntry* currentNode = dict->lastElement;
+        DictEntry* next;
         while (currentNode != NULL){
-            free(currentNode->word);
-            currentNode = currentNode->link;
+            if(currentNode->word != NULL) free(currentNode->word);
+            if(currentNode->definitions != NULL) free(currentNode->definitions);
+            next = currentNode->link;
             free(currentNode);
+            currentNode = next;
         }
         free(dict);
     }
 }
 
-void deleteFunctionPool(FunctionPool* functionPool) {
-    if(functionPool != NULL){
-        free(functionPool->wordArray);
-        free(functionPool);
-    }
-
-}
