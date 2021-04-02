@@ -66,6 +66,10 @@ void tests(Dict *dict, Stack *stack, FunctionPool *functionPool) {
 
     printf("%d\n", peek(stack));
 
+    getWordFromPool(dict, functionPool, "subtract")(stack);
+
+    printf("%d\n", peek(stack));
+
 //    addEntry(dict, "test1", 4);
 //    addEntry(dict, "test2", 8);
 //    addEntry(dict, "test3", 12);

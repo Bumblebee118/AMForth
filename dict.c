@@ -32,6 +32,7 @@ int addEntry(Dict *dict, char *word, int functionAddress) {
     }
     entry->word = (char *) malloc(sizeof(char) * strlen(word));
     if ((entry->word) == NULL) {
+        free(entry);
         return -1;
     }
 
