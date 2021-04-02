@@ -3,7 +3,6 @@
 #include "stack.h"
 #include "dict.h"
 #include "textint.h"
-#include "basicFunctions.h"
 
 void printSynopsis(void);
 
@@ -19,7 +18,7 @@ int main(int argc, char **argv) {
 
     tests(dict, stack, functionPool);
 
-    addBasicFunctions(dict);
+    //addBasicFunctions(dict);
 
     if (argc > 2) {
         printSynopsis();
@@ -62,6 +61,7 @@ void tests(Dict *dict, Stack *stack, FunctionPool *functionPool) {
     addWordToPool(dict, "add", functionPool, &ADD);
     addWordToPool(dict, "subtract", functionPool, &SUBTRACT);
 
+
     getWordFromPool(dict, functionPool, "add")(stack);
 
     printf("%d\n", peek(stack));
@@ -69,6 +69,8 @@ void tests(Dict *dict, Stack *stack, FunctionPool *functionPool) {
     getWordFromPool(dict, functionPool, "subtract")(stack);
 
     printf("%d\n", peek(stack));
+
+    //removeEntry(dict, "add");
 
 //    addEntry(dict, "test1", 4);
 //    addEntry(dict, "test2", 8);

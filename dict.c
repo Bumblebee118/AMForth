@@ -30,13 +30,13 @@ int addEntry(Dict *dict, char *word, int functionAddress) {
     if (entry == NULL) {
         return -1;
     }
-    entry->word = (char *) malloc(sizeof(char) * strlen(word));
+    entry->word = (char *) malloc(sizeof(char) * (strlen(word)+1));
     if ((entry->word) == NULL) {
         free(entry);
         return -1;
     }
 
-    strncpy(entry->word, word, strlen(word));
+    strncpy(entry->word, word, strlen(word)+1);
     entry->functionAddress = functionAddress;
     entry->link = dict->lastElement;    // link to previous element
     entry->mutable = 1; // TODO: if the basic dictionary is filled at startup with this method, this assignment has to be adapted
@@ -84,15 +84,18 @@ DictEntry *searchEntry(Dict *dict, const char *word) {
 
 int removeEntry(Dict *dict, char *word) {
     DictEntry *currentNode = dict->lastElement;
+
     if (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
             dict->lastElement = currentNode->link;
+            free(currentNode->word);
             free(currentNode);
             return 0;
         } else {
             while (currentNode->link != NULL) {
                 if (strcmp(currentNode->link->word, word) == 0) {
                     currentNode->link = currentNode->link->link;
+                    free(currentNode->word);
                     free(currentNode);
                     return 0;
                 }
@@ -104,9 +107,21 @@ int removeEntry(Dict *dict, char *word) {
 }
 
 void deleteDict(Dict *dict) {
-    free(dict);
+    if(dict != NULL){
+        DictEntry* currentNode = dict->lastElement;
+        while (currentNode != NULL){
+            free(currentNode->word);
+            currentNode = currentNode->link;
+            free(currentNode);
+        }
+        free(dict);
+    }
 }
 
 void deleteFunctionPool(FunctionPool* functionPool) {
-    free(functionPool);
+    if(functionPool != NULL){
+        free(functionPool->wordArray);
+        free(functionPool);
+    }
+
 }
