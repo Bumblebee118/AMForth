@@ -28,6 +28,14 @@ int nextToken(FILE *stream, char **token_ptr);
 
 /**
  *
+ * @param line
+ * @param token_ptr
+ * @return
+ */
+int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread;);
+
+/**
+ *
  * @param word
  */
 void ERROR_WORD_NOT_FOUND(char* word);
