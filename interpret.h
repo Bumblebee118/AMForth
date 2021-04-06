@@ -32,7 +32,7 @@ int nextToken(FILE *stream, char **token_ptr);
  * @param token_ptr
  * @return
  */
-int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread;);
+int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread);
 
 /**
  *
