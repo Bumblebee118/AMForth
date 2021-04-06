@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "executor.h"
+#include "error.h"
 
 int execute(char* token, Dict* dict, Stack* parameterStack, Stack* returnStack){
     DictEntry *entry = getEntry(dict, token);
@@ -15,7 +16,7 @@ int execute(char* token, Dict* dict, Stack* parameterStack, Stack* returnStack){
             push(parameterStack, num);
         }
         else{
-            printf("\nUndefined word\n>>>%s<<<\n", token);
+            PRINT_ERROR_MSG("Undifined word", token);
             clearStack(parameterStack);
             return -1;
         }

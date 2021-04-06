@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include "basicFunctions.h"
+#include "error.h"
 
 int ADD(Stack *stack) {
     int a = pop(stack);
@@ -39,10 +40,10 @@ int DIVIDE(Stack *stack) {
 
 int PRINTPOPSTACK(Stack *stack){
     if (isEmpty(stack) == 0){
-        printf(" %d", pop(stack));
+        fprintf(stdout," %d", pop(stack));
         return 0;
     }else{
-        printf("\nStack underflow\n");
+        PRINT_ERROR_MSG("Stack underflow", ".");
         clearStack(stack);
         return -1;
     }
@@ -51,11 +52,11 @@ int PRINTPOPSTACK(Stack *stack){
 
 int PRINTSTACK(Stack *stack){
 
-    printf(" <%d>", (stack->top)+1);
+    fprintf(stdout, " <%d>", (stack->top)+1);
 
     int i = 0;
     while (i <= stack->top){
-        printf(" %d", stack->array[i]);
+        fprintf(stdout," %d", stack->array[i]);
         i++;
     }
 

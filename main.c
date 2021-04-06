@@ -15,6 +15,8 @@ int main(int argc, char **argv) {
     Stack *parameterStack = createStack(STANDARD_STACK_CAPACITY);
     Stack *returnStack = createStack(STANDARD_STACK_CAPACITY);
 
+    //TODO automatically fill the dictionary with the basic functions
+
     tests(dict, parameterStack);
 
     if (argc > 2) {
@@ -43,7 +45,7 @@ int main(int argc, char **argv) {
 }
 
 void printSynopsis(void) {
-    fprintf(stdin, "Usage: ./forth [FILE]");
+    fprintf(stdout, "Usage: ./forth [FILE]\n");
 }
 
 
