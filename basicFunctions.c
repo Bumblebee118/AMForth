@@ -5,45 +5,51 @@
 #include <stdio.h>
 #include "basicFunctions.h"
 
-void ADD(Stack *stack) {
+int ADD(Stack *stack) {
     int a = pop(stack);
     int b = pop(stack);
     int sum = a + b;
     push(stack, sum);
+    return 0;
 }
 
-void SUBTRACT(Stack *stack) {
+int SUBTRACT(Stack *stack) {
     int b = pop(stack);
     int a = pop(stack);
     int diff = a - b;
     push(stack, diff);
+    return 0;
 }
 
-void MULTIPLY(Stack *stack) {
+int MULTIPLY(Stack *stack) {
     int a = pop(stack);
     int b = pop(stack);
     int sum = a * b;
     push(stack, sum);
+    return 0;
 }
 
-void DIVIDE(Stack *stack) {
+int DIVIDE(Stack *stack) {
     int b = pop(stack);
     int a = pop(stack);
     int diff = a / b;
     push(stack, diff);
+    return 0;
 }
 
-void PRINTPOPSTACK(Stack *stack){
-    if (isEmpty(stack) != 0){
-        printf("%d", pop(stack));
+int PRINTPOPSTACK(Stack *stack){
+    if (isEmpty(stack) == 0){
+        printf(" %d", pop(stack));
+        return 0;
     }else{
-        printf("Stack underflow\n");
+        printf("\nStack underflow\n");
         clearStack(stack);
+        return -1;
     }
 
 }
 
-void PRINTSTACK(Stack *stack){
+int PRINTSTACK(Stack *stack){
 
     printf(" <%d>", (stack->top)+1);
 
@@ -52,4 +58,6 @@ void PRINTSTACK(Stack *stack){
         printf(" %d", stack->array[i]);
         i++;
     }
+
+    return 0;
 }

@@ -11,40 +11,40 @@
  * adds the top most two numbers on the stack and pushes the result back onto the stack
  * @param stack the stack
  */
-void ADD(Stack *stack);
+int ADD(Stack *stack);
 
 /**
  * subtracts the top most two numbers on the stack and pushes the result back onto the stack
  * @param stack the stack
  */
-void SUBTRACT(Stack *stack);
+int SUBTRACT(Stack *stack);
 
 /**
  * multiplies the top most two numbers on the stack and pushes the result back onto the stack
  * @param stack the stack
  */
-void MULTIPLY(Stack *stack);
+int MULTIPLY(Stack *stack);
 
 /**
  * divides the top most two numbers on the stack and pushes the result back onto the stack
  * @param stack the stack
  */
-void DIVIDE(Stack *stack);
+int DIVIDE(Stack *stack);
 
 /**
  * Pops the top element of the stack in prints it to stdout
  * @param stack
  */
-void PRINTPOPSTACK(Stack *stack);
+int PRINTPOPSTACK(Stack *stack);
 
 /**
  * Prints content of the whole stack without modifying the stack
  * @param stack
  */
-void PRINTSTACK(Stack *stack);
+int PRINTSTACK(Stack *stack);
 
-typedef void (*BASICFUNC)(Stack *);
+typedef int (*BASICFUNC)(Stack *);
 
-typedef void (*FUNCDEF)(Stack *, int*);
+typedef int (*FUNCDEF)(Stack *, int*);
 
 #endif //AMFORTH_BASICFUNCTIONS_H

@@ -10,6 +10,7 @@ void tests(Dict *dict, Stack *stack);
 
 int main(int argc, char **argv) {
 
+    //initialize stacks and dictionary
     Dict *dict = createDict();
     Stack *parameterStack = createStack(STANDARD_STACK_CAPACITY);
     Stack *returnStack = createStack(STANDARD_STACK_CAPACITY);
@@ -32,7 +33,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    startInterpret(inputStream, dict, parameterStack);
+    startInterpret(inputStream, dict, parameterStack, returnStack);
 
     deleteDict(dict);
     deleteStack(parameterStack);

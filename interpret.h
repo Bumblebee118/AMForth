@@ -15,7 +15,7 @@
  * tokens can be separated by an arbitrary amount of whitespaces or tabs
  * @param stream Can be a file or stdin
  */
-void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack);
+void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack, Stack *returnStack);
 
 /**
  * Reads in the next token_ptr from the input stream 'stream'
@@ -27,21 +27,16 @@ void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack);
 int nextToken(FILE *stream, char **token_ptr);
 
 /**
- *
- * @param line
- * @param token_ptr
- * @return
+ * Reads in the next token from the string 'line'
+ * @param line The string from which a new token shall be read
+ * @param token_ptr Address of a char array which will be filled with a new token
+ * @return Returns the length of the token, -1 if an error occurs
+ * or 0 if there are new more tokens left in that line
  */
 int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread);
 
 /**
- *
- * @param word
- */
-void ERROR_WORD_NOT_FOUND(char* word);
-
-/**
- *
+ * Print 'ok' to stdin if the interpreter is run in interactive mode
  * @param stream
  */
 void PRINT_INPUT_OK(FILE* stream);

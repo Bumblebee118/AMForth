@@ -2,117 +2,64 @@
 #include <stdlib.h>
 #include <string.h>
 #include "interpret.h"
+#include "executor.h"
 
-void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack) {
-
-    int quit = 0;
-    char *token = NULL;
-
+void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack, Stack *returnStack) {
+    //welcome text on startup
     printf("Type 'bye' to exit\n");
 
-    /*while (quit == 0) {
+    //initialize variables for loop exit and holding the next valid token
+    int quit = 0;
+    int interpret_error = 0;
+    char *token = NULL;
 
-        int len = nextToken(stream, &token);    //get next token from stream
-       // printf("token is: %s - len: %d\n", token, len);
-
-        if (len == -1) {          //malloc failed
-            printf("error occured during parsing\n");
-            quit = 1;
-        } else if (len >= MAX_WORD_NAME_SIZE) {   //token is to big
-                printf("size of token exceeds MAX_WORD_NAME_SIZE\n");
-                //quit = 1;
-        }
-        else if (strcmp(token, "bye") == 0) {
-            printf("see you later!\n");
-            quit = 1;
-        }
-        else if (len != 0) {
-            //printf("token is: %s - len: %d\n", token, len);
-
-            DictEntry *entry = getEntry(dict, token);
-            if(entry == NULL){
-                char* endptr;
-                int num = strtol(token, &endptr, 10);
-
-                if (strlen(endptr)==0){
-                        push(parameterStack, num);
-                }
-                else{
-                    ERROR_WORD_NOT_FOUND(token);
-                    clearStack(parameterStack);
-                }
-
-            }else{
-                //TODO Execute function definition here
-                entry->basicfunc(parameterStack);
-            }
-
-            if (len == -2){
-                PRINT_INPUT_OK(stream);
-            }
-
-        }
-
-
-    }*/
-
+    //initialize variables for getting a new line from the stream
     char* line = NULL;
     size_t  length = 0;
     ssize_t nread;
 
-    if ((nread = getline(&line, &length, stream)) == -1){
-        quit = 1;
-    }else{
-        fwrite(line, nread-1, 1, stdout);
-    }
+    //get first line from stream and save in variable 'line'
+    if ((nread = getline(&line, &length, stream)) == -1) quit = 1;
+    else fwrite(line, nread-1, 1, stdout);  //print content to stdout
 
     while (quit == 0) {
 
+        //get the next token from the current line whoch has ben read in
         int len = nextTokenFromLine(line, &token, nread);    //get next token from stream
-        //printf("token is: %s - len: %d\n", token, len);
 
-        if(len == -2){
-            PRINT_INPUT_OK(stream);
+        //if the current line has no tokens left
+        if((len == 0) || (interpret_error == 1)){
+            //check if an error occurred
+            if (interpret_error == 0) PRINT_INPUT_OK(stream);
+            else interpret_error = 0;
 
             //get new line if end has been reached
-            if ((nread = getline(&line, &length, stream)) == -1){
-                quit = 1;
-            }else{
-                fwrite(line, nread-1, 1, stdout);
-            }
+            if ((nread = getline(&line, &length, stream)) == -1)quit = 1;
+            else fwrite(line, nread-1, 1, stdout);
 
         }else{
-            if (len == -1) {          //malloc failed
-                printf("error occured during parsing\n");
+
+            //check if an error occurred or the the user wants to quit
+            if (len == -1) {
+                printf("\nerror occured during parsing\n");
                 quit = 1;
-            } else if (len >= MAX_WORD_NAME_SIZE) {   //token is to big
-                printf("size of token exceeds MAX_WORD_NAME_SIZE\n");
-                //quit = 1;
-            }
-            else if (strcmp(token, "bye") == 0) {
+            } else if (len >= MAX_WORD_NAME_SIZE) {
+                printf("\nsize of token exceeds MAX_WORD_NAME_SIZE\n");
+                quit = 1;
+            } else if (strcmp(token, "bye") == 0) {
                 printf("\nsee you later!\n");
                 quit = 1;
             }
-            else if (len != 0) {
+
+            //call the executor if a valid token has been received -> executor checks dictionary
+            else {
                 //printf("token is: %s - len: %d\n", token, len);
-
-                DictEntry *entry = getEntry(dict, token);
-                if(entry == NULL){
-                    char* endptr;
-                    int num = strtol(token, &endptr, 10);
-
-                    if (strlen(endptr)==0){
-                        push(parameterStack, num);
-                    }
-                    else{
-                        ERROR_WORD_NOT_FOUND(token);
-                        clearStack(parameterStack);
-                    }
-
-                }else{
-                    //TODO Execute function definition here
-                    entry->basicfunc(parameterStack);
+                if (execute(token, dict, parameterStack, returnStack) == -1) {
+                    if (stream != stdin) quit = 1;  //quit the interpreter if the program is run from file
+                    else interpret_error = 1;       //if the input is stdin indicate that an error happened
+                                                    // and start over with next line
                 }
+
             }
         }
     }
@@ -123,7 +70,7 @@ void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack) {
 }
 
 
-int nextToken(FILE *stream, char **token_ptr) {
+/*int nextToken(FILE *stream, char **token_ptr) {
     //if token_ptr is NULL, then acquire memory
     if (*token_ptr == NULL) *token_ptr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
     //check pointer again
@@ -167,14 +114,15 @@ int nextToken(FILE *stream, char **token_ptr) {
     }
 
     return len;
-}
+}*/
 
 int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread) {
     static int line_index = 0;
 
+    //check if end of line has been reached
     if(line_index == nread){
         line_index = 0;
-        return -2;
+        return 0;
     }
 
     //if token_ptr is NULL, then acquire memory
@@ -182,7 +130,7 @@ int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread) {
     //check pointer again
     if (*token_ptr == NULL) return -1;
 
-    //get next char from stream
+    //get next char from stream and also increment the index (important for recursive calls)
     char currentChar = line[line_index];
     line_index++;
 
@@ -217,10 +165,6 @@ int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread) {
     return len;
 }
 
-void ERROR_WORD_NOT_FOUND(char* word){
-    printf("Undefined word '%s'\n", word);
-}
-
 void PRINT_INPUT_OK(FILE* stream){
-    if (stream == stdin) printf(" ok\n");
+    if(stream == stdin) printf(" ok\n");
 }
