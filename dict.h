@@ -26,7 +26,6 @@ typedef struct DictEntry {
     FUNCDEF codePointer;            // TODO: new function pointer definition codepointer(Dict-Entry)
     struct DictEntry* definitions;  //array of other function definitions, which build up this function definition
     BASICFUNC basicfunc;            //pointer to a basic function, if no basic function, then this pointer is NULL
-    int mutable;                    // 0 for basic words that can't be redefined
 } DictEntry;
 
 /**

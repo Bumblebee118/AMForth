@@ -17,7 +17,7 @@ Dict *createDict() {
 int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry* definitions, BASICFUNC basicfunc) {
     //check if entry already exists and if it is mutable or not
     DictEntry *oldEntry = getEntry(dict, word);
-    if (oldEntry != NULL && oldEntry->mutable == 0) {
+    if (oldEntry != NULL && oldEntry->basicfunc != NULL) {
         return -2;
     }
 
@@ -36,9 +36,6 @@ int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry* 
     newEntry->codePointer = codepointer;
     newEntry->definitions = definitions;
     newEntry->basicfunc = basicfunc;
-
-    if(basicfunc == NULL) newEntry->mutable = 1;
-    else newEntry->mutable = 0;
 
     newEntry->link = dict->lastElement;     // link to previous element
     dict->lastElement = newEntry;           // update dict entry
@@ -61,30 +58,6 @@ DictEntry *getEntry(Dict *dict, const char *word) {
     }
     return NULL;
 }
-
-/*int removeEntry(Dict *dict, char *word) {
-    DictEntry *currentNode = dict->lastElement;
-
-    if (currentNode != NULL) {
-        if (strcmp(currentNode->word, word) == 0) {
-            dict->lastElement = currentNode->link;
-            free(currentNode->word);
-            free(currentNode);
-            return 0;
-        } else {
-            while (currentNode->link != NULL) {
-                if (strcmp(currentNode->link->word, word) == 0) {
-                    currentNode->link = currentNode->link->link;
-                    free(currentNode->word);
-                    free(currentNode);
-                    return 0;
-                }
-                currentNode = currentNode->link;
-            }
-        }
-    }
-    return -1;
-}*/
 
 int removeEntry(Dict *dict, char *word) {
     DictEntry *currentNode = dict->lastElement;
