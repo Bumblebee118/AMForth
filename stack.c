@@ -1,6 +1,4 @@
-#include <limits.h>
-#include <stdlib.h>
-#include "stack.h"
+#include "global.h"
 #include "error.h"
 
 //mallocs memory to create a new stack with the given capacity
@@ -50,18 +48,18 @@ int peek(Stack *stack) {
     return stack->array[stack->top];
 }
 
-void clearStack(Stack* stack){
+void clearStack(Stack *stack) {
     stack->top = -1;
 }
 
-void deleteStack(Stack *stack){
-    if (stack != NULL){
+void deleteStack(Stack *stack) {
+    if (stack != NULL) {
         free(stack->array);
         free(stack);
     }
 }
 
-int numberOfElements(Stack* stack){
+int numberOfElements(Stack *stack) {
     return (stack->top + 1);
 }
 

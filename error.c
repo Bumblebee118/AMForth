@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include "error.h"
+#include "global.h"
 
 void PRINT_ERROR_MSG(char* msg){
     error_cnt++;

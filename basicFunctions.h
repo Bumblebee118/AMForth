@@ -5,46 +5,46 @@
 #ifndef AMFORTH_BASICFUNCTIONS_H
 #define AMFORTH_BASICFUNCTIONS_H
 
-#include "stack.h"
+#include <limits.h>
 
 /**
  * adds the top most two numbers on the stack and pushes the result back onto the stack
- * @param stack the stack
  */
-int ADD(Stack *stack);
+int ADD();
 
 /**
  * subtracts the top most two numbers on the stack and pushes the result back onto the stack
- * @param stack the stack
  */
-int SUBTRACT(Stack *stack);
+int SUBTRACT();
 
 /**
  * multiplies the top most two numbers on the stack and pushes the result back onto the stack
- * @param stack the stack
  */
-int MULTIPLY(Stack *stack);
+int MULTIPLY();
 
 /**
  * divides the top most two numbers on the stack and pushes the result back onto the stack
- * @param stack the stack
  */
-int DIVIDE(Stack *stack);
+int DIVIDE();
 
 /**
  * Pops the top element of the stack in prints it to stdout
- * @param stack
  */
-int PRINTPOPSTACK(Stack *stack);
+int PRINTPOPSTACK();
 
 /**
  * Prints content of the whole stack without modifying the stack
- * @param stack
  */
-int PRINTSTACK(Stack *stack);
+int PRINTSTACK();
 
-typedef int (*BASICFUNC)(Stack *);
+/**
+ * starts compile mode
+ * @return
+ */
+int DOCOLON();
 
-typedef int (*FUNCDEF)(Stack *, int*);
+typedef int (*BASICFUNC)();
+
+typedef int (*FUNCDEF)(Stack *, int *);
 
 #endif //AMFORTH_BASICFUNCTIONS_H

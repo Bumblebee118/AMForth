@@ -1,18 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "stack.h"
-#include "dict.h"
+#include "global.h"
 #include "interpret.h"
 
 void printSynopsis(void);
-void tests(Dict *dict, Stack *stack);
 
+void tests();
 
 int main(int argc, char **argv) {
 
     //initialize stacks and dictionary
-    Dict *dict = createDict();
-    Stack *parameterStack = createStack(STANDARD_STACK_CAPACITY);
+    createDict();
+    parameterStack = createStack(STANDARD_STACK_CAPACITY);
     Stack *returnStack = createStack(STANDARD_STACK_CAPACITY);
 
     //TODO automatically fill the dictionary with the basic functions
@@ -35,7 +32,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    startInterpret(inputStream, dict, parameterStack, returnStack);
+    startInterpret(inputStream, returnStack);
 
     deleteDict(dict);
     deleteStack(parameterStack);
@@ -49,37 +46,38 @@ void printSynopsis(void) {
 }
 
 
-void tests(Dict *dict, Stack *stack) {
-    push(stack, 10);
-    push(stack, 2100);
-    push(stack, -1);
-    push(stack, 13);
-   // printf("%d\n", peek(stack));
+void tests() {
+    push(parameterStack, 10);
+    push(parameterStack, 2100);
+    push(parameterStack, -1);
+    push(parameterStack, 13);
+    // printf("%d\n", peek(stack));
 
 //    printf("%d popped from stack\n", pop(stack));
 //    printf("%d popped from stack\n", pop(stack));
 //    printf("%d popped from stack\n", pop(stack));
 
-    addEntry(dict, "+", 0, NULL, NULL, &ADD);
-    addEntry(dict, "-", 0, NULL, NULL, &SUBTRACT);
-    addEntry(dict, "*", 0, NULL, NULL, &MULTIPLY);
-    addEntry(dict, "/", 0, NULL, NULL, &DIVIDE);
-    addEntry(dict, ".", 0, NULL, NULL, &PRINTPOPSTACK);
-    addEntry(dict, ".s", 0, NULL, NULL, &PRINTSTACK);
-    addEntry(dict, ";", 0, NULL, NULL, NULL);
-    DictEntry **entries = (DictEntry **) malloc(3 * sizeof(DictEntry *));
-    entries[0] = getEntry(dict, "+");
-    entries[1] = getEntry(dict, "-");
-    entries[2] = getEntry(dict, ";");
-    addEntry(dict, "addsub", 0, NULL, entries, NULL);
+    addEntry("+", 0, NULL, NULL, &ADD);
+    addEntry("-", 0, NULL, NULL, &SUBTRACT);
+    addEntry("*", 0, NULL, NULL, &MULTIPLY);
+    addEntry("/", 0, NULL, NULL, &DIVIDE);
+    addEntry(".", 0, NULL, NULL, &PRINTPOPSTACK);
+    addEntry(".s", 0, NULL, NULL, &PRINTSTACK);
+    addEntry(":", 0, NULL, NULL, &DOCOLON);
+    addEntry(";", 0, NULL, NULL, NULL);
+//    DictEntry **entries = (DictEntry **) malloc(3 * sizeof(DictEntry *));
+//    entries[0] = getEntry(dict, "+");
+//    entries[1] = getEntry(dict, "-");
+//    entries[2] = getEntry(dict, ";");
+//    addEntry(dict, "addsub", 0, NULL, entries, NULL);
 
-    getEntry(dict, "+")->basicfunc(stack);
+    getEntry("+")->basicfunc(parameterStack);
 
     //printf("%d\n", peek(stack));
 
-    getEntry(dict, "-")->basicfunc(stack);
+    getEntry("-")->basicfunc(parameterStack);
 
-  //  printf("%d\n", peek(stack));
+    //  printf("%d\n", peek(stack));
 
 
     /*removeEntry(dict, "add");

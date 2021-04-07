@@ -2,21 +2,18 @@
 // Created by Stefan Walser on 29.03.21.
 //
 
-#include "dict.h"
-#include <stdlib.h>
-#include <string.h>
+#include "global.h"
 
-Dict *createDict() {
-    Dict *dict = (Dict *) malloc(sizeof(Dict));
+void createDict() {
+    dict = (Dict *) malloc(sizeof(Dict));
     dict->firstElement = NULL;
     dict->lastElement = NULL;
-    return dict;
 }
 
 
-int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry **definitions, BASICFUNC basicfunc) {
+int addEntry(char *word, int value, FUNCDEF codepointer, DictEntry **definitions, BASICFUNC basicfunc) {
     //check if entry already exists and if it is mutable or not
-    DictEntry *oldEntry = getEntry(dict, word);
+    DictEntry *oldEntry = getEntry(word);
     if (oldEntry != NULL && oldEntry->basicfunc != NULL) {
         return -2;
     }
@@ -48,7 +45,7 @@ int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry *
 }
 
 
-DictEntry *getEntry(Dict *dict, const char *word) {
+DictEntry *getEntry(const char *word) {
     DictEntry *currentNode = dict->lastElement;
     while (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
@@ -59,7 +56,7 @@ DictEntry *getEntry(Dict *dict, const char *word) {
     return NULL;
 }
 
-int removeEntry(Dict *dict, char *word) {
+int removeEntry(char *word) {
     DictEntry *currentNode = dict->lastElement;
     DictEntry *nextNode = NULL;
 

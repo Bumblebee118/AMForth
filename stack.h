@@ -1,6 +1,8 @@
 #ifndef AMFORTH_STACK_H
 #define AMFORTH_STACK_H
 
+#include <limits.h>
+
 #define STANDARD_STACK_CAPACITY 128
 
 /**
@@ -67,13 +69,13 @@ void deleteStack(Stack *stack);
  * Resets the top of the stack back to -1
  * @param stack The stack strcut which shall be cleared
  */
-void clearStack(Stack* stack);
+void clearStack(Stack *stack);
 
 /**
  * Gives back the number of elements on the stack
  * @param stack
  * @return
  */
-int numberOfElements(Stack* stack);
+int numberOfElements(Stack *stack);
 
 #endif //AMFORTH_STACK_H

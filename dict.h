@@ -5,6 +5,7 @@
 #ifndef AMFORTH_DICT_H
 #define AMFORTH_DICT_H
 
+#include <string.h>
 #include "stack.h"
 #include "basicFunctions.h"
 
@@ -38,9 +39,8 @@ typedef struct ReturnDef {
 
 /**
  * Creates a new Dictionary. Implemented as a linked list
- * @return a pointer to the dictionary
  */
-Dict *createDict();
+void createDict();
 
 /**
  * Adds an entry to the list.
@@ -49,7 +49,7 @@ Dict *createDict();
  * @param functionAddress the address of the first function to be called in this function
  * @return -1 for failure, 0 for success, -2 when trying to redefine an immutable function
  */
-int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry **definitions, BASICFUNC basicfunc);
+int addEntry(char *word, int value, FUNCDEF codepointer, DictEntry **definitions, BASICFUNC basicfunc);
 
 /**
  * searches the dictionary for the function name given as a parameter
@@ -57,7 +57,7 @@ int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry *
  * @param word the name of the function to search for
  * @return a pointer to the element or NULL if no element was found with the given name
  */
-DictEntry *getEntry(Dict *dict, const char *word);
+DictEntry *getEntry(const char *word);
 
 /**
  * deletes an entry from the dictionary
@@ -65,7 +65,7 @@ DictEntry *getEntry(Dict *dict, const char *word);
  * @param word the name of the function to delete
  * @return 0 for success, -1 for failure (the function wasn't found in the dictionary)
  */
-int removeEntry(Dict *dict, char *word);
+int removeEntry(char *word);
 
 /**
  * deletes the dictionary

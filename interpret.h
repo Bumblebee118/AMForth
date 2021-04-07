@@ -5,22 +5,17 @@
 #ifndef AMFORTH_INTERPRET_H
 #define AMFORTH_INTERPRET_H
 
-#define MAX_WORD_NAME_SIZE 128          //maximum number of chars one word can have
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "dict.h"
-
-/**
- * global variable for a the current token being processed
- */
-char *token;
 
 /**
  * Starts the text interpreter, which reads in tokens from the input stream 'stream'
  * tokens can be separated by an arbitrary amount of whitespaces or tabs
  * @param stream Can be a file or stdin
  */
-void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack, Stack *returnStack);
+void startInterpret(FILE *stream, Stack *returnStack);
 
 /**
  * Reads in the next token_ptr from the input stream 'stream'
