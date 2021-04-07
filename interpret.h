@@ -11,6 +11,11 @@
 #include "dict.h"
 
 /**
+ * global variable for a the current token being processed
+ */
+char *token;
+
+/**
  * Starts the text interpreter, which reads in tokens from the input stream 'stream'
  * tokens can be separated by an arbitrary amount of whitespaces or tabs
  * @param stream Can be a file or stdin

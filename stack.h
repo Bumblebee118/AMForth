@@ -69,4 +69,11 @@ void deleteStack(Stack *stack);
  */
 void clearStack(Stack* stack);
 
+/**
+ * Gives back the number of elements on the stack
+ * @param stack
+ * @return
+ */
+int numberOfElements(Stack* stack);
+
 #endif //AMFORTH_STACK_H

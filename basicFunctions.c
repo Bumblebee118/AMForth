@@ -3,12 +3,16 @@
 //
 
 #include <stdio.h>
+#include <zconf.h>
 #include "basicFunctions.h"
-#include "error.h"
 
 int ADD(Stack *stack) {
     int a = pop(stack);
+    if (a == INT_MIN) return -1;
+
     int b = pop(stack);
+    if (b == INT_MIN) return -1;
+
     int sum = a + b;
     push(stack, sum);
     return 0;
@@ -16,7 +20,11 @@ int ADD(Stack *stack) {
 
 int SUBTRACT(Stack *stack) {
     int b = pop(stack);
+    if (b == INT_MIN) return -1;
+
     int a = pop(stack);
+    if (a == INT_MIN) return -1;
+
     int diff = a - b;
     push(stack, diff);
     return 0;
@@ -24,7 +32,11 @@ int SUBTRACT(Stack *stack) {
 
 int MULTIPLY(Stack *stack) {
     int a = pop(stack);
+    if (a == INT_MIN) return -1;
+
     int b = pop(stack);
+    if (b == INT_MIN) return -1;
+
     int sum = a * b;
     push(stack, sum);
     return 0;
@@ -32,21 +44,22 @@ int MULTIPLY(Stack *stack) {
 
 int DIVIDE(Stack *stack) {
     int b = pop(stack);
+    if (b == INT_MIN) return -1;
+
     int a = pop(stack);
+    if (a == INT_MIN) return -1;
+
     int diff = a / b;
     push(stack, diff);
     return 0;
 }
 
 int PRINTPOPSTACK(Stack *stack) {
-    if (isEmpty(stack) == 0) {
-        fprintf(stdout, " %d", pop(stack));
-        return 0;
-    } else {
-        PRINT_ERROR_MSG("Stack underflow", ".");
-        clearStack(stack);
-        return -1;
-    }
+    int a =  pop(stack);
+    if (a == INT_MIN) return -1;
+
+    fprintf(stdout, " %d", a);
+    return 0;
 }
 
 int PRINTSTACK(Stack *stack) {

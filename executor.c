@@ -1,22 +1,20 @@
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 #include "executor.h"
 #include "error.h"
 
-int execute(char *token, Dict *dict, Stack *parameterStack, Stack *returnStack) {
-    DictEntry *entry = getEntry(dict, token);
+int execute(char* word, Dict *dict, Stack *parameterStack, Stack *returnStack) {
+    DictEntry *entry = getEntry(dict, word);
 
     //if entry could not be found check if it can be converted to a number
     if (entry == NULL) {
         char *endptr;
-        int num = (int) strtol(token, &endptr, 10);
+        int num = (int) strtol(word, &endptr, 10);
 
         if (strlen(endptr) == 0) {
             push(parameterStack, num);
         } else {
-            PRINT_ERROR_MSG("Undifined word", token);
-            clearStack(parameterStack);
+            PRINT_ERROR_MSG("Undefined word");
             return -1;
         }
 

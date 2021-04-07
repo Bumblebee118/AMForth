@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "error.h"
 
-void PRINT_ERROR_MSG(char* msg, char* word){
+void PRINT_ERROR_MSG(char* msg){
     error_cnt++;
-    fprintf(stdout, "\n:%d: %s\n>>>%s<<<\n", error_cnt, msg, word);
+    fprintf(stdout, "\n:%d: %s\n>>>%s<<<\n", error_cnt, msg, token);
 }

@@ -1,6 +1,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include "stack.h"
+#include "error.h"
 
 //mallocs memory to create a new stack with the given capacity
 Stack *createStack(unsigned capacity) {
@@ -32,6 +33,7 @@ int push(Stack *stack, int item) {
 //pops the top of the stack
 int pop(Stack *stack) {
     if (isEmpty(stack)) {
+        PRINT_ERROR_MSG("Stack underflow");
         return INT_MIN;
     }
 
@@ -41,6 +43,7 @@ int pop(Stack *stack) {
 //returns the top element of the stack without modifying the stack
 int peek(Stack *stack) {
     if (isEmpty(stack)) {
+        PRINT_ERROR_MSG("Stack underflow");
         return INT_MIN;
     }
 
@@ -56,5 +59,9 @@ void deleteStack(Stack *stack){
         free(stack->array);
         free(stack);
     }
+}
+
+int numberOfElements(Stack* stack){
+    return (stack->top + 1);
 }
 

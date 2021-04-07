@@ -4,6 +4,6 @@
 #include "stack.h"
 #include "dict.h"
 
-int execute(char* token, Dict* dict, Stack* parameterStack, Stack* returnStack);
+int execute(char* word, Dict* dict, Stack* parameterStack, Stack* returnStack);
 
 #endif //AMFORTH_EXECUTOR_H
