@@ -30,24 +30,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb289b34-ba48-483f-8b06-d8e9acc2da44" name="Default Changelist" comment="next token is now reading from getline">
-      <change afterPath="$PROJECT_DIR$/compiler.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiler.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/global.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicFunctions.c" beforeDir="false" afterPath="$PROJECT_DIR$/basicFunctions.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicFunctions.h" beforeDir="false" afterPath="$PROJECT_DIR$/basicFunctions.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dict.c" beforeDir="false" afterPath="$PROJECT_DIR$/dict.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dict.h" beforeDir="false" afterPath="$PROJECT_DIR$/dict.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/error.c" beforeDir="false" afterPath="$PROJECT_DIR$/error.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/error.h" beforeDir="false" afterPath="$PROJECT_DIR$/error.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compiler.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executor.c" beforeDir="false" afterPath="$PROJECT_DIR$/executor.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executor.h" beforeDir="false" afterPath="$PROJECT_DIR$/executor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpret.c" beforeDir="false" afterPath="$PROJECT_DIR$/interpret.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpret.h" beforeDir="false" afterPath="$PROJECT_DIR$/interpret.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stack.c" beforeDir="false" afterPath="$PROJECT_DIR$/stack.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stack.h" beforeDir="false" afterPath="$PROJECT_DIR$/stack.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,7 +223,21 @@
       <option name="project" value="LOCAL" />
       <updated>1617724164854</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="first version of compiler and header structure changed&#10;executing custom words only works in debug mode (???)">
+      <created>1617809536951</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1617809536951</updated>
+    </task>
+    <task id="LOCAL-00017" summary="first version of compiler and header structure changed&#10;executing custom words only works in debug mode (???)">
+      <created>1617809988089</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1617809988089</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,17 +271,7 @@
     <MESSAGE value="push idea files" />
     <MESSAGE value="added files for the executor and implemented the function execute which is invoked by interpret.c" />
     <MESSAGE value="added error.c and error.h for printing error msg with counter" />
-    <option name="LAST_COMMIT_MESSAGE" value="added error.c and error.h for printing error msg with counter" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/executor.c</url>
-          <line>7</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="first version of compiler and header structure changed&#10;executing custom words only works in debug mode (???)" />
+    <option name="LAST_COMMIT_MESSAGE" value="first version of compiler and header structure changed&#10;executing custom words only works in debug mode (???)" />
   </component>
 </project>

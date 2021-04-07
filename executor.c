@@ -32,7 +32,9 @@ int execute(char* word, Stack *returnStack) {
                         return -1;
                     }
                     index++;
+                    printf("!!!%s!!!\n", nextSubEntry->word);
                     nextSubEntry = entry->definitions[index];
+                    printf("!!!%s!!!\n", nextSubEntry->word);
                 }
             } else if (entry->basicfunc != NULL && entry->definitions == NULL) {
                 return entry->basicfunc(parameterStack);

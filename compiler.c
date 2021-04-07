@@ -23,13 +23,17 @@ int compiler(char *word) {
             return -1;
         }
         definitions[numberOfWords] = dictEntry;
-        numberOfWords++;
+        printf("%d", numberOfWords);
         if (strcmp(word, ";") == 0) {
+            printf("%s added", definitions[2]->word); // TODO: the last entry in definitions is lost from here
             addEntry(name, 0, NULL, definitions, NULL);
+            printf("%s added", definitions[2]->word); // TODO: to here
             free(name);
             free(definitions);
             numberOfWords = 0;
+            return 0;
         }
+        numberOfWords++;
     }
     return 0;
 }
