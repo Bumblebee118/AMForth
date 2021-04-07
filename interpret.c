@@ -6,7 +6,7 @@
 
 void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack, Stack *returnStack) {
     //welcome text on startup
-    fprintf(stdout, "Type 'bye' to exit\n");
+    printf("Type 'bye' to exit\n");
 
     //initialize variables for loop exit and holding the next valid token
     int quit = 0;
@@ -41,13 +41,13 @@ void startInterpret(FILE *stream, Dict *dict, Stack *parameterStack, Stack *retu
 
             //check if an error occurred or the the user wants to quit
             if (len == -1) {
-                fprintf(stdout, "\nerror occured during parsing\n");
+                printf("\nerror occured during parsing\n");
                 quit = 1;
             } else if (len >= MAX_WORD_NAME_SIZE) {
-                fprintf(stdout, "\nsize of token exceeds MAX_WORD_NAME_SIZE\n");
+                printf("\nsize of token exceeds MAX_WORD_NAME_SIZE\n");
                 quit = 1;
             } else if (strcmp(token, "bye") == 0) {
-                fprintf(stdout, "\nsee you later!\n");
+                printf("\nsee you later!\n");
                 quit = 1;
             }
 
@@ -166,5 +166,5 @@ int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread) {
 }
 
 void PRINT_INPUT_OK(FILE* stream){
-    if(stream == stdin) fprintf(stdout, " ok\n");
+    if(stream == stdin) printf(" ok\n");
 }

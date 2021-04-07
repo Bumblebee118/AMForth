@@ -14,7 +14,7 @@ Dict *createDict() {
 }
 
 
-int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry* definitions, BASICFUNC basicfunc) {
+int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry **definitions, BASICFUNC basicfunc) {
     //check if entry already exists and if it is mutable or not
     DictEntry *oldEntry = getEntry(dict, word);
     if (oldEntry != NULL && oldEntry->basicfunc != NULL) {
@@ -25,13 +25,13 @@ int addEntry(Dict *dict, char *word, int value, FUNCDEF codepointer, DictEntry* 
     if (newEntry == NULL) {
         return -1;
     }
-    newEntry->word = (char *) malloc(sizeof(char) * (strlen(word)+1));
+    newEntry->word = (char *) malloc(sizeof(char) * (strlen(word) + 1));
     if ((newEntry->word) == NULL) {
         free(newEntry);
         return -1;
     }
 
-    strncpy(newEntry->word, word, strlen(word)+1);
+    strncpy(newEntry->word, word, strlen(word) + 1);
     newEntry->value = value;
     newEntry->codePointer = codepointer;
     newEntry->definitions = definitions;
@@ -63,12 +63,12 @@ int removeEntry(Dict *dict, char *word) {
     DictEntry *currentNode = dict->lastElement;
     DictEntry *nextNode = NULL;
 
-    while (currentNode != NULL){
+    while (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
 
-            if(nextNode == NULL){
+            if (nextNode == NULL) {
                 dict->lastElement = currentNode->link;  //if nextnode == NULL then currentnode is the last node in the dict
-            }else{
+            } else {
                 nextNode->link = currentNode->link;     //get rid of currentnode
             }
 
@@ -87,12 +87,12 @@ int removeEntry(Dict *dict, char *word) {
 }
 
 void deleteDict(Dict *dict) {
-    if(dict != NULL){
-        DictEntry* currentNode = dict->lastElement;
-        DictEntry* next;
-        while (currentNode != NULL){
-            if(currentNode->word != NULL) free(currentNode->word);
-            if(currentNode->definitions != NULL) free(currentNode->definitions);
+    if (dict != NULL) {
+        DictEntry *currentNode = dict->lastElement;
+        DictEntry *next;
+        while (currentNode != NULL) {
+            if (currentNode->word != NULL) free(currentNode->word);
+            if (currentNode->definitions != NULL) free(currentNode->definitions);
             next = currentNode->link;
             free(currentNode);
             currentNode = next;

@@ -38,25 +38,24 @@ int DIVIDE(Stack *stack) {
     return 0;
 }
 
-int PRINTPOPSTACK(Stack *stack){
-    if (isEmpty(stack) == 0){
-        fprintf(stdout," %d", pop(stack));
+int PRINTPOPSTACK(Stack *stack) {
+    if (isEmpty(stack) == 0) {
+        fprintf(stdout, " %d", pop(stack));
         return 0;
-    }else{
+    } else {
         PRINT_ERROR_MSG("Stack underflow", ".");
         clearStack(stack);
         return -1;
     }
-
 }
 
-int PRINTSTACK(Stack *stack){
+int PRINTSTACK(Stack *stack) {
 
-    fprintf(stdout, " <%d>", (stack->top)+1);
+    fprintf(stdout, " <%d>", (stack->top) + 1);
 
     int i = 0;
-    while (i <= stack->top){
-        fprintf(stdout," %d", stack->array[i]);
+    while (i <= stack->top) {
+        fprintf(stdout, " %d", stack->array[i]);
         i++;
     }
 

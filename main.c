@@ -62,8 +62,16 @@ void tests(Dict *dict, Stack *stack) {
 
     addEntry(dict, "+", 0, NULL, NULL, &ADD);
     addEntry(dict, "-", 0, NULL, NULL, &SUBTRACT);
+    addEntry(dict, "*", 0, NULL, NULL, &MULTIPLY);
+    addEntry(dict, "/", 0, NULL, NULL, &DIVIDE);
     addEntry(dict, ".", 0, NULL, NULL, &PRINTPOPSTACK);
     addEntry(dict, ".s", 0, NULL, NULL, &PRINTSTACK);
+    addEntry(dict, ";", 0, NULL, NULL, NULL);
+    DictEntry **entries = (DictEntry **) malloc(3 * sizeof(DictEntry *));
+    entries[0] = getEntry(dict, "+");
+    entries[1] = getEntry(dict, "-");
+    entries[2] = getEntry(dict, ";");
+    addEntry(dict, "addsub", 0, NULL, entries, NULL);
 
     getEntry(dict, "+")->basicfunc(stack);
 
