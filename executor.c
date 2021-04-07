@@ -1,8 +1,7 @@
 #include "global.h"
 #include "compiler.h"
 #include "error.h"
-
-extern int inCompileMode;
+#include "executor.h"
 
 int execute(char* word, Stack *returnStack) {
     DictEntry *entry = getEntry(word);

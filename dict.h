@@ -69,8 +69,7 @@ int removeEntry(char *word);
 
 /**
  * deletes the dictionary
- * @param dict
  */
-void deleteDict(Dict *dict);
+void deleteDict();
 
 #endif //AMFORTH_DICT_H

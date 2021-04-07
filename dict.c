@@ -83,7 +83,7 @@ int removeEntry(char *word) {
     return -1;
 }
 
-void deleteDict(Dict *dict) {
+void deleteDict() {
     if (dict != NULL) {
         DictEntry *currentNode = dict->lastElement;
         DictEntry *next;
