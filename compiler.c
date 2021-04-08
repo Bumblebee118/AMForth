@@ -5,12 +5,12 @@
 #include "global.h"
 
 int compiler(char *word) {
-    static char *name;
+    static char name[MAX_WORD_NAME_SIZE] = "";
     static DictEntry **definitions;
     static int numberOfWords = 0;
     fflush(stdout);
-    if (name == NULL) { // the first word is the name of the new function
-        name = strdup(word);
+    if (strcmp(name, "") == 0) { // the first word is the name of the new function
+        strcpy(name, word);
     } else { // the following words are the names of the contained functions
         if (definitions == NULL) {
             definitions = (DictEntry **) malloc(sizeof(DictEntry *));
@@ -22,16 +22,14 @@ int compiler(char *word) {
             return -1;
         }
         definitions[numberOfWords] = dictEntry;
-        if (strcmp(word, ";") == 0) {
-//            for (int i = 0; i < 10; ++i) {
-//                if (definitions[i] != NULL) printf("%s added\n", definitions[i]->word); fflush(stdout);
-//            }
-            // TODO: the last entry in definitions is lost from here
-            addEntry(name, 0, NULL, definitions, NULL);
-            // TODO: to here
-            fflush(stdout);
-            free(name);
+        if (strcmp(dictEntry->word, ";") == 0) {
+            DictEntry *entries[numberOfWords];
+            for (int i = 0; i < (numberOfWords + 1); i++) {
+                entries[i] = definitions[i];
+            }
+            addEntry(name, 0, NULL, entries, NULL);
             free(definitions);
+            strcpy(name, "");
             numberOfWords = 0;
             return 0;
         }

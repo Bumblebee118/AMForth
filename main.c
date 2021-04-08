@@ -66,10 +66,10 @@ void tests() {
     addEntry(":", 0, NULL, NULL, &DOCOLON);
     addEntry(";", 0, NULL, NULL, NULL);
 //    DictEntry **entries = (DictEntry **) malloc(3 * sizeof(DictEntry *));
-//    entries[0] = getEntry(dict, "+");
-//    entries[1] = getEntry(dict, "-");
-//    entries[2] = getEntry(dict, ";");
-//    addEntry(dict, "addsub", 0, NULL, entries, NULL);
+//    entries[0] = getEntry("+");
+//    entries[1] = getEntry("-");
+//    entries[2] = getEntry(";");
+//    addEntry("addsub", 0, NULL, entries, NULL);
 
     getEntry("+")->basicfunc(parameterStack);
 
