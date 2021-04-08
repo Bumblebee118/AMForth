@@ -31,7 +31,10 @@
   <component name="ChangeListManager">
     <list default="true" id="bb289b34-ba48-483f-8b06-d8e9acc2da44" name="Default Changelist" comment="next token is now reading from getline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicFunctions.c" beforeDir="false" afterPath="$PROJECT_DIR$/basicFunctions.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dict.c" beforeDir="false" afterPath="$PROJECT_DIR$/dict.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dict.h" beforeDir="false" afterPath="$PROJECT_DIR$/dict.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executor.c" beforeDir="false" afterPath="$PROJECT_DIR$/executor.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,8 +66,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -72,22 +78,17 @@
     <property name="settings.editor.selected.configurable" value="dynamic.analysis.tools.valgrind" />
   </component>
   <component name="RunManager" selected="CMake Application.AMForth">
-    <configuration name="AMForth _FILE" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="../testfiles/test1.txt" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AMForth" TARGET_NAME="AMForth" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AMForth" RUN_TARGET_NAME="AMForth">
+    <configuration name="AMForth _FILE" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="../testfiles/test1.txt" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AMForth" TARGET_NAME="AMForth" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AMForth" RUN_TARGET_NAME="AMForth">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AMForth" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AMForth" TARGET_NAME="AMForth" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AMForth" RUN_TARGET_NAME="AMForth">
+    <configuration name="AMForth" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AMForth" TARGET_NAME="AMForth" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AMForth" RUN_TARGET_NAME="AMForth">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -117,6 +118,8 @@
       <workItem from="1617430067177" duration="5768000" />
       <workItem from="1617698705272" duration="1157000" />
       <workItem from="1617790498489" duration="3014000" />
+      <workItem from="1617820090074" duration="224000" />
+      <workItem from="1617859748573" duration="2670000" />
     </task>
     <task id="LOCAL-00001" summary="Created project in c lion">
       <created>1616962957299</created>
@@ -237,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617809988089</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="error localised -&gt; TODO in compiler.c">
+      <created>1617814091551</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1617814091551</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,6 +282,18 @@
     <MESSAGE value="added files for the executor and implemented the function execute which is invoked by interpret.c" />
     <MESSAGE value="added error.c and error.h for printing error msg with counter" />
     <MESSAGE value="first version of compiler and header structure changed&#10;executing custom words only works in debug mode (???)" />
-    <option name="LAST_COMMIT_MESSAGE" value="first version of compiler and header structure changed&#10;executing custom words only works in debug mode (???)" />
+    <MESSAGE value="error localised -&gt; TODO in compiler.c" />
+    <option name="LAST_COMMIT_MESSAGE" value="error localised -&gt; TODO in compiler.c" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/compiler.c</url>
+          <line>7</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

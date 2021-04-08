@@ -25,7 +25,7 @@ typedef struct DictEntry {
     struct DictEntry *link;         //link reference to previous DictEntry
     int value;                      // value of constant or address of variable
     FUNCDEF codePointer;            // TODO: new function pointer definition codepointer(Dict-Entry)
-    struct DictEntry **definitions;  //array of other function definitions, which build up this function definition
+    struct DictEntry *definitions;  //array of other function definitions, which build up this function definition
     BASICFUNC basicfunc;            //pointer to a basic function, if no basic function, then this pointer is NULL
 } DictEntry;
 

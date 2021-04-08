@@ -76,7 +76,6 @@ int PRINTSTACK() {
 }
 
 int DOCOLON() {
-    extern int inCompileMode;
     inCompileMode = 1;
     return 0;
 }

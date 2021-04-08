@@ -22,16 +22,24 @@ int addEntry(char *word, int value, FUNCDEF codepointer, DictEntry **definitions
     if (newEntry == NULL) {
         return -1;
     }
-    newEntry->word = (char *) malloc(sizeof(char) * (strlen(word) + 1));
+    memset(newEntry, 0, sizeof(DictEntry));
+    newEntry->word = strdup(word);
     if ((newEntry->word) == NULL) {
         free(newEntry);
         return -1;
     }
 
+//    if (strcmp(word, "addsub") == 0) {
+//        for (int i = 0; i < 10; ++i) {
+//            if (definitions[i] != NULL) printf("%s added\n", definitions[i]->word); fflush(stdout);
+//        }
+//    }
     strncpy(newEntry->word, word, strlen(word) + 1);
     newEntry->value = value;
     newEntry->codePointer = codepointer;
-    newEntry->definitions = definitions;
+    if (definitions != NULL) {
+        newEntry->definitions = *definitions;
+    }
     newEntry->basicfunc = basicfunc;
 
     newEntry->link = dict->lastElement;     // link to previous element
