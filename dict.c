@@ -10,7 +10,6 @@ void createDict() {
     dict->lastElement = NULL;
 }
 
-
 int addEntry(char *word, int value, FUNCDEF codepointer, DictEntry *definitions[], BASICFUNC basicfunc) {
     //check if entry already exists and if it is mutable or not
     DictEntry *oldEntry = getEntry(word);
@@ -34,13 +33,13 @@ int addEntry(char *word, int value, FUNCDEF codepointer, DictEntry *definitions[
     if (definitions != NULL) {
         int size = 0;
         int index = 0;
-        DictEntry * entry = definitions[0];
+        DictEntry *entry = definitions[0];
         while (entry != NULL) {
             size++;
             index++;
             entry = definitions[index];
         }
-        newEntry->definitions = (DictEntry **)malloc(size * sizeof(DictEntry *));
+        newEntry->definitions = (DictEntry **) malloc(size * sizeof(DictEntry *));
         for (int i = 0; i < size; ++i) {
             newEntry->definitions[i] = definitions[i];
         }

@@ -27,7 +27,7 @@ int compiler(char *word) {
                 entries[i] = definitions[i];
             }
             addEntry(name, 0, NULL, entries, NULL);
-            free(definitions);
+            definitions = NULL;
             strcpy(name, "");
             numberOfWords = 0;
             return 0;
