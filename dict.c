@@ -22,6 +22,7 @@ int addEntry(char *word, int value, FUNCDEF codepointer, DictEntry *definitions[
     if (newEntry == NULL) {
         return -1;
     }
+    memset(newEntry, 0, sizeof(DictEntry));
 
     newEntry->word = strdup(word);
     if ((newEntry->word) == NULL) {
@@ -31,7 +32,18 @@ int addEntry(char *word, int value, FUNCDEF codepointer, DictEntry *definitions[
     newEntry->value = value;
     newEntry->codePointer = codepointer;
     if (definitions != NULL) {
-        newEntry->definitions = definitions;
+        int size = 0;
+        int index = 0;
+        DictEntry * entry = definitions[0];
+        while (entry != NULL) {
+            size++;
+            index++;
+            entry = definitions[index];
+        }
+        newEntry->definitions = (DictEntry **)malloc(size * sizeof(DictEntry *));
+        for (int i = 0; i < size; ++i) {
+            newEntry->definitions[i] = definitions[i];
+        }
     }
     newEntry->basicfunc = basicfunc;
 

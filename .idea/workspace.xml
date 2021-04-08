@@ -29,13 +29,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb289b34-ba48-483f-8b06-d8e9acc2da44" name="Default Changelist" comment="debugging lines added">
+    <list default="true" id="bb289b34-ba48-483f-8b06-d8e9acc2da44" name="Default Changelist" comment="name of compiled function is not found when executing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiler.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dict.c" beforeDir="false" afterPath="$PROJECT_DIR$/dict.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dict.h" beforeDir="false" afterPath="$PROJECT_DIR$/dict.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/executor.c" beforeDir="false" afterPath="$PROJECT_DIR$/executor.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +122,7 @@
       <workItem from="1617698705272" duration="1157000" />
       <workItem from="1617790498489" duration="3014000" />
       <workItem from="1617820090074" duration="224000" />
-      <workItem from="1617859748573" duration="7919000" />
+      <workItem from="1617859748573" duration="9764000" />
     </task>
     <task id="LOCAL-00001" summary="Created project in c lion">
       <created>1616962957299</created>
@@ -259,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617863319783</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="name of compiled function is not found when executing">
+      <created>1617877155978</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1617877155978</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,22 +301,7 @@
     <MESSAGE value="first version of compiler and header structure changed&#10;executing custom words only works in debug mode (???)" />
     <MESSAGE value="error localised -&gt; TODO in compiler.c" />
     <MESSAGE value="debugging lines added" />
-    <option name="LAST_COMMIT_MESSAGE" value="debugging lines added" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/executor.c</url>
-          <line>30</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/compiler.c</url>
-          <line>19</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="name of compiled function is not found when executing" />
+    <option name="LAST_COMMIT_MESSAGE" value="name of compiled function is not found when executing" />
   </component>
 </project>

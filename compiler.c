@@ -8,7 +8,6 @@ int compiler(char *word) {
     static char name[MAX_WORD_NAME_SIZE] = "";
     static DictEntry **definitions;
     static int numberOfWords = 0;
-    fflush(stdout);
     if (strcmp(name, "") == 0) { // the first word is the name of the new function
         strcpy(name, word);
     } else { // the following words are the names of the contained functions
