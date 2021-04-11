@@ -24,7 +24,7 @@ typedef struct DictEntry {
     char *word;                     //name of the definition
     struct DictEntry *link;         //link reference to previous DictEntry
     int value;                      // value of constant or address of variable
-    FUNCDEF codePointer;            // TODO: new function pointer definition codepointer(Dict-Entry)
+    CODEPOINTER codePointer;            // TODO: new function pointer definition codepointer(Dict-Entry)
     struct DictEntry **definitions;  //array of other function definitions, which build up this function definition
     BASICFUNC basicfunc;            //pointer to a basic function, if no basic function, then this pointer is NULL
 } DictEntry;
@@ -49,7 +49,7 @@ void createDict();
  * @param functionAddress the address of the first function to be called in this function
  * @return -1 for failure, 0 for success, -2 when trying to redefine an immutable function
  */
-int addEntry(char *word, int value, FUNCDEF codepointer, DictEntry **definitions, BASICFUNC basicfunc);
+int addEntry(char *word, int value, CODEPOINTER codepointer, DictEntry **definitions, BASICFUNC basicfunc);
 
 /**
  * searches the dictionary for the function name given as a parameter
@@ -71,5 +71,11 @@ int removeEntry(char *word);
  * deletes the dictionary
  */
 void deleteDict();
+
+/**
+ * adds all basic words from basicFunctions.h to the specified dict
+ * @param dict
+ */
+void addBasicWordsToDict(Dict *dict);
 
 #endif //AMFORTH_DICT_H

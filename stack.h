@@ -3,8 +3,6 @@
 
 #include <limits.h>
 
-#define STANDARD_STACK_CAPACITY 128
-
 /**
  * Struct to create a stack
  * 'top' points to the last element in the array 'array'

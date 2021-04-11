@@ -14,7 +14,9 @@ int main(int argc, char **argv) {
 
     //TODO automatically fill the dictionary with the basic functions
 
-    tests(dict, parameterStack);
+    //tests(dict, parameterStack);
+
+    addBasicWordsToDict(dict);
 
     if (argc > 2) {
         printSynopsis();

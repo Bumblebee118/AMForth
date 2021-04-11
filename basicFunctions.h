@@ -8,6 +8,12 @@
 #include <limits.h>
 
 /**
+ * typedefs for function pointers
+ */
+typedef int (*BASICFUNC)();
+typedef int (*CODEPOINTER)(Stack *, int *);
+
+/**
  * adds the top most two numbers on the stack and pushes the result back onto the stack
  */
 int ADD();
@@ -43,8 +49,5 @@ int PRINTSTACK();
  */
 int DOCOLON();
 
-typedef int (*BASICFUNC)();
-
-typedef int (*FUNCDEF)(Stack *, int *);
 
 #endif //AMFORTH_BASICFUNCTIONS_H

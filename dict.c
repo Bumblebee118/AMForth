@@ -10,7 +10,7 @@ void createDict() {
     dict->lastElement = NULL;
 }
 
-int addEntry(char *word, int value, FUNCDEF codepointer, DictEntry *definitions[], BASICFUNC basicfunc) {
+int addEntry(char *word, int value, CODEPOINTER codepointer, DictEntry *definitions[], BASICFUNC basicfunc) {
     //check if entry already exists and if it is mutable or not
     DictEntry *oldEntry = getEntry(word);
     if (oldEntry != NULL && oldEntry->basicfunc != NULL) {
@@ -108,5 +108,17 @@ void deleteDict() {
         }
         free(dict);
     }
+}
+
+void addBasicWordsToDict(Dict *dict){
+    //TODO add code pointer
+    addEntry("+", 0, NULL, NULL, &ADD);
+    addEntry("-", 0, NULL, NULL, &SUBTRACT);
+    addEntry("*", 0, NULL, NULL, &MULTIPLY);
+    addEntry("/", 0, NULL, NULL, &DIVIDE);
+    addEntry(".", 0, NULL, NULL, &PRINTPOPSTACK);
+    addEntry(".s", 0, NULL, NULL, &PRINTSTACK);
+    addEntry(":", 0, NULL, NULL, &DOCOLON);
+    addEntry(";", 0, NULL, NULL, NULL);
 }
 
