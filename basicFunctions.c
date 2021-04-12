@@ -4,7 +4,7 @@
 
 #include "global.h"
 
-int inCompileMode = 0;
+int inCompileMode = 0; //init extern variable
 
 int ADD() {
     int a = pop(parameterStack);
@@ -77,5 +77,14 @@ int PRINTSTACK() {
 
 int DOCOLON() {
     inCompileMode = 1;
+    push(returnStack, (int) instrPointer);
+    return 0;
+}
+
+int DOSEMI(){
+    return 0;
+}
+
+int NEXT(){
     return 0;
 }

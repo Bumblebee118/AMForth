@@ -15,7 +15,7 @@
  * tokens can be separated by an arbitrary amount of whitespaces or tabs
  * @param stream Can be a file or stdin
  */
-void startInterpret(FILE *stream, Stack *returnStack);
+void startInterpret(FILE *stream);
 
 /**
  * Reads in the next token_ptr from the input stream 'stream'

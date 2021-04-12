@@ -22,7 +22,7 @@ char *token;
 /**
  * global variable for error counts
  */
-static int error_cnt = 0;
+extern int error_cnt;
 
 /**
  * one global dictionary for the whole program
@@ -33,5 +33,22 @@ Dict *dict;
  * one global parameter stack for the whole program
  */
 Stack *parameterStack;
+
+/**
+ * one global return stack for the whole program
+ */
+Stack *returnStack;
+
+/**
+ * specifies the mode the interpreter is currently in
+ */
+extern int inCompileMode;
+
+/**
+ * direct threaded code pointers
+ */
+extern DictEntry *wordPointer;
+extern DictEntry *instrPointer;
+extern DictEntry *progPointer;
 
 #endif //AMFORTH_GLOBAL_H

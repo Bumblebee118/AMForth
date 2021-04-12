@@ -2,10 +2,8 @@
 #define AMFORTH_EXECUTOR_H
 
 #include <string.h>
-#include "stack.h"
+#include "global.h"
 
-extern int inCompileMode;
-
-int execute(char* word, Stack* returnStack);
+int execute(char* word);
 
 #endif //AMFORTH_EXECUTOR_H

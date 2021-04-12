@@ -2,7 +2,7 @@
 #include "executor.h"
 #include "global.h"
 
-void startInterpret(FILE *stream, Stack *returnStack) {
+void startInterpret(FILE *stream) {
     //welcome text on startup
     fprintf(stdout, "Type 'bye' to exit\n");
 
@@ -49,7 +49,7 @@ void startInterpret(FILE *stream, Stack *returnStack) {
             } else {
                 //call the executor if a valid token has been received -> executor checks dictionary
                 //printf("token is: %s - len: %d\n", token, len);
-                if (execute(token, returnStack) == -1) {
+                if (execute(token) == -1) {
                     if (stream != stdin) quit = 1;  //quit the interpreter if the program is run from file
                     else interpret_error = 1;       //if the input is stdin indicate that an error happened
                     // and start over with next line

@@ -10,11 +10,7 @@ int main(int argc, char **argv) {
     //initialize stacks and dictionary
     createDict();
     parameterStack = createStack(STANDARD_STACK_CAPACITY);
-    Stack *returnStack = createStack(STANDARD_STACK_CAPACITY);
-
-    //TODO automatically fill the dictionary with the basic functions
-
-    //tests(dict, parameterStack);
+    returnStack = createStack(STANDARD_STACK_CAPACITY);
 
     addBasicWordsToDict(dict);
 
@@ -34,7 +30,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    startInterpret(inputStream, returnStack);
+    startInterpret(inputStream);
 
     deleteDict(dict);
     deleteStack(parameterStack);
