@@ -6,7 +6,7 @@ Stack *createStack(unsigned capacity) {
     Stack *stack = (Stack *) malloc(sizeof(Stack));
     stack->capacity = capacity;
     stack->top = -1;
-    stack->array = (int *) malloc(stack->capacity * sizeof(int));
+    stack->array = (cell_t *) malloc(stack->capacity * sizeof(cell_t));
     return stack;
 }
 
@@ -21,28 +21,28 @@ int isEmpty(Stack *stack) {
 }
 
 //pushes a new element on the top of the stack
-int push(Stack *stack, int item) {
+cell_t push(Stack *stack, cell_t item) {
     if (isFull(stack)) {
-        return INT_MIN;
+        return LONG_MIN;
     }
     return stack->array[++stack->top] = item;
 }
 
 //pops the top of the stack
-int pop(Stack *stack) {
+cell_t pop(Stack *stack) {
     if (isEmpty(stack)) {
-        PRINT_ERROR_MSG("Stack underflow");
-        return INT_MIN;
+        ERROR("Stack underflow");
+        return LONG_MIN;
     }
 
     return stack->array[stack->top--];
 }
 
 //returns the top element of the stack without modifying the stack
-int peek(Stack *stack) {
+cell_t peek(Stack *stack) {
     if (isEmpty(stack)) {
-        PRINT_ERROR_MSG("Stack underflow");
-        return INT_MIN;
+        ERROR("Stack underflow");
+        return LONG_MIN;
     }
 
     return stack->array[stack->top];

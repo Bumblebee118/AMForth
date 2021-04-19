@@ -1,88 +1,88 @@
+#include <ctype.h>
 #include "interpret.h"
 #include "executor.h"
-#include "global.h"
 
-void startInterpret(FILE *stream) {
-    //welcome text on startup
-    fprintf(stdout, "Type 'bye' to exit\n");
+char last_char;
+
+void interpret() {
+
 
     //initialize variables for loop exit and holding the next valid token
     int quit = 0;
-    int interpret_error = 0;
 
-    //initialize variables for getting a new line from the stream
-    char *line = NULL;
-    size_t length = 0;
-    ssize_t nread;
+    //while (quit == 0) {
 
-    //get first line from stream and save in variable 'line'
-    if ((nread = getline(&line, &length, stream)) == -1) quit = 1;
-    else fwrite(line, nread - 1, 1, stdout);  //print content to stdout
-
-    while (quit == 0) {
-
-        //get the next token from the current line whoch has ben read in
-        int len = nextTokenFromLine(line, &token, nread);    //get next token from stream
-
-        //if the current line has no tokens left
-        if ((len == 0) || (interpret_error == 1)) {
-            //check if an error occurred
-            if (interpret_error == 0) PRINT_INPUT_OK(stream);
-            else interpret_error = 0;
-
-            //get new line if end has been reached
-            if ((nread = getline(&line, &length, stream)) == -1)quit = 1;
-            else fwrite(line, nread - 1, 1, stdout);
-
+        int len = nextToken(&token);
+        //check if an error occurred or the the user wants to quit
+        if (len == -1) {
+            ERROR("Token parsing failed");
+            free_res();
+            exit(1);
+        }else if(len == 0){
+            //reached EOF
+            free_res();
+            exit(0);
+        } else if (len >= MAX_WORD_NAME_SIZE) {
+           WORD_SIZE_LIMIT();
+        } else if (strcmp(token, "bye") == 0) {
+            fprintf(stdout, "see you later!\n");
+            free_res();
+            exit(0);
         } else {
 
-            //check if an error occurred or the the user wants to quit
-            if (len == -1) {
-                fprintf(stdout, "\nerror occured during parsing\n");
-                quit = 1;
-            } else if (len >= MAX_WORD_NAME_SIZE) {
-                fprintf(stdout, "\nsize of token exceeds MAX_WORD_NAME_SIZE\n");
-                quit = 1;
-            } else if (strcmp(token, "bye") == 0) {
-                fprintf(stdout, "\nsee you later!\n");
-                quit = 1;
-            } else {
-                //call the executor if a valid token has been received -> executor checks dictionary
-                //printf("token is: %s - len: %d\n", token, len);
-                if (execute(token) == -1) {
-                    if (stream != stdin) quit = 1;  //quit the interpreter if the program is run from file
-                    else interpret_error = 1;       //if the input is stdin indicate that an error happened
-                    // and start over with next line
-                    clearStack(parameterStack);
-                }
-
+            push(parameterStack, (cell_t) &token);
+            /*
+            //call the executor if a valid token has been received -> executor checks dictionary
+            //printf("token is: %s - len: %d\n", token, len);
+            if (execute(token) == -1) {
+                if (stream != stdin) quit = 1;  //quit the interpreter if the program is run from file
+                else skipLine();      //if the input is stdin indicate that an error happened and start over with next line
             }
-        }
+*/
+        //}
     }
 
-    //free token if quit
-    if (token != NULL) free(token);
-    if (line != NULL) free(line);
 }
 
+void free_res(){
+    if (token != NULL) free(token);
+    deleteDict();
+    defs = &macros;
+    deleteDict();
+    deleteStack(parameterStack);
+    deleteStack(returnStack);
+}
 
-/*int nextToken(FILE *stream, char **token_ptr) {
+void skipLine(){
+    if (last_char != '\n') {
+        char c;
+        while((c = getc(stream)) != '\n');
+    }
+}
+
+char getNextChar(){
+    if(last_char == '\n'){
+        PRINT_INPUT_OK();
+    }
+
+    return (last_char= fgetc(stream));
+}
+
+int nextToken(char **token_ptr) {
+
     //if token_ptr is NULL, then acquire memory
     if (*token_ptr == NULL) *token_ptr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
     //check pointer again
     if (*token_ptr == NULL) return -1;
 
     //get next char from stream
-    char currentChar = fgetc(stream);
+    char currentChar = getNextChar();
 
     int len = 0;
-    while ((currentChar != ' ') && (currentChar != '\t') && (currentChar != '\r') ){
-        if (currentChar == EOF) {
-            return -1;  //immediately return if the EOF has been reached
-        }
+    while (!isspace(currentChar)){
 
-        if(currentChar == '\n'){
-            return -2;  //return -2 is the current line has ended
+        if (currentChar == EOF) {
+            return 0;  //immediately return if the EOF has been reached
         }
 
         //only add new chars to string, it MAX_WORD_NAME_SIZE has not been exceeded
@@ -91,14 +91,14 @@ void startInterpret(FILE *stream) {
         }
 
         len++;
-        currentChar = fgetc(stream);    //read in next char for next loop iteration,
-                                        // even if MAX_WORD_NAME_SIZE has been reached
+        currentChar = getNextChar();    //read in next char for next loop iteration,
+        // even if MAX_WORD_NAME_SIZE has been reached
     }
 
     //getting rid of whitespaces by recursively calling nextToken
     //until a string with len > 0 is found
     if (len == 0) {
-        return nextToken(stream, token_ptr);
+        return nextToken(token_ptr);
     }
 
     //add zero delimiter at the end of string
@@ -110,10 +110,16 @@ void startInterpret(FILE *stream) {
     }
 
     return len;
+}
+
+
+/*int nextToken(char** token_ptr){
+    return nextTokenFromLine(line, token_ptr, nread);
 }*/
 
+/*
 int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread) {
-    static int line_index = 0;
+    static int line_index = 0; //pointer of the current character of the line
 
     //check if end of line has been reached
     if (line_index == nread) {
@@ -131,8 +137,7 @@ int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread) {
     line_index++;
 
     int len = 0;
-    while ((currentChar != ' ') && (currentChar != '\t') && (currentChar != '\r') && (currentChar != '\n') &&
-           (line_index < nread)) {
+    while (!isspace(currentChar) && (line_index < nread)) {
 
         //only add new chars to string, it MAX_WORD_NAME_SIZE has not been exceeded
         if (len < MAX_WORD_NAME_SIZE - 1) {
@@ -161,7 +166,12 @@ int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread) {
 
     return len;
 }
+*/
+void PRINT_INPUT_OK() {
+    if (stream == stdin) fprintf(stdout, "ok> ");
+}
 
-void PRINT_INPUT_OK(FILE *stream) {
-    if (stream == stdin) fprintf(stdout, " ok\n");
+void WORD_SIZE_LIMIT(){
+    ERROR("Token exceeds number of chars");
+    skipLine();
 }

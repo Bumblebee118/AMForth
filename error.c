@@ -2,7 +2,13 @@
 
 int error_cnt = 0;
 
-void PRINT_ERROR_MSG(char* msg){
+void ERROR(char* msg){
     error_cnt++;
-    fprintf(stdout, "\n:%d: %s\n>>>%s<<<\n", error_cnt, msg, token);
+    fprintf(stdout, ":%d: %s\n>>>%s<<<\n", error_cnt, msg, token);
+    clearStack(parameterStack);
+    fprintf(stdout, "Stack cleared\n");
+}
+
+void ZERO_LEN(){
+    ERROR("Attempt to use zero-length string as a name");
 }

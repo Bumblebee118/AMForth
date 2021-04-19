@@ -15,7 +15,23 @@
  * tokens can be separated by an arbitrary amount of whitespaces or tabs
  * @param stream Can be a file or stdin
  */
-void startInterpret(FILE *stream);
+void interpret();
+
+/**
+ * frees all allocated memory of token, dict and the stacks
+ */
+void free_res();
+
+/**
+ * skips all chars until the next '\n' in input stream
+ */
+void skipLine();
+
+/**
+ * gets the next char from the input stream and saves the this char in a variable
+ * @return next char from stream
+ */
+char getNextChar();
 
 /**
  * Reads in the next token_ptr from the input stream 'stream'
@@ -23,8 +39,16 @@ void startInterpret(FILE *stream);
  * @param token_ptr an char** pointer, which will be filled with the next token_ptr
  * @return Returns the length of the read token_ptr, -1 if an error occurs
  * token_ptr exceeds MAX_WORD_NAME_SIZE
+**/
+int nextToken(char **token_ptr);
+
+/**
+ * Reads in the next token_ptr from the current line
+ * @param token_ptr an char** pointer, which will be filled with the next token_ptr
+ * @return Returns the length of the read token_ptr, -1 if an error occurs
+ * token_ptr exceeds MAX_WORD_NAME_SIZE
  */
-int nextToken(FILE *stream, char **token_ptr);
+//int nextToken(char** token_ptr);
 
 /**
  * Reads in the next token from the string 'line'
@@ -39,6 +63,8 @@ int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread);
  * Print 'ok' to stdin if the interpreter is run in interactive mode
  * @param stream
  */
-void PRINT_INPUT_OK(FILE* stream);
+void PRINT_INPUT_OK();
+
+void WORD_SIZE_LIMIT();
 
 #endif //AMFORTH_INTERPRET_H

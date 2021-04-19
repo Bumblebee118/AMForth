@@ -10,44 +10,55 @@
 /**
  * typedefs for function pointers
  */
-typedef int (*BASICFUNC)();
+typedef void (*BASICFUNC)();
 typedef int (*CODEPOINTER)(Stack *, int *);
 
 /**
  * adds the top most two numbers on the stack and pushes the result back onto the stack
  */
-int ADD();
+void ADD();
 
 /**
  * subtracts the top most two numbers on the stack and pushes the result back onto the stack
  */
-int SUBTRACT();
+void SUBTRACT();
 
 /**
  * multiplies the top most two numbers on the stack and pushes the result back onto the stack
  */
-int MULTIPLY();
+void MULTIPLY();
 
 /**
  * divides the top most two numbers on the stack and pushes the result back onto the stack
  */
-int DIVIDE();
+void DIVIDE();
 
 /**
  * Pops the top element of the stack in prints it to stdout
  */
-int PRINTPOPSTACK();
+void PRINTPOPSTACK();
 
 /**
  * Prints content of the whole stack without modifying the stack
  */
-int PRINTSTACK();
+void PRINTSTACK();
 
 /**
  * starts compile mode
  * @return
  */
-int DOCOLON();
+void DOCOLON();
+
+/**
+ *
+ */
+void COLON();
 
 
+void DOSEMI();
+void SEMI();
+
+void INTERPRET();
+void EXECUTE();
+void BRANCH0();
 #endif //AMFORTH_BASICFUNCTIONS_H

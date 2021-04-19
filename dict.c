@@ -4,24 +4,18 @@
 
 #include "global.h"
 
-void createDict() {
-    dict = (Dict *) malloc(sizeof(Dict));
-    dict->firstElement = NULL;
-    dict->lastElement = NULL;
-}
-
-int addEntry(char *word, int value, CODEPOINTER codepointer, DictEntry *definitions[], BASICFUNC basicfunc) {
+int addEntry(char *word, int value, CODEPOINTER codepointer, Dict *code[], BASICFUNC basicfunc) {
     //check if entry already exists and if it is mutable or not
-    DictEntry *oldEntry = getEntry(word);
+    Dict * oldEntry = getEntry(word);
     if (oldEntry != NULL && oldEntry->basicfunc != NULL) {
         return -2;
     }
 
-    DictEntry *newEntry = (DictEntry *) malloc(sizeof(DictEntry));
+    Dict * newEntry = (Dict *) malloc(sizeof(Dict));
     if (newEntry == NULL) {
         return -1;
     }
-    memset(newEntry, 0, sizeof(DictEntry));
+    memset(newEntry, 0, sizeof(Dict));
 
     newEntry->word = strdup(word);
     if ((newEntry->word) == NULL) {
@@ -30,35 +24,32 @@ int addEntry(char *word, int value, CODEPOINTER codepointer, DictEntry *definiti
     }
     newEntry->value = value;
     newEntry->codePointer = codepointer;
-    if (definitions != NULL) {
+    newEntry->definitions = code;
+    /*if (def != NULL) {
         int size = 0;
         int index = 0;
-        DictEntry *entry = definitions[0];
+        Dict *entry = def[0];
         while (entry != NULL) {
             size++;
             index++;
-            entry = definitions[index];
+            entry = def[index];
         }
-        newEntry->definitions = (DictEntry **) malloc(size * sizeof(DictEntry *));
+        newEntry->def = (Dict **) malloc(size * sizeof(Dict *));
         for (int i = 0; i < size; ++i) {
-            newEntry->definitions[i] = definitions[i];
+            newEntry->def[i] = def[i];
         }
-    }
+    }*/
     newEntry->basicfunc = basicfunc;
 
-    newEntry->link = dict->lastElement;     // link to previous element
-    dict->lastElement = newEntry;           // update dict entry
-
-    if (dict->firstElement == NULL) {
-        dict->firstElement = newEntry;
-    }
+    newEntry->link = *defs;     // link to previous element
+    *defs = newEntry;           // update Dict entry
 
     return 0;
 }
 
 
-DictEntry *getEntry(const char *word) {
-    DictEntry *currentNode = dict->lastElement;
+Dict *getEntry(const char *word) {
+    Dict * currentNode = *defs;
     while (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
             return currentNode;
@@ -69,14 +60,14 @@ DictEntry *getEntry(const char *word) {
 }
 
 int removeEntry(char *word) {
-    DictEntry *currentNode = dict->lastElement;
-    DictEntry *nextNode = NULL;
+    Dict * currentNode = *defs;
+    Dict * nextNode = NULL;
 
     while (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
 
             if (nextNode == NULL) {
-                dict->lastElement = currentNode->link;  //if nextnode == NULL then currentnode is the last node in the dict
+                *defs = currentNode->link;  //if nextnode == NULL then currentnode is the here node in the Dict
             } else {
                 nextNode->link = currentNode->link;     //get rid of currentnode
             }
@@ -96,29 +87,37 @@ int removeEntry(char *word) {
 }
 
 void deleteDict() {
-    if (dict != NULL) {
-        DictEntry *currentNode = dict->lastElement;
-        DictEntry *next;
-        while (currentNode != NULL) {
-            if (currentNode->word != NULL) free(currentNode->word);
-            if (currentNode->definitions != NULL) free(currentNode->definitions);
-            next = currentNode->link;
-            free(currentNode);
-            currentNode = next;
-        }
-        free(dict);
+    Dict * currentNode = *defs;
+    Dict * next;
+    while (currentNode != NULL) {
+        if (currentNode->word != NULL) free(currentNode->word);
+        if (currentNode->definitions != NULL) free(currentNode->definitions);
+        next = currentNode->link;
+        free(currentNode);
+        currentNode = next;
     }
+
 }
 
-void addBasicWordsToDict(Dict *dict){
-    //TODO add code pointer
+void addBasicWordsToDict(){
+    //TODO add definitions pointer
     addEntry("+", 0, NULL, NULL, &ADD);
     addEntry("-", 0, NULL, NULL, &SUBTRACT);
     addEntry("*", 0, NULL, NULL, &MULTIPLY);
     addEntry("/", 0, NULL, NULL, &DIVIDE);
     addEntry(".", 0, NULL, NULL, &PRINTPOPSTACK);
     addEntry(".s", 0, NULL, NULL, &PRINTSTACK);
-    addEntry(":", 0, NULL, NULL, &DOCOLON);
-    addEntry(";", 0, NULL, NULL, NULL);
+    addEntry(":", 0, NULL, NULL, &COLON);
+    addEntry("docol", 0, NULL, NULL, &DOCOLON);
+    addEntry("dosemi", 0, NULL, NULL, &DOSEMI);
+    addEntry("interpret", 0, NULL, NULL, &INTERPRET);
+    addEntry("execute", 0, NULL, NULL, &EXECUTE);
+    addEntry("branch0", 0, NULL, NULL, &BRANCH0);
+
+    defs = &macros;
+    addEntry(";", 0, NULL, NULL, &SEMI);
+    defs = &dict;
+
+
 }
 

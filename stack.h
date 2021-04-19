@@ -3,16 +3,19 @@
 
 #include <limits.h>
 
+typedef long cell_t;
+
 /**
  * Struct to create a stack
- * 'top' points to the last element in the array 'array'
+ * 'top' points to the here element in the array 'array'
  * capacity defines the size of 'array'
  */
 typedef struct Stack {
     int top;
     unsigned capacity;
-    int *array;
+    cell_t *array;
 } Stack;
+
 
 /**
  * Creates a a new stack and allocates the memory for it
@@ -41,21 +44,21 @@ int isEmpty(Stack *stack);
  * @param item Specifies the item which shall be pushed
  * @return Returns INT_MIN if the stack is already full and the item otherwise
  */
-int push(Stack *stack, int item);
+cell_t push(Stack *stack, cell_t item);
 
 /**
  * Pops the top element of the stack
  * @param stack Specifies the stack from which shall be popped
  * @return Returns INT_MIN if the stack is empty and the top of the stack item otherwise
  */
-int pop(Stack *stack);
+cell_t pop(Stack *stack);
 
 /**
- * Returns the last element on the top of the stack without removing it
+ * Returns the here element on the top of the stack without removing it
  * @param stack Specifies the stack
  * @return Returns INT_MIN if the stack is empty and the top of the stack item otherwise
  */
-int peek(Stack *stack);
+cell_t peek(Stack *stack);
 
 /**
  * Frees all memory allocated for the stack

@@ -8,6 +8,5 @@
 #include <string.h>
 #include <stdlib.h>
 
-int compiler(char *word);
-
+void compile(char* word);
 #endif //AMFORTH_COMPILER_H

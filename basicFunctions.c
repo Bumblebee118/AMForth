@@ -4,87 +4,117 @@
 
 #include "global.h"
 
-int inCompileMode = 0; //init extern variable
+int isCompileMode = 0; //init extern variable
 
-int ADD() {
-    int a = pop(parameterStack);
-    if (a == INT_MIN) return -1;
+void ADD() {
+    cell_t a = pop(parameterStack);
+    if (a == LONG_MIN) return;
 
-    int b = pop(parameterStack);
-    if (b == INT_MIN) return -1;
+    cell_t b = pop(parameterStack);
+    if (b == LONG_MIN) return;
 
-    int sum = a + b;
+    cell_t sum = a + b;
     push(parameterStack, sum);
-    return 0;
 }
 
-int SUBTRACT() {
-    int b = pop(parameterStack);
-    if (b == INT_MIN) return -1;
+void SUBTRACT() {
+    cell_t b = pop(parameterStack);
+    if (b == LONG_MIN) return;
 
-    int a = pop(parameterStack);
-    if (a == INT_MIN) return -1;
+    cell_t a = pop(parameterStack);
+    if (a == LONG_MIN) return;
 
-    int diff = a - b;
+    cell_t diff = a - b;
     push(parameterStack, diff);
-    return 0;
 }
 
-int MULTIPLY() {
-    int a = pop(parameterStack);
-    if (a == INT_MIN) return -1;
+void MULTIPLY() {
+    cell_t a = pop(parameterStack);
+    if (a == LONG_MIN) return;
 
-    int b = pop(parameterStack);
-    if (b == INT_MIN) return -1;
+    cell_t b = pop(parameterStack);
+    if (b == LONG_MIN) return;
 
-    int sum = a * b;
+    cell_t sum = a * b;
     push(parameterStack, sum);
-    return 0;
 }
 
-int DIVIDE() {
-    int b = pop(parameterStack);
-    if (b == INT_MIN) return -1;
+void DIVIDE() {
+    cell_t b = pop(parameterStack);
+    if (b == LONG_MIN) return;
 
-    int a = pop(parameterStack);
-    if (a == INT_MIN) return -1;
+    cell_t a = pop(parameterStack);
+    if (a == LONG_MIN) return;
 
     int diff = a / b;
     push(parameterStack, diff);
-    return 0;
 }
 
-int PRINTPOPSTACK() {
-    int a =  pop(parameterStack);
-    if (a == INT_MIN) return -1;
+void PRINTPOPSTACK() {
+    cell_t a =  pop(parameterStack);
+    if (a == LONG_MIN) return;
 
-    fprintf(stdout, " %d", a);
-    return 0;
+    fprintf(stdout, "%ld ", a);
 }
 
-int PRINTSTACK() {
+void PRINTSTACK() {
 
-    fprintf(stdout, " <%d>", (parameterStack->top) + 1);
+    fprintf(stdout, "<%d> ", (parameterStack->top) + 1);
 
     int i = 0;
     while (i <= parameterStack->top) {
-        fprintf(stdout, " %d", parameterStack->array[i]);
+        fprintf(stdout, "%ld ", parameterStack->array[i]);
         i++;
     }
-
-    return 0;
 }
 
-int DOCOLON() {
-    inCompileMode = 1;
-    push(returnStack, (int) instrPointer);
-    return 0;
+void DOCOLON(){
+    //TODO repair
+    push(returnStack, (cell_t) ip);
+    ip = wp->definitions;
 }
 
-int DOSEMI(){
-    return 0;
+void COLON() {
+    char* word;
+    int len = nextToken(&word);
+
+    if(len >= MAX_WORD_NAME_SIZE){
+        //ZERO_LEN();
+        WORD_SIZE_LIMIT();
+        return;
+    }
+
+    addEntry(word, 0, NULL, user_code, &DOCOLON);
+    compile("docol");
+
+    isCompileMode = 1;
 }
 
-int NEXT(){
-    return 0;
+void DOSEMI(){
+    ip = (Dict**)pop(returnStack);
 }
+
+void SEMI(){
+    compile("dosemi");
+    isCompileMode = 0;
+}
+
+void NEXT(){
+}
+
+void INTERPRET(){
+    interpret();
+}
+
+void EXECUTE(){
+    char** word = (char**) pop(parameterStack);
+    push(parameterStack, execute(*word));
+}
+
+void BRANCH0(){
+    cell_t val = pop(parameterStack);
+    //if(val == 0){
+        ip = ip-3;
+    //}
+}
+

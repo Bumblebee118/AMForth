@@ -1,46 +1,73 @@
 #include "global.h"
-#include "interpret.h"
+
+Dict *wp = NULL;
+Dict **ip = NULL;
+Dict **defs = &dict;
+Dict **user_code = user_code_base;
 
 void printSynopsis(void);
+
+void virtualMachine(void);
+
+void compileInterpreter(void);
 
 void tests();
 
 int main(int argc, char **argv) {
 
-    //initialize stacks and dictionary
-    createDict();
+    //initialize stacks
     parameterStack = createStack(STANDARD_STACK_CAPACITY);
     returnStack = createStack(STANDARD_STACK_CAPACITY);
 
-    addBasicWordsToDict(dict);
+    addBasicWordsToDict();
 
     if (argc > 2) {
         printSynopsis();
         exit(EXIT_FAILURE);
     }
-    FILE *inputStream = stdin;
+    stream = stdin;
 
     if (argc > 1) {
         char *filename = argv[1];
-        inputStream = fopen(filename, "r");
+        stream = fopen(filename, "r");
 
-        if (inputStream == NULL) {
+        if (stream == NULL) {
             printSynopsis();
             exit(EXIT_FAILURE);
         }
     }
 
-    startInterpret(inputStream);
+    //welcome text on startup
+    fprintf(stdout, "Type 'bye' to exit\n");
 
-    deleteDict(dict);
-    deleteStack(parameterStack);
-    deleteStack(returnStack);
+    //set instr pointer
+    ip = user_code;
+
+    //compile the interpreter
+    compileInterpreter();
+
+    virtualMachine();
 
     exit(EXIT_SUCCESS);
 }
 
 void printSynopsis(void) {
     fprintf(stdout, "Usage: ./forth [FILE]\n");
+}
+
+void virtualMachine(void){
+    for(;;){
+        wp = *ip++;
+        wp->basicfunc();
+    }
+}
+
+void compileInterpreter(void){
+    // word - execute - branch //
+
+    compile("interpret");
+    compile("execute");
+    compile("branch0");
 }
 
 
@@ -63,7 +90,7 @@ void tests() {
     addEntry(".s", 0, NULL, NULL, &PRINTSTACK);
     addEntry(":", 0, NULL, NULL, &DOCOLON);
     addEntry(";", 0, NULL, NULL, NULL);
-//    DictEntry **entries = (DictEntry **) malloc(3 * sizeof(DictEntry *));
+//    Dict **entries = (Dict **) malloc(3 * sizeof(Dict *));
 //    entries[0] = getEntry("+");
 //    entries[1] = getEntry("-");
 //    entries[2] = getEntry(";");
@@ -78,47 +105,47 @@ void tests() {
     //  printf("%d\n", peek(stack));
 
 
-    /*removeEntry(dict, "add");
+    /*removeEntry(Dict, "add");
 
-    if (getEntry(dict, "add")==NULL){
+    if (getEntry(Dict, "add")==NULL){
         printf("Yep this is Null!\n");
     }
 
-    getEntry(dict, "sub")->basicfunc(stack);
+    getEntry(Dict, "sub")->basicfunc(stack);
 
     printf("%d\n", peek(stack));*/
 
-//    addEntry(dict, "test1", 4);
-//    addEntry(dict, "test2", 8);
-//    addEntry(dict, "test3", 12);
-//    addEntry(dict, "test1", 13);
+//    addEntry(Dict, "test1", 4);
+//    addEntry(Dict, "test2", 8);
+//    addEntry(Dict, "test3", 12);
+//    addEntry(Dict, "test1", 13);
 
-//    DictEntry *d = searchEntry(dict, "test2");
+//    Dict *d = searchEntry(Dict, "test2");
 //    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//    d = searchEntry(dict, "test1");
+//    d = searchEntry(Dict, "test1");
 //    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//    d = searchEntry(dict, "test3");
+//    d = searchEntry(Dict, "test3");
 //    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 //
-//    int r = removeEntry(dict, "test1");
+//    int r = removeEntry(Dict, "test1");
 //    printf("%d was returned from the delete function\n", r);
-//    r = removeEntry(dict, "test1");
+//    r = removeEntry(Dict, "test1");
 //    printf("%d was returned from the delete function\n", r);
 //
-//    d = searchEntry(dict, "test1");
+//    d = searchEntry(Dict, "test1");
 //    if (d != NULL) {
 //        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 //    } else {
 //        printf("This element was not found in the list.\n");
 //    }
 //
-//    d = searchEntry(dict, "test2");
+//    d = searchEntry(Dict, "test2");
 //    if (d != NULL) {
 //        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 //    } else {
 //        printf("This element was not found in the list.\n");
 //    }
-//    d = searchEntry(dict, "test3");
+//    d = searchEntry(Dict, "test3");
 //    if (d != NULL) {
 //        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 //    } else {
