@@ -14,21 +14,12 @@
  */
 typedef struct Dict {
     char *word;                     //name of the definition
-    struct Dict *link;              //link reference to previous Dict
+    struct dict_t *link;              //link reference to previous dict_t
     int value;                      // value of constant or address of variable
-    CODEPOINTER codePointer;        // TODO: new function pointer definition codepointer(Dict-Entry)
-    struct Dict **definitions;      //array of other function def, which build up this function definition
+    CODEPOINTER codePointer;        // TODO: new function pointer definition codepointer(dict_t-Entry)
+    struct dict_t **definitions;      //array of other function def, which build up this function definition
     BASICFUNC basicfunc;            //pointer to a basic function, if no basic function, then this pointer is NULL
-} Dict;
-
-/**
- *
- */
-typedef struct ReturnDef {
-    int index;
-    Dict *dictEntry;
-} ReturnDef;
-
+} dict_t;
 
 /**
  * Adds an entry to the list.
@@ -37,7 +28,7 @@ typedef struct ReturnDef {
  * @param functionAddress the address of the first function to be called in this function
  * @return NULL on failure, otherwise the new entry
  */
-Dict* addEntry(char *word, int value, CODEPOINTER codepointer, Dict **definitions, BASICFUNC basicfunc);
+dict_t* addEntry(char *word, int value, CODEPOINTER codepointer, dict_t **definitions, BASICFUNC basicfunc);
 
 /**
  * searches the dictionary for the function name given as a parameter
@@ -45,7 +36,7 @@ Dict* addEntry(char *word, int value, CODEPOINTER codepointer, Dict **definition
  * @param word the name of the function to search for
  * @return a pointer to the element or NULL if no element was found with the given name
  */
-Dict *getEntry(const char *word);
+dict_t *getEntry(const char *word);
 
 /**
  * deletes an entry from the dictionary
@@ -61,7 +52,7 @@ int removeEntry(char *word);
 void deleteDict();
 
 /**
- * adds all basic words from basicFunctions.h to the specified Dict
+ * adds all basic words from basicFunctions.h to the specified dict_t
  * @param dict
  */
 void addBasicWordsToDict();

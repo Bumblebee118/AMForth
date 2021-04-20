@@ -4,8 +4,8 @@
 
 #include "global.h"
 
-void compile(char* word){
-    Dict* entry;
+void compile(char *word) {
+    dict_t *entry;
     if ((entry = getEntry(word))) {
         *user_code = entry;
         user_code++;
@@ -13,7 +13,7 @@ void compile(char* word){
     }
 
     defs = &macros;
-    if((entry = getEntry(word))){
+    if ((entry = getEntry(word))) {
         defs = &dict;
         entry->basicfunc();
         return;
@@ -24,9 +24,9 @@ void compile(char* word){
     cell_t num = (cell_t) strtol(word, &endptr, 10);
 
     if (strlen(endptr) == 0) {
-       compile("dolit");
-       *user_code = (Dict*) num;
-       user_code++;
+        compile("dolit");
+        *user_code = (dict_t *) num;
+        user_code++;
     } else {
         ERROR("Undefined word");
         isCompileMode = 0;

@@ -1,15 +1,15 @@
 #include "global.h"
 
-Dict *wp = NULL;
-Dict **ip = NULL;
-Dict *cw = NULL;
-Dict **defs = &dict;
-Dict **user_code = user_code_base;
-Dict **start = NULL;
+dict_t *wp = NULL;
+dict_t **ip = NULL;
+dict_t *cw = NULL;
+dict_t **defs = &dict;
+dict_t **user_code = user_code_base;
+dict_t **start = NULL;
 
 void printSynopsis(void);
 
-void virtualMachine(void);
+_Noreturn void virtualMachine(void);
 
 void compileInterpreter(void);
 
@@ -58,14 +58,14 @@ void printSynopsis(void) {
     fprintf(stdout, "Usage: ./forth [FILE]\n");
 }
 
-void virtualMachine(void){
-    for(;;){
+_Noreturn void virtualMachine(void) {
+    for (;;) {
         wp = *ip++;
         wp->basicfunc();
     }
 }
 
-void compileInterpreter(void){
+void compileInterpreter(void) {
     // word - execute - branch //
 
     compile("interpret");
@@ -93,7 +93,7 @@ void tests() {
     addEntry(".s", 0, NULL, NULL, &PRINTSTACK);
     addEntry(":", 0, NULL, NULL, &DOCOLON);
     addEntry(";", 0, NULL, NULL, NULL);
-//    Dict **entries = (Dict **) malloc(3 * sizeof(Dict *));
+//    dict_t **entries = (dict_t **) malloc(3 * sizeof(dict_t *));
 //    entries[0] = getEntry("+");
 //    entries[1] = getEntry("-");
 //    entries[2] = getEntry(";");
@@ -108,47 +108,47 @@ void tests() {
     //  printf("%d\n", peek(stack));
 
 
-    /*removeEntry(Dict, "add");
+    /*removeEntry(dict_t, "add");
 
-    if (getEntry(Dict, "add")==NULL){
+    if (getEntry(dict_t, "add")==NULL){
         printf("Yep this is Null!\n");
     }
 
-    getEntry(Dict, "sub")->basicfunc(stack);
+    getEntry(dict_t, "sub")->basicfunc(stack);
 
     printf("%d\n", peek(stack));*/
 
-//    addEntry(Dict, "test1", 4);
-//    addEntry(Dict, "test2", 8);
-//    addEntry(Dict, "test3", 12);
-//    addEntry(Dict, "test1", 13);
+//    addEntry(dict_t, "test1", 4);
+//    addEntry(dict_t, "test2", 8);
+//    addEntry(dict_t, "test3", 12);
+//    addEntry(dict_t, "test1", 13);
 
-//    Dict *d = searchEntry(Dict, "test2");
+//    dict_t *d = searchEntry(dict_t, "test2");
 //    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//    d = searchEntry(Dict, "test1");
+//    d = searchEntry(dict_t, "test1");
 //    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//    d = searchEntry(Dict, "test3");
+//    d = searchEntry(dict_t, "test3");
 //    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 //
-//    int r = removeEntry(Dict, "test1");
+//    int r = removeEntry(dict_t, "test1");
 //    printf("%d was returned from the delete function\n", r);
-//    r = removeEntry(Dict, "test1");
+//    r = removeEntry(dict_t, "test1");
 //    printf("%d was returned from the delete function\n", r);
 //
-//    d = searchEntry(Dict, "test1");
+//    d = searchEntry(dict_t, "test1");
 //    if (d != NULL) {
 //        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 //    } else {
 //        printf("This element was not found in the list.\n");
 //    }
 //
-//    d = searchEntry(Dict, "test2");
+//    d = searchEntry(dict_t, "test2");
 //    if (d != NULL) {
 //        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 //    } else {
 //        printf("This element was not found in the list.\n");
 //    }
-//    d = searchEntry(Dict, "test3");
+//    d = searchEntry(dict_t, "test3");
 //    if (d != NULL) {
 //        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
 //    } else {

@@ -46,12 +46,12 @@ void DIVIDE() {
     cell_t a = pop(parameterStack);
     if (a == nil) return;
 
-    int diff = a / b;
+    cell_t diff = a / b;
     push(parameterStack, diff);
 }
 
 void PRINTPOPSTACK() {
-    cell_t a =  pop(parameterStack);
+    cell_t a = pop(parameterStack);
     if (a == nil) return;
 
     fprintf(stdout, "%ld ", a);
@@ -68,7 +68,7 @@ void PRINTSTACK() {
     }
 }
 
-void DOCOLON(){
+void DOCOLON() {
     //TODO repair
     push(returnStack, (cell_t) ip);
     ip = wp->definitions;
@@ -77,7 +77,7 @@ void DOCOLON(){
 void COLON() {
     int len = nextToken(&token);
 
-    if(len >= MAX_WORD_NAME_SIZE){
+    if (len >= MAX_WORD_NAME_SIZE) {
         WORD_SIZE_LIMIT();
         return;
     }
@@ -88,38 +88,38 @@ void COLON() {
     isCompileMode = 1;
 }
 
-void DOSEMI(){
-    ip = (Dict**)pop(returnStack);
+void DOSEMI() {
+    ip = (dict_t **) pop(returnStack);
 }
 
-void SEMI(){
+void SEMI() {
     compile("dosemi");
     isCompileMode = 0;
 }
 
-void DOLIT(){
+void DOLIT() {
     cell_t lit = (cell_t) *ip;
     push(parameterStack, lit);
 
     ip++;
 }
 
-void NEXT(){
+void NEXT() {
 }
 
-void INTERPRET(){
+void INTERPRET() {
     interpret();
 }
 
-void EXECUTE(){
-    char** word = (char**) pop(parameterStack);
+void EXECUTE() {
+    char **word = (char **) pop(parameterStack);
     execute(*word);
 }
 
-void BRANCH0(){
+void BRANCH0() {
     //cell_t val = pop(parameterStack);
     //if(val == 0){
-        ip = ip-3;
+    ip = ip - 3;
     //}
 }
 

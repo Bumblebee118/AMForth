@@ -12,7 +12,7 @@ void interpret() {
         ERROR("Token parsing failed");
         free_res();
         exit(1);
-    }else if(len == 0){
+    } else if (len == 0) {
         //reached EOF
         free_res();
         exit(0);
@@ -28,7 +28,7 @@ void interpret() {
 
 }
 
-void free_res(){
+void free_res() {
     if (token != NULL) free(token);
     deleteDict();
     defs = &macros;
@@ -37,19 +37,19 @@ void free_res(){
     deleteStack(returnStack);
 }
 
-void skipLine(){
+void skipLine() {
     if (last_char != '\n') {
         char c;
-        while((c = getc(stream)) != '\n');
+        while ((c = getc(stream)) != '\n');
     }
 }
 
-char getNextChar(){
-    if(last_char == '\n'){
+char getNextChar() {
+    if (last_char == '\n') {
         PRINT_INPUT_OK();
     }
 
-    return (last_char= fgetc(stream));
+    return (last_char = fgetc(stream));
 }
 
 int nextToken(char **token_ptr) {
@@ -63,7 +63,7 @@ int nextToken(char **token_ptr) {
     char currentChar = getNextChar();
 
     int len = 0;
-    while (!isspace(currentChar)){
+    while (!isspace(currentChar)) {
 
         if (currentChar == EOF) {
             return 0;  //immediately return if the EOF has been reached
@@ -155,6 +155,6 @@ void PRINT_INPUT_OK() {
     if (stream == stdin) fprintf(stdout, "ok> ");
 }
 
-void WORD_SIZE_LIMIT(){
+void WORD_SIZE_LIMIT() {
     ERROR("Token exceeds number of chars");
 }
