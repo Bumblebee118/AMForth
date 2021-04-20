@@ -89,7 +89,7 @@ void COLON() {
 }
 
 void DOSEMI() {
-    ip = (dict_t **) pop(returnStack);
+    ip = (Dict **) pop(returnStack);
 }
 
 void SEMI() {

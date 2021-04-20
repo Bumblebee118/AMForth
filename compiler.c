@@ -5,7 +5,7 @@
 #include "global.h"
 
 void compile(char *word) {
-    dict_t *entry;
+    Dict *entry;
     if ((entry = getEntry(word))) {
         *user_code = entry;
         user_code++;
@@ -25,7 +25,7 @@ void compile(char *word) {
 
     if (strlen(endptr) == 0) {
         compile("dolit");
-        *user_code = (dict_t *) num;
+        *user_code = (Dict *) num;
         user_code++;
     } else {
         ERROR("Undefined word");
