@@ -49,10 +49,7 @@ int main(int argc, char **argv) {
     //compile the interpreter
     compileInterpreter();
 
-    virtualMachine();
-
-    exit(EXIT_SUCCESS);
-}
+    virtualMachine();}
 
 void printSynopsis(void) {
     fprintf(stdout, "Usage: ./forth [FILE]\n");

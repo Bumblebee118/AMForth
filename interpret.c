@@ -21,7 +21,7 @@ void interpret() {
     } else if (strcmp(token, "bye") == 0) {
         fprintf(stdout, "see you later!\n");
         free_res();
-        exit(0);
+        exit(EXIT_SUCCESS);
     } else {
         push(parameterStack, (cell_t) &token);
     }

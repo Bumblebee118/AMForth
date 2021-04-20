@@ -14,10 +14,10 @@
  */
 typedef struct Dict {
     char *word;                     //name of the definition
-    struct dict_t *link;              //link reference to previous Dict
+    struct Dict *link;              //link reference to previous Dict
     int value;                      // value of constant or address of variable
     CODEPOINTER codePointer;        // TODO: new function pointer definition codepointer(Dict-Entry)
-    struct dict_t **definitions;      //array of other function def, which build up this function definition
+    struct Dict **definitions;      //array of other function def, which build up this function definition
     BASICFUNC basicfunc;            //pointer to a basic function, if no basic function, then this pointer is NULL
 } Dict;
 
