@@ -6,40 +6,24 @@ char last_char;
 
 void interpret() {
 
-
-    //initialize variables for loop exit and holding the next valid token
-    int quit = 0;
-
-    //while (quit == 0) {
-
-        int len = nextToken(&token);
-        //check if an error occurred or the the user wants to quit
-        if (len == -1) {
-            ERROR("Token parsing failed");
-            free_res();
-            exit(1);
-        }else if(len == 0){
-            //reached EOF
-            free_res();
-            exit(0);
-        } else if (len >= MAX_WORD_NAME_SIZE) {
-           WORD_SIZE_LIMIT();
-        } else if (strcmp(token, "bye") == 0) {
-            fprintf(stdout, "see you later!\n");
-            free_res();
-            exit(0);
-        } else {
-
-            push(parameterStack, (cell_t) &token);
-            /*
-            //call the executor if a valid token has been received -> executor checks dictionary
-            //printf("token is: %s - len: %d\n", token, len);
-            if (execute(token) == -1) {
-                if (stream != stdin) quit = 1;  //quit the interpreter if the program is run from file
-                else skipLine();      //if the input is stdin indicate that an error happened and start over with next line
-            }
-*/
-        //}
+    int len = nextToken(&token);
+    //check if an error occurred or the the user wants to quit
+    if (len == -1) {
+        ERROR("Token parsing failed");
+        free_res();
+        exit(1);
+    }else if(len == 0){
+        //reached EOF
+        free_res();
+        exit(0);
+    } else if (len >= MAX_WORD_NAME_SIZE) {
+        WORD_SIZE_LIMIT();
+    } else if (strcmp(token, "bye") == 0) {
+        fprintf(stdout, "see you later!\n");
+        free_res();
+        exit(0);
+    } else {
+        push(parameterStack, (cell_t) &token);
     }
 
 }
@@ -173,5 +157,4 @@ void PRINT_INPUT_OK() {
 
 void WORD_SIZE_LIMIT(){
     ERROR("Token exceeds number of chars");
-    skipLine();
 }

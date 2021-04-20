@@ -4,47 +4,33 @@
 
 #include "global.h"
 
-int addEntry(char *word, int value, CODEPOINTER codepointer, Dict *code[], BASICFUNC basicfunc) {
+Dict* addEntry(char *word, int value, CODEPOINTER codepointer, Dict *code[], BASICFUNC basicfunc) {
     //check if entry already exists and if it is mutable or not
     Dict * oldEntry = getEntry(word);
     if (oldEntry != NULL && oldEntry->basicfunc != NULL) {
-        return -2;
+        return NULL;
     }
 
     Dict * newEntry = (Dict *) malloc(sizeof(Dict));
     if (newEntry == NULL) {
-        return -1;
+        return NULL;
     }
     memset(newEntry, 0, sizeof(Dict));
 
     newEntry->word = strdup(word);
     if ((newEntry->word) == NULL) {
         free(newEntry);
-        return -1;
+        return NULL;
     }
     newEntry->value = value;
     newEntry->codePointer = codepointer;
     newEntry->definitions = code;
-    /*if (def != NULL) {
-        int size = 0;
-        int index = 0;
-        Dict *entry = def[0];
-        while (entry != NULL) {
-            size++;
-            index++;
-            entry = def[index];
-        }
-        newEntry->def = (Dict **) malloc(size * sizeof(Dict *));
-        for (int i = 0; i < size; ++i) {
-            newEntry->def[i] = def[i];
-        }
-    }*/
     newEntry->basicfunc = basicfunc;
 
     newEntry->link = *defs;     // link to previous element
     *defs = newEntry;           // update Dict entry
 
-    return 0;
+    return newEntry;
 }
 
 
@@ -58,6 +44,7 @@ Dict *getEntry(const char *word) {
     }
     return NULL;
 }
+
 
 int removeEntry(char *word) {
     Dict * currentNode = *defs;
@@ -73,7 +60,7 @@ int removeEntry(char *word) {
             }
 
             free(currentNode->word);
-            free(currentNode->definitions);
+            //free(currentNode->definitions);
             free(currentNode);
 
             return 0;
@@ -91,7 +78,7 @@ void deleteDict() {
     Dict * next;
     while (currentNode != NULL) {
         if (currentNode->word != NULL) free(currentNode->word);
-        if (currentNode->definitions != NULL) free(currentNode->definitions);
+        //if (currentNode->definitions != NULL) free(currentNode->definitions);
         next = currentNode->link;
         free(currentNode);
         currentNode = next;
@@ -110,6 +97,7 @@ void addBasicWordsToDict(){
     addEntry(":", 0, NULL, NULL, &COLON);
     addEntry("docol", 0, NULL, NULL, &DOCOLON);
     addEntry("dosemi", 0, NULL, NULL, &DOSEMI);
+    addEntry("dolit", 0, NULL, NULL, &DOLIT);
     addEntry("interpret", 0, NULL, NULL, &INTERPRET);
     addEntry("execute", 0, NULL, NULL, &EXECUTE);
     addEntry("branch0", 0, NULL, NULL, &BRANCH0);

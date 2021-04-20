@@ -8,10 +8,10 @@ int isCompileMode = 0; //init extern variable
 
 void ADD() {
     cell_t a = pop(parameterStack);
-    if (a == LONG_MIN) return;
+    if (a == nil) return;
 
     cell_t b = pop(parameterStack);
-    if (b == LONG_MIN) return;
+    if (b == nil) return;
 
     cell_t sum = a + b;
     push(parameterStack, sum);
@@ -19,10 +19,10 @@ void ADD() {
 
 void SUBTRACT() {
     cell_t b = pop(parameterStack);
-    if (b == LONG_MIN) return;
+    if (b == nil) return;
 
     cell_t a = pop(parameterStack);
-    if (a == LONG_MIN) return;
+    if (a == nil) return;
 
     cell_t diff = a - b;
     push(parameterStack, diff);
@@ -30,10 +30,10 @@ void SUBTRACT() {
 
 void MULTIPLY() {
     cell_t a = pop(parameterStack);
-    if (a == LONG_MIN) return;
+    if (a == nil) return;
 
     cell_t b = pop(parameterStack);
-    if (b == LONG_MIN) return;
+    if (b == nil) return;
 
     cell_t sum = a * b;
     push(parameterStack, sum);
@@ -41,10 +41,10 @@ void MULTIPLY() {
 
 void DIVIDE() {
     cell_t b = pop(parameterStack);
-    if (b == LONG_MIN) return;
+    if (b == nil) return;
 
     cell_t a = pop(parameterStack);
-    if (a == LONG_MIN) return;
+    if (a == nil) return;
 
     int diff = a / b;
     push(parameterStack, diff);
@@ -52,7 +52,7 @@ void DIVIDE() {
 
 void PRINTPOPSTACK() {
     cell_t a =  pop(parameterStack);
-    if (a == LONG_MIN) return;
+    if (a == nil) return;
 
     fprintf(stdout, "%ld ", a);
 }
@@ -75,17 +75,15 @@ void DOCOLON(){
 }
 
 void COLON() {
-    char* word;
-    int len = nextToken(&word);
+    int len = nextToken(&token);
 
     if(len >= MAX_WORD_NAME_SIZE){
-        //ZERO_LEN();
         WORD_SIZE_LIMIT();
         return;
     }
 
-    addEntry(word, 0, NULL, user_code, &DOCOLON);
-    compile("docol");
+    //compile("docol");
+    cw = addEntry(token, 0, NULL, user_code, &DOCOLON);
 
     isCompileMode = 1;
 }
@@ -99,6 +97,13 @@ void SEMI(){
     isCompileMode = 0;
 }
 
+void DOLIT(){
+    cell_t lit = (cell_t) *ip;
+    push(parameterStack, lit);
+
+    ip++;
+}
+
 void NEXT(){
 }
 
@@ -108,11 +113,11 @@ void INTERPRET(){
 
 void EXECUTE(){
     char** word = (char**) pop(parameterStack);
-    push(parameterStack, execute(*word));
+    execute(*word);
 }
 
 void BRANCH0(){
-    cell_t val = pop(parameterStack);
+    //cell_t val = pop(parameterStack);
     //if(val == 0){
         ip = ip-3;
     //}

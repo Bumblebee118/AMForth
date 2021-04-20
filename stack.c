@@ -1,6 +1,8 @@
 #include "global.h"
 #include "error.h"
 
+long nil = LONG_MIN;
+
 //mallocs memory to create a new stack with the given capacity
 Stack *createStack(unsigned capacity) {
     Stack *stack = (Stack *) malloc(sizeof(Stack));
@@ -23,7 +25,7 @@ int isEmpty(Stack *stack) {
 //pushes a new element on the top of the stack
 cell_t push(Stack *stack, cell_t item) {
     if (isFull(stack)) {
-        return LONG_MIN;
+        return nil;
     }
     return stack->array[++stack->top] = item;
 }
@@ -32,7 +34,7 @@ cell_t push(Stack *stack, cell_t item) {
 cell_t pop(Stack *stack) {
     if (isEmpty(stack)) {
         ERROR("Stack underflow");
-        return LONG_MIN;
+        return nil;
     }
 
     return stack->array[stack->top--];
@@ -42,7 +44,7 @@ cell_t pop(Stack *stack) {
 cell_t peek(Stack *stack) {
     if (isEmpty(stack)) {
         ERROR("Stack underflow");
-        return LONG_MIN;
+        return nil;
     }
 
     return stack->array[stack->top];

@@ -2,8 +2,10 @@
 
 Dict *wp = NULL;
 Dict **ip = NULL;
+Dict *cw = NULL;
 Dict **defs = &dict;
 Dict **user_code = user_code_base;
+Dict **start = NULL;
 
 void printSynopsis(void);
 
@@ -42,6 +44,7 @@ int main(int argc, char **argv) {
 
     //set instr pointer
     ip = user_code;
+    start = ip;
 
     //compile the interpreter
     compileInterpreter();

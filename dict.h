@@ -35,9 +35,9 @@ typedef struct ReturnDef {
  * @param dict The dictionary, the element should be added to
  * @param word the name of the new function
  * @param functionAddress the address of the first function to be called in this function
- * @return -1 for failure, 0 for success, -2 when trying to redefine an immutable function
+ * @return NULL on failure, otherwise the new entry
  */
-int addEntry(char *word, int value, CODEPOINTER codepointer, Dict **definitions, BASICFUNC basicfunc);
+Dict* addEntry(char *word, int value, CODEPOINTER codepointer, Dict **definitions, BASICFUNC basicfunc);
 
 /**
  * searches the dictionary for the function name given as a parameter

@@ -4,6 +4,6 @@
 #include <string.h>
 #include "global.h"
 
-int execute(char* word);
+void execute(char* word);
 
 #endif //AMFORTH_EXECUTOR_H
