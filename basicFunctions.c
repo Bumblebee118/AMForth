@@ -124,7 +124,7 @@ void BRANCH0() {
 }
 
 void LISTWORDS() {
-    Dict *pointer = *defs;
+    Dict *pointer = dict;
     while (pointer != NULL) {
         fprintf(stdout, "%s ", (*pointer).word);
         pointer = (*pointer).link;
