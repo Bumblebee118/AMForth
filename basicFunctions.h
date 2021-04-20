@@ -84,4 +84,9 @@ void EXECUTE();
  * Test branch
  */
 void BRANCH0();
+
+ /**
+  *
+  */
+void LISTWORDS();
 #endif //AMFORTH_BASICFUNCTIONS_H

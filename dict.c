@@ -101,11 +101,10 @@ void addBasicWordsToDict() {
     addEntry("interpret", 0, NULL, NULL, &INTERPRET);
     addEntry("execute", 0, NULL, NULL, &EXECUTE);
     addEntry("branch0", 0, NULL, NULL, &BRANCH0);
+    addEntry("words", 0, NULL, NULL, &LISTWORDS);
 
     defs = &macros;
     addEntry(";", 0, NULL, NULL, &SEMI);
     defs = &dict;
-
-
 }
 
