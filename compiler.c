@@ -30,6 +30,7 @@ void compile(char *word) {
     } else {
         ERROR("Undefined word");
         isCompileMode = 0;
+        user_code = cw->definitions;
         removeEntry(cw->word);
     }
 }

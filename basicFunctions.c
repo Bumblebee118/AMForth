@@ -130,4 +130,3 @@ void LISTWORDS() {
         pointer = (*pointer).link;
     }
 }
-
