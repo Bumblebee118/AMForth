@@ -17,6 +17,7 @@
 #define MAX_WORD_NAME_SIZE 128          //maximum number of chars one word can have
 #define STANDARD_STACK_CAPACITY 128
 #define MAX_DEFINITION_SIZE  32768
+#define BASE_STRING_SIZE 128
 
 /**
  * global variable for a the current token being processed
@@ -63,6 +64,11 @@ Stack *returnStack;
  * specifies the mode the interpreter is currently in
  */
 extern int isCompileMode;
+
+/**
+ * specifies if the interpreter is reading a string from the stream
+ */
+extern int isStringMode;
 
 /**
  * Input stream of the program definitions

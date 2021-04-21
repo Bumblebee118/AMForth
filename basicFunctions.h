@@ -89,4 +89,19 @@ void BRANCH0();
   *
   */
 void LISTWORDS();
+
+/**
+ * Sets the interpreter into string-reading mode
+ */
+void STARTSTORESTRING();
+
+/**
+ * Exits the interpreter from string-reading mode
+ */
+void ENDSTRING();
+
+/**
+ * Writes the string on top of the stack to the terminal
+ */
+void TYPE();
 #endif //AMFORTH_BASICFUNCTIONS_H

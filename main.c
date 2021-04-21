@@ -46,10 +46,10 @@ int main(int argc, char **argv) {
     ip = user_code;
     start = ip;
 
-    //compile the interpreter
     compileInterpreter();
 
-    virtualMachine();}
+    virtualMachine();
+}
 
 void printSynopsis(void) {
     fprintf(stdout, "Usage: ./forth [FILE]\n");

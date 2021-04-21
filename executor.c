@@ -6,7 +6,7 @@ void execute(char* word) {
     } else {
         //if the word exists in the dictionary, execute the definition
         if ((wp = getEntry(word))) {
-            wp->basicfunc();;
+            wp->basicfunc();
         //if entry could not be found check if it can be converted to a number
         } else {
             char *endptr;

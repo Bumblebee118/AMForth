@@ -34,13 +34,13 @@ void skipLine();
 char getNextChar();
 
 /**
- * Reads in the next token_ptr from the input stream 'stream'
+ * Reads in the next tokenPtr from the input stream 'stream'
  * @param stream Can be a file or stdin
- * @param token_ptr an char** pointer, which will be filled with the next token_ptr
- * @return Returns the length of the read token_ptr, -1 if an error occurs
- * token_ptr exceeds MAX_WORD_NAME_SIZE
+ * @param tokenPtr an char** pointer, which will be filled with the next tokenPtr
+ * @return Returns the length of the read tokenPtr, -1 if an error occurs
+ * tokenPtr exceeds MAX_WORD_NAME_SIZE
 **/
-int nextToken(char **token_ptr);
+int nextToken(char **tokenPtr);
 
 /**
  * Reads in the next token_ptr from the current line
@@ -58,6 +58,13 @@ int nextToken(char **token_ptr);
  * or 0 if there are new more tokens left in that line
  */
 int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread);
+
+/**
+ *
+ * @param pString an char** pointer, which will be filled with the next pString
+ * @return Returns the length of the token, -1 if an error occurs
+ */
+int getStringFromInput(char **pString, char **tokenPtr);
 
 /**
  * Print 'ok' to stdin if the interpreter is run in interactive mode

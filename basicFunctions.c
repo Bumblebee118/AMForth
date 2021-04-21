@@ -5,6 +5,7 @@
 #include "global.h"
 
 int isCompileMode = 0; //init extern variable
+int isStringMode = 0;
 
 void ADD() {
     cell_t a = pop(parameterStack);
@@ -129,4 +130,17 @@ void LISTWORDS() {
         fprintf(stdout, "%s ", (*pointer).word);
         pointer = (*pointer).link;
     }
+}
+
+void STARTSTORESTRING() {
+    isStringMode = 1;
+}
+
+void ENDSTRING() {
+    isStringMode = 0;
+}
+
+void TYPE() {
+    char **stringPtr = (char **) pop(parameterStack);
+    fprintf(stdout, "%s", *stringPtr);
 }
