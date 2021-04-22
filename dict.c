@@ -98,6 +98,8 @@ void addBasicWordsToDict() {
     addEntry("docol", 0, NULL, NULL, &DOCOLON);
     addEntry("dosemi", 0, NULL, NULL, &DOSEMI);
     addEntry("dolit", 0, NULL, NULL, &DOLIT);
+    addEntry("dostorestring", 0, NULL, NULL, &DOSTORESTRING);
+    addEntry("doprintstring", 0, NULL, NULL, &DOPRINTSTRING);
     addEntry("interpret", 0, NULL, NULL, &INTERPRET);
     addEntry("execute", 0, NULL, NULL, &EXECUTE);
     addEntry("branch0", 0, NULL, NULL, &BRANCH0);
@@ -109,6 +111,9 @@ void addBasicWordsToDict() {
 
     defs = &macros;
     addEntry(";", 0, NULL, NULL, &SEMI);
+    addEntry("s\"", 0, NULL, NULL, &STARTSTORESTRING);
+    addEntry(".\"", 0, NULL, NULL, &STARTPRINTSTRING);
+    addEntry("\"", 0, NULL, NULL, &ENDSTRING);
     defs = &dict;
 }
 

@@ -133,22 +133,12 @@ int getStringFromInput(char **pString, char **tokenPtr) {
             (*pString)[len] = currentChar;
         }
 
-        if (((*pString)[len] == ' ' || (*pString)[len] == '\n') && (*pString)[len - 1] == '"') {
-            singleQuotationMark = 1;
-
-        }
-
+        currentChar = getNextChar();
+        if ((currentChar == ' ' || currentChar == '\n') && (*pString)[len] == '"') singleQuotationMark = 1;
         len++;
-        if (currentChar != '\n') {
-            currentChar = getNextChar();
-        } else {
-            PRINT_INPUT_OK();
-            // avoid two "ok"s
-            lastChar = ' ';
-        }
     }
 
-    (*pString)[len - 2] = '\0';
+    (*pString)[len - 1] = '\0';
     return len;
 }
 

@@ -57,7 +57,7 @@ int nextToken(char **tokenPtr);
  * @return Returns the length of the token, -1 if an error occurs
  * or 0 if there are new more tokens left in that line
  */
-int nextTokenFromLine(char* line, char **token_ptr, ssize_t nread);
+int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread);
 
 /**
  *

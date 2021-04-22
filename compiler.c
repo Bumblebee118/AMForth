@@ -6,16 +6,18 @@
 
 void compile(char *word) {
     Dict *entry;
-    if ((entry = getEntry(word))) {
-        *user_code = entry;
-        user_code++;
-        return;
-    }
 
     defs = &macros;
     if ((entry = getEntry(word))) {
         defs = &dict;
         entry->basicfunc();
+        return;
+    }
+
+    defs = &dict;
+    if ((entry = getEntry(word))) {
+        *user_code = entry;
+        user_code++;
         return;
     }
 

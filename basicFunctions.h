@@ -11,6 +11,7 @@
  * typedefs for function pointers
  */
 typedef void (*BASICFUNC)();
+
 typedef int (*CODEPOINTER)(Stack *, int *);
 
 /**
@@ -71,6 +72,16 @@ void SEMI();
 void DOLIT();
 
 /**
+ * takes the string from the userDict and pushes it to the stack
+ */
+void DOSTORESTRING();
+
+/**
+ * takes the string from the userDict and prints it to the console
+ */
+void DOPRINTSTRING();
+
+/**
  * Reads in one token and pushes its address on the stack
  */
 void INTERPRET();
@@ -85,9 +96,9 @@ void EXECUTE();
  */
 void BRANCH0();
 
- /**
-  *
-  */
+/**
+ *
+ */
 void LISTWORDS();
 
 /**
@@ -109,4 +120,5 @@ void ENDSTRING();
  * Writes the string on top of the stack to the terminal
  */
 void TYPE();
+
 #endif //AMFORTH_BASICFUNCTIONS_H
