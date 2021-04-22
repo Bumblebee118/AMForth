@@ -30,7 +30,7 @@ void interpret() {
         exit(EXIT_SUCCESS);
     } else {
         if (isStringMode) {
-            push(parameterStack, (cell_t) &string);
+            push(parameterStack, (cell_t) string);
             push(parameterStack, (cell_t) &token);
         } else {
             push(parameterStack, (cell_t) &token);

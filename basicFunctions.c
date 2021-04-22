@@ -141,6 +141,6 @@ void ENDSTRING() {
 }
 
 void TYPE() {
-    char **stringPtr = (char **) pop(parameterStack);
-    fprintf(stdout, "%s", *stringPtr);
+    char *stringPtr = (char *) pop(parameterStack);
+    fprintf(stdout, "%s", stringPtr);
 }
