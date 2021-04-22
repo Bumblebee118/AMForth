@@ -70,6 +70,16 @@ void SEMI();
 void DOLIT();
 
 /**
+ * takes the string from the userDict and pushes it to the stack
+ */
+void DOSTORESTRING();
+
+/**
+ * takes the string from the userDict and prints it to the console
+ */
+void DOPRINTSTRING();
+
+/**
  * Reads in one token and pushes its address on the stack
  */
 void INTERPRET();
@@ -84,9 +94,9 @@ void EXECUTE();
  */
 void BRANCH0();
 
- /**
-  *
-  */
+/**
+ *
+ */
 void LISTWORDS();
 
 /**
@@ -120,5 +130,6 @@ void DOVAR();
 void ASSIGNVAR();
 
 void FETCHVAR();
+
 
 #endif //AMFORTH_BASICFUNCTIONS_H

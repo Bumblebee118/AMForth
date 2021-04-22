@@ -106,6 +106,18 @@ void DOLIT() {
     ip++;
 }
 
+void DOSTORESTRING() {
+    cell_t string = (cell_t) *ip;
+    push(parameterStack, string);
+    ip++;
+}
+
+void DOPRINTSTRING() {
+    char *string = (char *) (cell_t) *ip;
+    fprintf(stdout, "%s ", string);
+    ip++;
+}
+
 void NEXT() {
 }
 
@@ -142,7 +154,14 @@ void STARTPRINTSTRING() {
 }
 
 void ENDSTRING() {
-    if (isStringMode == 1) {
+    if (isCompileMode) {
+        if (isStringMode == 1) compile("dostorestring");
+        else if (isStringMode == 2) compile("doprintstring");
+        char *string = (char *) pop(parameterStack);
+        *user_code = (Dict *) (cell_t) string;
+        user_code++;
+        isStringMode = 0;
+    } else if (isStringMode == 1) {
         isStringMode = 0;
     } else if (isStringMode == 2) {
         isStringMode = 0;

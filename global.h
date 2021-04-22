@@ -34,8 +34,8 @@ Dict* user_code_base[CODE_SIZE];
 /**
  * save base address
  */
-extern Dict** user_code;
-extern Dict** start;
+extern Dict **user_code;
+extern Dict **start;
 
 /**
  * one global macros for the whole program
@@ -65,7 +65,7 @@ extern int isStringMode;
 /**
  * Input stream of the program definitions
  */
-FILE* stream;
+FILE *stream;
 
 /**
  * direct threaded definitions pointers
@@ -74,6 +74,6 @@ extern Dict *wp;    //current word pointer
 extern Dict **ip;   //current instr pointer
 extern Dict *cw;   //current compiled word
 
-extern Dict** defs; //can either point to dict or macro address
+extern Dict **defs; //can either point to dict or macro address
 
 #endif //AMFORTH_GLOBAL_H
