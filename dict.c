@@ -4,7 +4,7 @@
 
 #include "global.h"
 
-Dict *addEntry(char *word, int value, CODEPOINTER codepointer, Dict *code[], BASICFUNC basicfunc) {
+Dict *addEntry(char *word, cell_t value, Dict *code[], BASICFUNC basicfunc) {
     //check if entry already exists and if it is mutable or not
     Dict *oldEntry = getEntry(word);
     if (oldEntry != NULL && oldEntry->basicfunc != NULL) {
@@ -23,7 +23,6 @@ Dict *addEntry(char *word, int value, CODEPOINTER codepointer, Dict *code[], BAS
         return NULL;
     }
     newEntry->value = value;
-    newEntry->codePointer = codepointer;
     newEntry->definitions = code;
     newEntry->basicfunc = basicfunc;
 
@@ -60,7 +59,6 @@ int removeEntry(char *word) {
             }
 
             free(currentNode->word);
-            //free(currentNode->definitions);
             free(currentNode);
 
             return 0;
@@ -78,7 +76,6 @@ void deleteDict() {
     Dict *next;
     while (currentNode != NULL) {
         if (currentNode->word != NULL) free(currentNode->word);
-        //if (currentNode->definitions != NULL) free(currentNode->definitions);
         next = currentNode->link;
         free(currentNode);
         currentNode = next;
@@ -88,27 +85,31 @@ void deleteDict() {
 
 void addBasicWordsToDict() {
     //TODO add definitions pointer
-    addEntry("+", 0, NULL, NULL, &ADD);
-    addEntry("-", 0, NULL, NULL, &SUBTRACT);
-    addEntry("*", 0, NULL, NULL, &MULTIPLY);
-    addEntry("/", 0, NULL, NULL, &DIVIDE);
-    addEntry(".", 0, NULL, NULL, &PRINTPOPSTACK);
-    addEntry(".s", 0, NULL, NULL, &PRINTSTACK);
-    addEntry(":", 0, NULL, NULL, &COLON);
-    addEntry("docol", 0, NULL, NULL, &DOCOLON);
-    addEntry("dosemi", 0, NULL, NULL, &DOSEMI);
-    addEntry("dolit", 0, NULL, NULL, &DOLIT);
-    addEntry("interpret", 0, NULL, NULL, &INTERPRET);
-    addEntry("execute", 0, NULL, NULL, &EXECUTE);
-    addEntry("branch0", 0, NULL, NULL, &BRANCH0);
-    addEntry("words", 0, NULL, NULL, &LISTWORDS);
-    addEntry("s\"", 0, NULL, NULL, &STARTSTORESTRING);
-    addEntry(".\"", 0, NULL, NULL, &STARTPRINTSTRING);
-    addEntry("\"", 0, NULL, NULL, &ENDSTRING);
-    addEntry("type", 0, NULL, NULL, &TYPE);
+    addEntry("+", 0, NULL, &ADD);
+    addEntry("-", 0, NULL, &SUBTRACT);
+    addEntry("*", 0, NULL, &MULTIPLY);
+    addEntry("/", 0, NULL, &DIVIDE);
+    addEntry(".", 0, NULL, &PRINTPOPSTACK);
+    addEntry(".s", 0, NULL, &PRINTSTACK);
+    addEntry(":", 0, NULL, &COLON);
+    addEntry("docol", 0, NULL, &DOCOLON);
+    addEntry("dosemi", 0, NULL, &DOSEMI);
+    addEntry("dolit", 0, NULL, &DOLIT);
+    addEntry("interpret", 0, NULL, &INTERPRET);
+    addEntry("execute", 0, NULL, &EXECUTE);
+    addEntry("branch0", 0, NULL, &BRANCH0);
+    addEntry("words", 0, NULL, &LISTWORDS);
+    addEntry("s\"", 0, NULL, &STARTSTORESTRING);
+    addEntry(".\"", 0, NULL, &STARTPRINTSTRING);
+    addEntry("\"", 0, NULL, &ENDSTRING);
+    addEntry("type", 0, NULL, &TYPE);
+    addEntry("constant", 0, NULL, &CONST);
+    addEntry("variable", 0, NULL, &VAR);
+    addEntry("!", 0, NULL, &ASSIGNVAR);
+    addEntry("@", 0, NULL, &FETCHVAR);
 
     defs = &macros;
-    addEntry(";", 0, NULL, NULL, &SEMI);
+    addEntry(";", 0, NULL, &SEMI);
     defs = &dict;
 }
 

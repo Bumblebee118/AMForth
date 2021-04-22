@@ -82,14 +82,14 @@ void tests() {
 //    printf("%d popped from stack\n", pop(stack));
 //    printf("%d popped from stack\n", pop(stack));
 
-    addEntry("+", 0, NULL, NULL, &ADD);
-    addEntry("-", 0, NULL, NULL, &SUBTRACT);
-    addEntry("*", 0, NULL, NULL, &MULTIPLY);
-    addEntry("/", 0, NULL, NULL, &DIVIDE);
-    addEntry(".", 0, NULL, NULL, &PRINTPOPSTACK);
-    addEntry(".s", 0, NULL, NULL, &PRINTSTACK);
-    addEntry(":", 0, NULL, NULL, &DOCOLON);
-    addEntry(";", 0, NULL, NULL, NULL);
+    addEntry("+", 0, NULL, &ADD);
+    addEntry("-", 0, NULL, &SUBTRACT);
+    addEntry("*", 0, NULL, &MULTIPLY);
+    addEntry("/", 0, NULL, &DIVIDE);
+    addEntry(".", 0, NULL, &PRINTPOPSTACK);
+    addEntry(".s", 0, NULL, &PRINTSTACK);
+    addEntry(":", 0, NULL, &DOCOLON);
+    addEntry(";", 0, NULL, NULL);
 //    Dict **entries = (Dict **) malloc(3 * sizeof(Dict *));
 //    entries[0] = getEntry("+");
 //    entries[1] = getEntry("-");

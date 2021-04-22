@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="AMForth" targetName="AMForth" />
@@ -7,15 +25,19 @@
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47771ee0-aad0-4270-bb87-ca99c28f7cab" name="Default Changelist" comment="dict_t renamed to Dict">
+    <list default="true" id="bb289b34-ba48-483f-8b06-d8e9acc2da44" name="Default Changelist" comment="name of compiled function is not found when executing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/basicFunctions.c" beforeDir="false" afterPath="$PROJECT_DIR$/basicFunctions.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/basicFunctions.h" beforeDir="false" afterPath="$PROJECT_DIR$/basicFunctions.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dict.c" beforeDir="false" afterPath="$PROJECT_DIR$/dict.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dict.h" beforeDir="false" afterPath="$PROJECT_DIR$/dict.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/error.c" beforeDir="false" afterPath="$PROJECT_DIR$/error.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global.h" beforeDir="false" afterPath="$PROJECT_DIR$/global.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,14 +66,14 @@
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
   <component name="RunManager">
-    <configuration name="AMForth" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AMForth" TARGET_NAME="AMForth" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AMForth" RUN_TARGET_NAME="AMForth">
+    <configuration name="AMForth" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AMForth" TARGET_NAME="AMForth" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AMForth" RUN_TARGET_NAME="AMForth">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -89,15 +111,22 @@
     <MESSAGE value="dict_t renamed to Dict" />
     <option name="LAST_COMMIT_MESSAGE" value="dict_t renamed to Dict" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/basicFunctions.c</url>
-          <line>126</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="WindowStateProjectService">
+    <state width="2005" height="304" key="GridCell.Tab.0.bottom" timestamp="1619112825098">
+      <screen x="-2560" y="-356" width="2048" height="1112" />
+    </state>
+    <state width="2005" height="304" key="GridCell.Tab.0.bottom/0.0.1536.824/-2560.-356.2048.1112@-2560.-356.2048.1112" timestamp="1619112825098" />
+    <state width="2005" height="304" key="GridCell.Tab.0.center" timestamp="1619112825098">
+      <screen x="-2560" y="-356" width="2048" height="1112" />
+    </state>
+    <state width="2005" height="304" key="GridCell.Tab.0.center/0.0.1536.824/-2560.-356.2048.1112@-2560.-356.2048.1112" timestamp="1619112825098" />
+    <state width="2005" height="304" key="GridCell.Tab.0.left" timestamp="1619112825097">
+      <screen x="-2560" y="-356" width="2048" height="1112" />
+    </state>
+    <state width="2005" height="304" key="GridCell.Tab.0.left/0.0.1536.824/-2560.-356.2048.1112@-2560.-356.2048.1112" timestamp="1619112825097" />
+    <state width="2005" height="304" key="GridCell.Tab.0.right" timestamp="1619112825098">
+      <screen x="-2560" y="-356" width="2048" height="1112" />
+    </state>
+    <state width="2005" height="304" key="GridCell.Tab.0.right/0.0.1536.824/-2560.-356.2048.1112@-2560.-356.2048.1112" timestamp="1619112825098" />
   </component>
 </project>

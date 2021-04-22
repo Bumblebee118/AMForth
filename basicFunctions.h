@@ -11,7 +11,6 @@
  * typedefs for function pointers
  */
 typedef void (*BASICFUNC)();
-typedef int (*CODEPOINTER)(Stack *, int *);
 
 /**
  * adds the top most two numbers on the stack and pushes the result back onto the stack
@@ -109,4 +108,17 @@ void ENDSTRING();
  * Writes the string on top of the stack to the terminal
  */
 void TYPE();
+
+void CONST();
+
+void DOCONST();
+
+void VAR();
+
+void DOVAR();
+
+void ASSIGNVAR();
+
+void FETCHVAR();
+
 #endif //AMFORTH_BASICFUNCTIONS_H

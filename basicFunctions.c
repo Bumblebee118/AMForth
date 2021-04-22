@@ -86,7 +86,7 @@ void COLON() {
     }
 
     //compile("docol");
-    cw = addEntry(token, 0, NULL, user_code, &DOCOLON);
+    cw = addEntry(token, 0, user_code, &DOCOLON);
 
     isCompileMode = 1;
 }
@@ -103,7 +103,6 @@ void SEMI() {
 void DOLIT() {
     cell_t lit = (cell_t) *ip;
     push(parameterStack, lit);
-
     ip++;
 }
 
@@ -156,3 +155,52 @@ void TYPE() {
     char *stringPtr = (char *) pop(parameterStack);
     fprintf(stdout, "%s ", stringPtr);
 }
+
+void CONST(){
+    char *token;
+    int len = nextToken(&token);
+
+    if (len >= MAX_WORD_NAME_SIZE) {
+        WORD_SIZE_LIMIT(token);
+        return;
+    }
+
+   addEntry(token, pop(parameterStack), NULL, &DOCONST);
+}
+
+void DOCONST(){
+    push(parameterStack, wp->value);
+}
+
+void VAR(){
+    char *token;
+    int len = nextToken(&token);
+
+    if (len >= MAX_WORD_NAME_SIZE) {
+        WORD_SIZE_LIMIT(token);
+        return;
+    }
+
+    int* ptr = malloc(sizeof(int));
+
+    addEntry(token, (cell_t) ptr, NULL, &DOVAR);
+
+}
+
+void DOVAR(){
+    push(parameterStack, wp->value);
+}
+
+void ASSIGNVAR(){
+    cell_t * ptr = (cell_t*) pop(parameterStack);
+    cell_t val = pop(parameterStack);
+
+    *ptr = val;
+}
+
+void FETCHVAR(){
+    cell_t* ptr = (cell_t*) pop(parameterStack);
+
+    push(parameterStack, *ptr);
+}
+

@@ -16,15 +16,10 @@
 
 #define MAX_WORD_NAME_SIZE 128          //maximum number of chars one word can have
 #define STANDARD_STACK_CAPACITY 128
-#define MAX_DEFINITION_SIZE  32768
+#define CODE_SIZE  32768
 #define BASE_STRING_SIZE 128
 
 #define UNKNOWN_TOKEN "UNKNOWN TOKEN"
-
-/**
- * global variable for error counts
- */
-extern int error_cnt;
 
 /**
  * one global dictionary for the whole program
@@ -34,7 +29,7 @@ Dict *dict;
 /**
  * user definitions segment for compiling
  */
-Dict* user_code_base[MAX_DEFINITION_SIZE];
+Dict* user_code_base[CODE_SIZE];
 
 /**
  * save base address

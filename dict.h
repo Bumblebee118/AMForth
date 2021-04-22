@@ -15,8 +15,7 @@
 typedef struct Dict {
     char *word;                     //name of the definition
     struct Dict *link;              //link reference to previous Dict
-    int value;                      // value of constant or address of variable
-    CODEPOINTER codePointer;        // TODO: new function pointer definition codepointer(Dict-Entry)
+    cell_t value;                      // value of constant or address of variable
     struct Dict **definitions;      //array of other function def, which build up this function definition
     BASICFUNC basicfunc;            //pointer to a basic function, if no basic function, then this pointer is NULL
 } Dict;
@@ -28,7 +27,7 @@ typedef struct Dict {
  * @param functionAddress the address of the first function to be called in this function
  * @return NULL on failure, otherwise the new entry
  */
-Dict* addEntry(char *word, int value, CODEPOINTER codepointer, Dict **definitions, BASICFUNC basicfunc);
+Dict* addEntry(char *word, cell_t value, Dict **definitions, BASICFUNC basicfunc);
 
 /**
  * searches the dictionary for the function name given as a parameter
