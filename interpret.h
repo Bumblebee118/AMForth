@@ -20,7 +20,7 @@ void interpret();
 /**
  * frees all allocated memory of token, dict and the stacks
  */
-void free_res();
+void freeRes(char *token, char *string);
 
 /**
  * skips all chars until the next '\n' in input stream
@@ -72,6 +72,6 @@ int getStringFromInput(char **pString, char **tokenPtr);
  */
 void PRINT_INPUT_OK();
 
-void WORD_SIZE_LIMIT();
+void WORD_SIZE_LIMIT(char *token);
 
 #endif //AMFORTH_INTERPRET_H

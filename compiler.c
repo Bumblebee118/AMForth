@@ -28,7 +28,7 @@ void compile(char *word) {
         *user_code = (Dict *) num;
         user_code++;
     } else {
-        ERROR("Undefined word");
+        ERROR("Undefined word", word);
         isCompileMode = 0;
         user_code = cw->definitions;
         removeEntry(cw->word);

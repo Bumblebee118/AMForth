@@ -15,7 +15,7 @@ void execute(char* word) {
             if (strlen(endptr) == 0) {
                 push(parameterStack, num);
             } else {
-                ERROR("Undefined word");
+                ERROR("Undefined word", word);
             }
         }
     }

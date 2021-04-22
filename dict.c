@@ -103,6 +103,7 @@ void addBasicWordsToDict() {
     addEntry("branch0", 0, NULL, NULL, &BRANCH0);
     addEntry("words", 0, NULL, NULL, &LISTWORDS);
     addEntry("s\"", 0, NULL, NULL, &STARTSTORESTRING);
+    addEntry(".\"", 0, NULL, NULL, &STARTPRINTSTRING);
     addEntry("\"", 0, NULL, NULL, &ENDSTRING);
     addEntry("type", 0, NULL, NULL, &TYPE);
 

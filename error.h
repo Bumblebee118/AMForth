@@ -5,7 +5,7 @@
 #ifndef AMFORTH_ERROR_H
 #define AMFORTH_ERROR_H
 
-void ERROR(char* msg);
+void ERROR(char *msg, char *token);
 
 void ZERO_LEN();
 

@@ -96,6 +96,11 @@ void LISTWORDS();
 void STARTSTORESTRING();
 
 /**
+ * Sets the interpreter into string-reading mode and prints the string in the end instead of storing it
+ */
+void STARTPRINTSTRING();
+
+/**
  * Exits the interpreter from string-reading mode
  */
 void ENDSTRING();

@@ -4,7 +4,8 @@
 
 #include "global.h"
 
-int isCompileMode = 0; //init extern variable
+//init extern variable
+int isCompileMode = 0;
 int isStringMode = 0;
 
 void ADD() {
@@ -76,10 +77,11 @@ void DOCOLON() {
 }
 
 void COLON() {
+    char *token;
     int len = nextToken(&token);
 
     if (len >= MAX_WORD_NAME_SIZE) {
-        WORD_SIZE_LIMIT();
+        WORD_SIZE_LIMIT(token);
         return;
     }
 
@@ -113,8 +115,8 @@ void INTERPRET() {
 }
 
 void EXECUTE() {
-    char **word = (char **) pop(parameterStack);
-    execute(*word);
+    char *word = (char *) pop(parameterStack);
+    execute(word);
 }
 
 void BRANCH0() {
@@ -136,11 +138,21 @@ void STARTSTORESTRING() {
     isStringMode = 1;
 }
 
+void STARTPRINTSTRING() {
+    isStringMode = 2;
+}
+
 void ENDSTRING() {
-    isStringMode = 0;
+    if (isStringMode == 1) {
+        isStringMode = 0;
+    } else if (isStringMode == 2) {
+        isStringMode = 0;
+        char *stringPtr = (char *) pop(parameterStack);
+        fprintf(stdout, "%s ", stringPtr);
+    }
 }
 
 void TYPE() {
     char *stringPtr = (char *) pop(parameterStack);
-    fprintf(stdout, "%s", stringPtr);
+    fprintf(stdout, "%s ", stringPtr);
 }

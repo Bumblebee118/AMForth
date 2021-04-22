@@ -19,10 +19,7 @@
 #define MAX_DEFINITION_SIZE  32768
 #define BASE_STRING_SIZE 128
 
-/**
- * global variable for a the current token being processed
- */
-char *token;
+#define UNKNOWN_TOKEN "UNKNOWN TOKEN"
 
 /**
  * global variable for error counts

@@ -6,7 +6,8 @@ char lastChar;
 
 void interpret() {
     int len;
-    char *string;
+    char *string = NULL;
+    char *token = NULL;
     if (isStringMode) {
         len = getStringFromInput(&string, &token);
     } else {
@@ -15,32 +16,33 @@ void interpret() {
 
     //check if an error occurred or the the user wants to quit
     if (len == -1) {
-        ERROR("Token parsing failed");
-        free_res();
+        ERROR("Token parsing failed", UNKNOWN_TOKEN);
+        freeRes(token, string);
         exit(1);
     } else if (len == 0) {
         //reached EOF
-        free_res();
+        freeRes(token, string);
         exit(0);
     } else if (len >= MAX_WORD_NAME_SIZE && !isStringMode) {
-        WORD_SIZE_LIMIT();
+        WORD_SIZE_LIMIT(token);
     } else if ((strcmp(token, "bye") == 0) && !isStringMode) {
         fprintf(stdout, "see you later!\n");
-        free_res();
+        freeRes(token, string);
         exit(EXIT_SUCCESS);
     } else {
         if (isStringMode) {
             push(parameterStack, (cell_t) string);
-            push(parameterStack, (cell_t) &token);
+            push(parameterStack, (cell_t) token);
         } else {
-            push(parameterStack, (cell_t) &token);
+            push(parameterStack, (cell_t) token);
         }
     }
 
 }
 
-void free_res() {
+void freeRes(char *token, char *string) {
     if (token != NULL) free(token);
+    if (string != NULL) free(string);
     deleteDict();
     defs = &macros;
     deleteDict();
@@ -64,9 +66,8 @@ char getNextChar() {
 }
 
 int nextToken(char **tokenPtr) {
-
-    //if tokenPtr is NULL, then acquire memory
-    if (*tokenPtr == NULL) *tokenPtr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
+    //acquire memory
+    *tokenPtr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
     //check pointer again
     if (*tokenPtr == NULL) return -1;
 
@@ -111,9 +112,7 @@ int getStringFromInput(char **pString, char **tokenPtr) {
     *tokenPtr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
     if (*tokenPtr == NULL) return -1;
     *tokenPtr[0] = '"';
-    *tokenPtr[1] = '\0';
-    *tokenPtr[2] = '\0';
-    *tokenPtr[3] = '\0';
+    // *tokenPtr[1] = '\0';
 
     int bufferSize = BASE_STRING_SIZE;
     *pString = (char *) malloc(sizeof(char) * bufferSize);
@@ -134,7 +133,7 @@ int getStringFromInput(char **pString, char **tokenPtr) {
             (*pString)[len] = currentChar;
         }
 
-        if (((*pString)[len] == ' ' || (*pString)[len] == '\n' )&& (*pString)[len - 1] == '"') {
+        if (((*pString)[len] == ' ' || (*pString)[len] == '\n') && (*pString)[len - 1] == '"') {
             singleQuotationMark = 1;
 
         }
@@ -143,13 +142,13 @@ int getStringFromInput(char **pString, char **tokenPtr) {
         if (currentChar != '\n') {
             currentChar = getNextChar();
         } else {
-           PRINT_INPUT_OK();
-           // avoid two "ok"s
-           lastChar = ' ';
+            PRINT_INPUT_OK();
+            // avoid two "ok"s
+            lastChar = ' ';
         }
     }
 
-    (*pString)[len-2] = '\0';
+    (*pString)[len - 2] = '\0';
     return len;
 }
 
@@ -212,6 +211,6 @@ void PRINT_INPUT_OK() {
     if (stream == stdin) fprintf(stdout, "ok> ");
 }
 
-void WORD_SIZE_LIMIT() {
-    ERROR("Token exceeds number of chars");
+void WORD_SIZE_LIMIT(char *token) {
+    ERROR("Token exceeds number of chars", token);
 }
