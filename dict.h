@@ -15,7 +15,7 @@
 typedef struct Dict {
     char *word;                     //name of the definition
     struct Dict *link;              //link reference to previous Dict
-    cell_t value;                      // value of constant or address of variable
+    cell_t data;                    // data of constant or address of variable
     struct Dict **definitions;      //array of other function def, which build up this function definition
     BASICFUNC basicfunc;            //pointer to a basic function, if no basic function, then this pointer is NULL
 } Dict;

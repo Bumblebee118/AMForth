@@ -71,7 +71,6 @@ void PRINTSTACK() {
 }
 
 void DOCOLON() {
-    //TODO repair
     push(returnStack, (cell_t) ip);
     ip = wp->definitions;
 }
@@ -188,7 +187,7 @@ void CONST(){
 }
 
 void DOCONST(){
-    push(parameterStack, wp->value);
+    push(parameterStack, wp->data);
 }
 
 void VAR(){
@@ -207,7 +206,7 @@ void VAR(){
 }
 
 void DOVAR(){
-    push(parameterStack, wp->value);
+    push(parameterStack, wp->data);
 }
 
 void ASSIGNVAR(){

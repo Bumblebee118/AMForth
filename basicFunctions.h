@@ -54,7 +54,7 @@ void DOCOLON();
 void COLON();
 
 /**
- * Pops the top value of the stack and sets the ip to its value
+ * Pops the top data of the stack and sets the ip to its data
  */
 void DOSEMI();
 

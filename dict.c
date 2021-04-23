@@ -22,7 +22,7 @@ Dict *addEntry(char *word, cell_t value, Dict *code[], BASICFUNC basicfunc) {
         free(newEntry);
         return NULL;
     }
-    newEntry->value = value;
+    newEntry->data = value;
     newEntry->definitions = code;
     newEntry->basicfunc = basicfunc;
 
