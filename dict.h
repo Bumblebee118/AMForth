@@ -4,47 +4,56 @@
 
 #ifndef AMFORTH_DICT_H
 #define AMFORTH_DICT_H
-typedef struct DictEntry {
-    struct DictEntry* link; //link reference to previous DictEntry
-    struct DictEntry* before; // This reference is necessary to delete entries
-    char* functionName;
-    int functionAddress;
-} DictEntry;
 
-typedef struct Dict {
-    struct DictEntry* firstElement;
-    struct DictEntry* lastElement;
-} Dict;
+#include <string.h>
+#include "stack.h"
+#include "basicFunctions.h"
 
 /**
- * Creates a new Dictionary. Implemented as a linked list
- * @return a pointer to the dictionary
+ *
  */
-Dict* createDict();
+typedef struct Dict {
+    char *word;                     //name of the definition
+    struct Dict *link;              //link reference to previous Dict
+    cell_t value;                      // value of constant or address of variable
+    struct Dict **definitions;      //array of other function def, which build up this function definition
+    BASICFUNC basicfunc;            //pointer to a basic function, if no basic function, then this pointer is NULL
+} Dict;
 
 /**
  * Adds an entry to the list.
  * @param dict The dictionary, the element should be added to
- * @param functionName the name of the new function
+ * @param word the name of the new function
  * @param functionAddress the address of the first function to be called in this function
- * @return -1 for failure, 0 for success
+ * @return NULL on failure, otherwise the new entry
  */
-int addEntry(Dict* dict, char* functionName, int functionAddress);
+Dict* addEntry(char *word, cell_t value, Dict **definitions, BASICFUNC basicfunc);
 
 /**
  * searches the dictionary for the function name given as a parameter
  * @param dict the dictionary to search through
- * @param functionName the name of the function to search for
+ * @param word the name of the function to search for
  * @return a pointer to the element or NULL if no element was found with the given name
  */
-DictEntry* searchEntry(Dict* dict, const char* functionName);
+Dict *getEntry(const char *word);
 
 /**
- *
- * @param dict
- * @param functionName
- * @return
+ * deletes an entry from the dictionary
+ * @param dict the dictionary to delete the item from
+ * @param word the name of the function to delete
+ * @return 0 for success, -1 for failure (the function wasn't found in the dictionary)
  */
-void deleteEntry(Dict* dict, char* functionName);
+int removeEntry(char *word);
+
+/**
+ * deletes the dictionary
+ */
+void deleteDict();
+
+/**
+ * adds all basic words from basicFunctions.h to the specified Dict
+ * @param dict
+ */
+void addBasicWordsToDict();
 
 #endif //AMFORTH_DICT_H
