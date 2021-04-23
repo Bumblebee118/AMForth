@@ -7,27 +7,28 @@ char lastChar;
 void interpret() {
     int len;
     char *string = NULL;
-    char *token = NULL;
     if (isStringMode) {
         len = getStringFromInput(&string, &token);
     } else {
-        len = nextToken(&token);
+        len = nextToken();
     }
 
     //check if an error occurred or the the user wants to quit
     if (len == -1) {
-        ERROR("Token parsing failed", UNKNOWN_TOKEN);
-        freeRes(token, string);
+        push(parameterStack, ERR_PARSING_ERROR);
+        THROW();
+        freeRes(string);
         exit(1);
     } else if (len == 0) {
         //reached EOF
-        freeRes(token, string);
+        freeRes(string);
         exit(0);
     } else if (len >= MAX_WORD_NAME_SIZE && !isStringMode) {
-        WORD_SIZE_LIMIT(token);
+        push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
+        THROW();
     } else if ((strcmp(token, "bye") == 0) && !isStringMode) {
         fprintf(stdout, "see you later!\n");
-        freeRes(token, string);
+        freeRes(string);
         exit(EXIT_SUCCESS);
     } else {
         if (isStringMode) {
@@ -40,7 +41,7 @@ void interpret() {
 
 }
 
-void freeRes(char *token, char *string) {
+void freeRes(char *string) {
     if (token != NULL) free(token);
     if (string != NULL) free(string);
     deleteDict();
@@ -59,17 +60,20 @@ void skipLine() {
 
 char getNextChar() {
     if (lastChar == '\n') {
-        PRINT_INPUT_OK();
+        if (isCompileMode == 0) print_msg("ok> ");
+        else print_msg("compiled> ");
     }
 
     return (lastChar = (char) fgetc(stream));
 }
 
-int nextToken(char **tokenPtr) {
-    //acquire memory
-    *tokenPtr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
-    //check pointer again
-    if (*tokenPtr == NULL) return -1;
+int nextToken() {
+    if(token == NULL){
+        //acquire memory
+        token = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
+        //check pointer again
+        if (token == NULL) return -1;
+    }
 
     //get next char from stream
     char currentChar = getNextChar();
@@ -83,7 +87,7 @@ int nextToken(char **tokenPtr) {
 
         //only add new chars to string, it MAX_WORD_NAME_SIZE has not been exceeded
         if (len < MAX_WORD_NAME_SIZE - 1) {
-            (*tokenPtr)[len] = currentChar;
+            token[len] = currentChar;
         }
 
         len++;
@@ -94,15 +98,15 @@ int nextToken(char **tokenPtr) {
     //getting rid of whitespaces by recursively calling nextToken
     //until a string with len > 0 is found
     if (len == 0) {
-        return nextToken(tokenPtr);
+        return nextToken();
     }
 
     //add zero delimiter at the end of string
     //special handling string with size bigger than MAX_WORD_NAME_SIZE
     if (len < MAX_WORD_NAME_SIZE - 1) {
-        (*tokenPtr)[len] = '\0';
+        token[len] = '\0';
     } else {
-        (*tokenPtr)[MAX_WORD_NAME_SIZE - 1] = '\0';
+        token[MAX_WORD_NAME_SIZE - 1] = '\0';
     }
 
     return len;
@@ -197,10 +201,6 @@ int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread) {
     return len;
 }
 */
-void PRINT_INPUT_OK() {
-    if (stream == stdin) fprintf(stdout, "ok> ");
-}
-
-void WORD_SIZE_LIMIT(char *token) {
-    ERROR("Token exceeds number of chars", token);
+void print_msg(char* msg) {
+    if (stream == stdin) fprintf(stdout, "%s", msg);
 }

@@ -10,7 +10,7 @@ void compile(char *word) {
     defs = &macros;
     if ((entry = getEntry(word))) {
         defs = &dict;
-        entry->basicfunc();
+        entry->code();
         return;
     }
 
@@ -30,9 +30,10 @@ void compile(char *word) {
         *user_code = (Dict *) num;
         user_code++;
     } else {
-        ERROR("Undefined word", word);
+        push(parameterStack, ERR_UNDEFINED_WORD);
+        THROW();
         isCompileMode = 0;
-        user_code = cw->definitions;
-        removeEntry(cw->word);
+        user_code = cw->data.definition;    //reset user_code pointer
+        removeEntry(cw->word);              //delete word from dictionary
     }
 }

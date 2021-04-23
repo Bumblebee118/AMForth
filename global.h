@@ -19,7 +19,13 @@
 #define CODE_SIZE  32768
 #define BASE_STRING_SIZE 128
 
-#define UNKNOWN_TOKEN "UNKNOWN TOKEN"
+#define FALSE 0
+#define TRUE !FALSE
+
+/**
+ *
+ */
+extern char* token;
 
 /**
  * one global dictionary for the whole program

@@ -1,10 +1,40 @@
 #include "global.h"
 
-void ERROR(char *msg, char *token) {
+void THROW() {
     static int error_cnt = 0;
 
+    cell_t errno = pop(parameterStack);
+    if(errno == 0) return;
+
     error_cnt++;
-    fprintf(stdout, ":%d: %s\n>>>%s<<<\n", error_cnt, msg, token);
+    char* str;
+    switch (errno) {
+        case ERR_UNDEFINED_WORD:
+            str = "Undefined word";
+            break;
+        case ERR_STACK_UNDERFLOW:
+            str = "Stack underflow";
+            break;
+        case ERR_STACK_OVERFLOW:
+            str = "Stack overflow";
+            break;
+        case ERR_PARSING_ERROR:
+            str = "Parsing error";
+            break;
+        case ERR_TOKEN_SIZE_LIMIT:
+            str = "Token exceeds number of chars";
+            break;
+        case ERR_INTERPRET_COMPILE_ONLY:
+            str = "Interpreting a compile-only word";
+            break;
+        default:
+            str= "Undefined error";
+            break;
+    }
+
+    fprintf(stdout, ":%d: %s\nerrno %ld\n>>>%s<<<\n", error_cnt, str, errno, token);
+
+
     clearStack(parameterStack);
     fprintf(stdout, "Stack cleared\n");
 
@@ -13,6 +43,3 @@ void ERROR(char *msg, char *token) {
     ip = start;
 }
 
-void ZERO_LEN(){
-    ERROR("Attempt to use zero-length string as a name", "");
-}

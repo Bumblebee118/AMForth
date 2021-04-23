@@ -20,7 +20,7 @@ void interpret();
 /**
  * frees all allocated memory of token, dict and the stacks
  */
-void freeRes(char *token, char *string);
+void freeRes(char *string);
 
 /**
  * skips all chars until the next '\n' in input stream
@@ -40,7 +40,7 @@ char getNextChar();
  * @return Returns the length of the read tokenPtr, -1 if an error occurs
  * tokenPtr exceeds MAX_WORD_NAME_SIZE
 **/
-int nextToken(char **tokenPtr);
+int nextToken();
 
 /**
  * Reads in the next token_ptr from the current line
@@ -67,11 +67,10 @@ int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread);
 int getStringFromInput(char **pString, char **tokenPtr);
 
 /**
- * Print 'ok' to stdin if the interpreter is run in interactive mode
+ * Prints the msg to stdin if the interpreter is run in interactive mode
  * @param stream
  */
-void PRINT_INPUT_OK();
+void print_msg(char* msg);
 
-void WORD_SIZE_LIMIT(char *token);
 
 #endif //AMFORTH_INTERPRET_H

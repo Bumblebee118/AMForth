@@ -4,10 +4,10 @@
 
 #include "global.h"
 
-Dict *addEntry(char *word, cell_t value, Dict *code[], BASICFUNC basicfunc) {
+Dict *addEntry(char *word, Data data, CODEPOINTER code) {
     //check if entry already exists and if it is mutable or not
     Dict *oldEntry = getEntry(word);
-    if (oldEntry != NULL && oldEntry->basicfunc != NULL) {
+    if (oldEntry != NULL && oldEntry->code != NULL) {
         return NULL;
     }
 
@@ -22,9 +22,8 @@ Dict *addEntry(char *word, cell_t value, Dict *code[], BASICFUNC basicfunc) {
         free(newEntry);
         return NULL;
     }
-    newEntry->data = value;
-    newEntry->definitions = code;
-    newEntry->basicfunc = basicfunc;
+    newEntry->data = data;
+    newEntry->code = code;
 
     newEntry->link = *defs;     // link to previous element
     *defs = newEntry;           // update Dict entry
@@ -72,6 +71,7 @@ int removeEntry(char *word) {
 }
 
 void deleteDict() {
+    //TODO free variable pointers
     Dict *currentNode = *defs;
     Dict *next;
     while (currentNode != NULL) {
@@ -84,37 +84,71 @@ void deleteDict() {
 }
 
 void addBasicWordsToDict() {
-    //TODO add definitions pointer
-    addEntry("+", 0, NULL, &ADD);
-    addEntry("-", 0, NULL, &SUBTRACT);
-    addEntry("*", 0, NULL, &MULTIPLY);
-    addEntry("/", 0, NULL, &DIVIDE);
-    addEntry(".", 0, NULL, &PRINTPOPSTACK);
-    addEntry(".s", 0, NULL, &PRINTSTACK);
-    addEntry(":", 0, NULL, &COLON);
-    addEntry("docol", 0, NULL, &DOCOLON);
-    addEntry("dosemi", 0, NULL, &DOSEMI);
-    addEntry("dolit", 0, NULL, &DOLIT);
-    addEntry("dostorestring", 0, NULL, &DOSTORESTRING);
-    addEntry("doprintstring", 0, NULL, &DOPRINTSTRING);
-    addEntry("interpret", 0, NULL, &INTERPRET);
-    addEntry("execute", 0, NULL, &EXECUTE);
-    addEntry("branch0", 0, NULL, &BRANCH0);
-    addEntry("words", 0, NULL, &LISTWORDS);
-    addEntry("s\"", 0, NULL, &STARTSTORESTRING);
-    addEntry(".\"", 0, NULL, &STARTPRINTSTRING);
-    addEntry("\"", 0, NULL, &ENDSTRING);
-    addEntry("type", 0, NULL, &TYPE);
-    addEntry("constant", 0, NULL, &CONST);
-    addEntry("variable", 0, NULL, &VAR);
-    addEntry("!", 0, NULL, &ASSIGNVAR);
-    addEntry("@", 0, NULL, &FETCHVAR);
+    Data data;
+    data.value = 0;
 
+    addEntry("throw", data, &THROW);
+    //######## Arithmetic ##########
+    addEntry("+", data, &ADD);
+    addEntry("-", data, &SUBTRACT);
+    addEntry("*", data, &MULTIPLY);
+    addEntry("/", data, &DIVIDE);
+    //######## Conditional ##########
+    addEntry("<", data, &LESS);
+    addEntry(">", data, &GREATER);
+    addEntry("=", data, &EQUAL);
+    addEntry("<>", data, &NOTEQUAL);
+    addEntry("<=", data, &LESSEQ);
+    addEntry(">=", data, &GREATEREQ);
+    addEntry("0<", data, &ZEROLESS);
+    addEntry("0>", data, &ZEROGREATER);
+    addEntry("0=", data, &ZEROEQ);
+    addEntry("0<>", data, &ZERONOTEQ);
+    addEntry("0<=", data, &ZEROLESSEQ);
+    addEntry("0>=", data, &ZEROGREATEREQ);
+    //#########  Logical Operators #############
+    addEntry("and", data, &AND);
+    addEntry("or", data, &OR);
+    addEntry("xor", data, &XOR);
+    //#########  Flow Control #############
+    addEntry("branch", data, &BRANCH);
+    addEntry("?branch", data, &CHECKBRANCH);
+    //######## Stack ##########
+    addEntry("swap", data, &SWAP);
+    addEntry("dup", data, &DUP);
+    addEntry(".", data, &PRINTPOPSTACK);
+    addEntry(".s", data, &PRINTSTACK);
+    //######## Compile ##########
+    addEntry(":", data, &COLON);
+    addEntry("docol", data, &DOCOLON);
+    addEntry("dosemi", data, &DOSEMI);
+    addEntry("dolit", data, &DOLIT);
+    addEntry("dostorestring", data, &DOSTORESTRING);
+    addEntry("doprintstring", data, &DOPRINTSTRING);
+    addEntry("'", data, &INTERPRET);
+    addEntry("execute", data, &EXECUTE);
+    addEntry("branch0", data, &BRANCH0);
+    addEntry("words", data, &LISTWORDS);
+    addEntry("s\"", data, &STARTSTORESTRING);
+    addEntry(".\"", data, &STARTPRINTSTRING);
+    addEntry("\"", data, &ENDSTRING);
+    addEntry("type", data, &TYPE);
+    //######## Constant or Variable ##########
+    addEntry("constant", data, &CONST);
+    addEntry("variable", data, &VAR);
+    addEntry("!", data, &ASSIGNVAR);
+    addEntry("@", data, &FETCHVAR);
+
+    //######## Macros ##########
     defs = &macros;
-    addEntry(";", 0, NULL, &SEMI);
-    addEntry("s\"", 0, NULL, &STARTSTORESTRING);
-    addEntry(".\"", 0, NULL, &STARTPRINTSTRING);
-    addEntry("\"", 0, NULL, &ENDSTRING);
+    addEntry(";", data, &SEMI);
+    addEntry("s\"", data, &STARTSTORESTRING);
+    addEntry(".\"", data, &STARTPRINTSTRING);
+    addEntry("\"", data, &ENDSTRING);
+    //#########  Flow Control #############;
+    addEntry("if", data, &IF);
+    addEntry("then", data, &THEN);
+    addEntry("else", data, &ELSE);
     defs = &dict;
 }
 

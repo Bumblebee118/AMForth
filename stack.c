@@ -25,6 +25,8 @@ int isEmpty(Stack *stack) {
 //pushes a new element on the top of the stack
 cell_t push(Stack *stack, cell_t item) {
     if (isFull(stack)) {
+        pop(parameterStack);
+        push(parameterStack, ERR_STACK_OVERFLOW);
         return nil;
     }
     return stack->array[++stack->top] = item;
@@ -33,7 +35,7 @@ cell_t push(Stack *stack, cell_t item) {
 //pops the top of the stack
 cell_t pop(Stack *stack) {
     if (isEmpty(stack)) {
-        ERROR("Stack underflow", "");
+        push(parameterStack, ERR_STACK_UNDERFLOW);
         return nil;
     }
 
@@ -43,7 +45,7 @@ cell_t pop(Stack *stack) {
 //returns the top element of the stack without modifying the stack
 cell_t peek(Stack *stack) {
     if (isEmpty(stack)) {
-        ERROR("Stack underflow", "");
+        push(parameterStack, ERR_STACK_UNDERFLOW);
         return nil;
     }
 
