@@ -189,7 +189,7 @@ void XOR(){
 //#########  Flow Control #############
 
 void BRANCH(){
-    ip = (Dict**) *ip;
+    ip = (Dict **) *ip;
 }
 
 void CHECKBRANCH(){
@@ -208,8 +208,8 @@ void PREPFORWARDREF(){
 }
 
 void RESOLVEFORWARDREF(){
-    Dict** ptr = (Dict**) pop(parameterStack);
-    *ptr = (Dict*)user_code;
+    Dict **ptr = (Dict **) pop(parameterStack);
+    *ptr = (Dict *)user_code;
 }
 
 void IF(){
@@ -308,8 +308,10 @@ void DOLIT() {
 }
 
 void DOSTORESTRING() {
-    cell_t string = (cell_t) *ip;
-    push(parameterStack, string);
+    cell_t a = (cell_t) *ip;
+    if (a == nil) {THROW(); return;}
+
+    push(parameterStack, a);
     ip++;
 }
 
@@ -359,23 +361,27 @@ void ENDSTRING() {
     if (isCompileMode) {
         if (isStringMode == 1) compile("dostorestring");
         else if (isStringMode == 2) compile("doprintstring");
-        char *string = (char *) pop(parameterStack);
-        *user_code = (Dict *) (cell_t) string;
+
+        char *a = (char *) pop(parameterStack);
+        if ((cell_t) a == nil){THROW(); return;}
+
+        *user_code = (Dict *) (cell_t) a;
         user_code++;
         isStringMode = 0;
-    } else if (isStringMode == 1) {
+    } else if (isStringMode == 1) isStringMode = 0;
+    else if (isStringMode == 2) {
         isStringMode = 0;
-    } else if (isStringMode == 2) {
-        isStringMode = 0;
-        char *stringPtr = (char *) pop(parameterStack);
-        fprintf(stdout, "%s ", stringPtr);
+        char *a = (char *) pop(parameterStack);
+        if ((cell_t) a == nil){THROW(); return;}
+
+        fprintf(stdout, "%s ", a);
     }
 }
 
 void TYPE() {
-    char *stringPtr = (char *) pop(parameterStack);
-    if ((cell_t)stringPtr == nil) {THROW(); return;}
-    fprintf(stdout, "%s ", stringPtr);
+    char *a = (char *) pop(parameterStack);
+    if ((cell_t)a == nil) {THROW(); return;}
+    fprintf(stdout, "%s ", a);
 }
 
 //#########  VARIABLE AND CONST #############
@@ -420,8 +426,8 @@ void DOVAR(){
 }
 
 void ASSIGNVAR(){
-    cell_t * ptr = (cell_t*) pop(parameterStack);
-    if ((cell_t)ptr == nil) {THROW(); return;}
+    cell_t *ptr = (cell_t *) pop(parameterStack);
+    if ((cell_t) ptr == nil) {THROW(); return;}
     cell_t val = pop(parameterStack);
     if (val == nil) {THROW(); return;}
 
@@ -429,8 +435,7 @@ void ASSIGNVAR(){
 }
 
 void FETCHVAR(){
-    cell_t* ptr = (cell_t*) pop(parameterStack);
+    cell_t *ptr = (cell_t *) pop(parameterStack);
     if (*ptr == nil) {THROW(); return;}
     push(parameterStack, *ptr);
 }
-
