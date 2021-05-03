@@ -4,7 +4,6 @@ void execute(char *word) {
     if (isCompileMode) {
         compile(word);
     } else {
-
         defs = &macros;
         if ((wp = getEntry(word))) {
             defs = &dict;

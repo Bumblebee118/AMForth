@@ -120,13 +120,27 @@ void CHECKBRANCH();
 
 void PREPFORWARDREF();
 
+void PREPBACKWARDREF();
+
 void RESOLVEFORWARDREF();
+
+void RESOLVEBACKWARDREF();
 
 void IF();
 
 void ELSE();
 
 void THEN();
+
+//#########  LOOP  #############
+
+void DO();
+
+void LOOP();
+
+void PUSHONRETURN();
+
+void PEEKFROMRETURN();
 
 //#########  STACK #############
 

@@ -139,6 +139,9 @@ void addBasicWordsToDict() {
     addEntry("!", data, &ASSIGNVAR);
     addEntry("@", data, &FETCHVAR);
 
+    addEntry("pushonreturn", data, &PUSHONRETURN);
+    addEntry("peekfromreturn", data, &PEEKFROMRETURN);
+
     //######## Macros ##########
     defs = &macros;
     addEntry(";", data, &SEMI);
@@ -149,6 +152,17 @@ void addBasicWordsToDict() {
     addEntry("if", data, &IF);
     addEntry("then", data, &THEN);
     addEntry("else", data, &ELSE);
+    addEntry("do", data, &DO);
+    addEntry("loop", data, &LOOP);
     defs = &dict;
+
+    //######## Global Variables ##########
+    Data d;
+    d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
+    addEntry("i", d, &DOVAR);
+    d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
+    addEntry("j", d, &DOVAR);
+    d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
+    addEntry("k", d, &DOVAR);
 }
 

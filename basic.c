@@ -8,10 +8,16 @@
 
 void ADD() {
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t sum = a + b;
     push(parameterStack, sum);
@@ -19,10 +25,16 @@ void ADD() {
 
 void SUBTRACT() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     cell_t diff = a - b;
     push(parameterStack, diff);
@@ -30,10 +42,16 @@ void SUBTRACT() {
 
 void MULTIPLY() {
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t sum = a * b;
     push(parameterStack, sum);
@@ -41,10 +59,16 @@ void MULTIPLY() {
 
 void DIVIDE() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     cell_t diff = a / b;
     push(parameterStack, diff);
@@ -52,199 +76,328 @@ void DIVIDE() {
 
 //#########  CONDITIONAL #############
 
-void LESS(){
+void LESS() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a < b));
 }
 
-void GREATER(){
+void GREATER() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a > b));
 }
 
-void EQUAL(){
+void EQUAL() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a == b));
 }
 
-void NOTEQUAL(){
+void NOTEQUAL() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a != b));
 }
 
-void LESSEQ(){
+void LESSEQ() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a <= b));
 }
 
-void GREATEREQ(){
+void GREATEREQ() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a >= b));
 }
 
-void ZEROLESS(){
+void ZEROLESS() {
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a < 0));
 }
 
-void ZEROGREATER(){
+void ZEROGREATER() {
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a > 0));
 }
 
-void ZEROEQ(){
+void ZEROEQ() {
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a == 0));
 }
 
-void ZERONOTEQ(){
+void ZERONOTEQ() {
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a != 0));
 }
 
-void ZEROLESSEQ(){
+void ZEROLESSEQ() {
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a <= 0));
 }
 
-void ZEROGREATEREQ(){
+void ZEROGREATEREQ() {
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, -(a >= 0));
 }
 
 //#########  Logical Operators #############
 
-void AND(){
+void AND() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, a & b);
 }
 
-void OR(){
+void OR() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, a | b);
 }
 
-void XOR(){
+void XOR() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, a ^ b);
 }
 
 //#########  Flow Control #############
 
-void BRANCH(){
+void BRANCH() {
     ip = (Dict **) *ip;
 }
 
-void CHECKBRANCH(){
+void CHECKBRANCH() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
-    if (b==FALSE) ip = (Dict**) *ip;
-    else ip++;
-
+    b == FALSE ? (ip = (Dict **) *ip) : ip++;
 }
 
-void PREPFORWARDREF(){
+void PREPFORWARDREF() {
     *user_code = 0;
     push(parameterStack, (cell_t) user_code);
     user_code++;
 }
 
-void RESOLVEFORWARDREF(){
-    Dict **ptr = (Dict **) pop(parameterStack);
-    *ptr = (Dict *)user_code;
+void PREPBACKWARDREF() {
+    push(parameterStack, (cell_t) user_code);
 }
 
-void IF(){
+void RESOLVEFORWARDREF() {
+    Dict **ptr = (Dict **) pop(parameterStack);
+    *ptr = (Dict *) user_code;
+}
+
+void RESOLVEBACKWARDREF() {
+    Dict **ptr = (Dict **) pop(parameterStack);
+    *user_code = (Dict *) ptr;
+}
+
+void IF() {
     compile("?branch");
     PREPFORWARDREF();
-
 }
 
-void ELSE(){
+void ELSE() {
     compile("branch");
     PREPFORWARDREF();
     SWAP();
     RESOLVEFORWARDREF();
 }
 
-void THEN(){
+void THEN() {
     RESOLVEFORWARDREF();
+}
+
+//#########  LOOP  #############
+
+void DO() {
+    compile("i");
+    compile("!");
+    compile("pushonreturn");
+    PREPBACKWARDREF();
+    compile("peekfromreturn");
+    compile("i");
+    compile("@");
+    compile(">");
+    compile("?branch");
+    PREPFORWARDREF();
+    compile("1");
+    compile("i");
+    compile("@");
+    compile("+");
+    compile("i");
+    compile("!");
+}
+
+void LOOP() {
+    compile("branch");
+    SWAP();
+    RESOLVEBACKWARDREF();
+    RESOLVEFORWARDREF();
+    compile("0");
+    compile("i");
+    compile("!");
+}
+
+void PUSHONRETURN() {
+    push(returnStack, pop(parameterStack));
+}
+
+void PEEKFROMRETURN() {
+    push(parameterStack, peek(returnStack));
 }
 
 //#########  STACK #############
 
-void SWAP(){
+void SWAP() {
     cell_t b = pop(parameterStack);
-    if (b == nil) {THROW(); return;}
+    if (b == nil) {
+        THROW();
+        return;
+    }
 
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, b);
     push(parameterStack, a);
 }
 
-void DUP(){
+void DUP() {
     cell_t a = peek(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, a);
 
@@ -252,13 +405,15 @@ void DUP(){
 
 void PRINTPOPSTACK() {
     cell_t a = pop(parameterStack);
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     fprintf(stdout, "%ld ", a);
 }
 
 void PRINTSTACK() {
-
     fprintf(stdout, "<%d> ", (parameterStack->top) + 1);
 
     int i = 0;
@@ -285,7 +440,7 @@ void COLON() {
         return;
     }
 
-    Data  data;
+    Data data;
     data.definition = user_code;
     cw = addEntry(token, data, &DOCOLON);
 
@@ -309,7 +464,10 @@ void DOLIT() {
 
 void DOSTORESTRING() {
     cell_t a = (cell_t) *ip;
-    if (a == nil) {THROW(); return;}
+    if (a == nil) {
+        THROW();
+        return;
+    }
 
     push(parameterStack, a);
     ip++;
@@ -321,7 +479,7 @@ void DOPRINTSTRING() {
     ip++;
 }
 
-void NEXT() {
+__attribute__((unused)) void NEXT() {
 }
 
 void INTERPRET() {
@@ -330,7 +488,10 @@ void INTERPRET() {
 
 void EXECUTE() {
     char *word = (char *) pop(parameterStack);
-    if ((cell_t)word == nil){THROW(); return;}
+    if ((cell_t) word == nil) {
+        THROW();
+        return;
+    }
     execute(word);
 }
 
@@ -363,7 +524,10 @@ void ENDSTRING() {
         else if (isStringMode == 2) compile("doprintstring");
 
         char *a = (char *) pop(parameterStack);
-        if ((cell_t) a == nil){THROW(); return;}
+        if ((cell_t) a == nil) {
+            THROW();
+            return;
+        }
 
         *user_code = (Dict *) (cell_t) a;
         user_code++;
@@ -372,7 +536,10 @@ void ENDSTRING() {
     else if (isStringMode == 2) {
         isStringMode = 0;
         char *a = (char *) pop(parameterStack);
-        if ((cell_t) a == nil){THROW(); return;}
+        if ((cell_t) a == nil) {
+            THROW();
+            return;
+        }
 
         fprintf(stdout, "%s ", a);
     }
@@ -380,13 +547,16 @@ void ENDSTRING() {
 
 void TYPE() {
     char *a = (char *) pop(parameterStack);
-    if ((cell_t)a == nil) {THROW(); return;}
+    if ((cell_t) a == nil) {
+        THROW();
+        return;
+    }
     fprintf(stdout, "%s ", a);
 }
 
 //#########  VARIABLE AND CONST #############
 
-void CONST(){
+void CONST() {
     int len = nextToken();
 
     if (len >= MAX_WORD_NAME_SIZE) {
@@ -397,16 +567,19 @@ void CONST(){
 
     Data data;
     data.value = pop(parameterStack);
-    if (data.value == nil) {THROW(); return;}
+    if (data.value == nil) {
+        THROW();
+        return;
+    }
 
-   addEntry(token, data, &DOCONST);
+    addEntry(token, data, &DOCONST);
 }
 
-void DOCONST(){
+void DOCONST() {
     push(parameterStack, wp->data.value);
 }
 
-void VAR(){
+void VAR() {
     int len = nextToken();
 
     if (len >= MAX_WORD_NAME_SIZE) {
@@ -418,24 +591,32 @@ void VAR(){
     data.value = (cell_t) malloc(sizeof(cell_t));
 
     addEntry(token, data, &DOVAR);
-
 }
 
-void DOVAR(){
+void DOVAR() {
     push(parameterStack, wp->data.value);
 }
 
-void ASSIGNVAR(){
+void ASSIGNVAR() {
     cell_t *ptr = (cell_t *) pop(parameterStack);
-    if ((cell_t) ptr == nil) {THROW(); return;}
+    if ((cell_t) ptr == nil) {
+        THROW();
+        return;
+    }
     cell_t val = pop(parameterStack);
-    if (val == nil) {THROW(); return;}
+    if (val == nil) {
+        THROW();
+        return;
+    }
 
     *ptr = val;
 }
 
-void FETCHVAR(){
+void FETCHVAR() {
     cell_t *ptr = (cell_t *) pop(parameterStack);
-    if (*ptr == nil) {THROW(); return;}
+    if (*ptr == nil) {
+        THROW();
+        return;
+    }
     push(parameterStack, *ptr);
 }

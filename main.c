@@ -13,7 +13,7 @@ int isStringMode = 0;
 
 void printSynopsis(void);
 
-void virtualMachine(void);
+_Noreturn void virtualMachine(void);
 
 void compileInterpreter(void);
 
@@ -57,7 +57,7 @@ void printSynopsis(void) {
     fprintf(stdout, "Usage: ./AMForth [FILE]\n");
 }
 
-void virtualMachine(void) {
+_Noreturn void virtualMachine(void) {
     for (;;) {
         wp = *ip++;
         wp->code();
@@ -66,9 +66,7 @@ void virtualMachine(void) {
 
 void compileInterpreter(void) {
     // word - execute - branch //
-
     compile("'");
     compile("execute");
     compile("branch0");
 }
-
