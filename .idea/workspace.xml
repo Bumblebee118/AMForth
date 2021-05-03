@@ -11,11 +11,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c18945ba-7ee4-49ac-b25a-959d14fc64d4" name="Default Changelist" comment="simple loop with depth of one and global index variable not working. jump back fails">
+    <list default="true" id="c18945ba-7ee4-49ac-b25a-959d14fc64d4" name="Default Changelist" comment="simple loop with depth of one and global index variable working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/basic.c" beforeDir="false" afterPath="$PROJECT_DIR$/basic.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/basic.h" beforeDir="false" afterPath="$PROJECT_DIR$/basic.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dict.c" beforeDir="false" afterPath="$PROJECT_DIR$/dict.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compiler.c" beforeDir="false" afterPath="$PROJECT_DIR$/compiler.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/error.h" beforeDir="false" afterPath="$PROJECT_DIR$/error.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global.h" beforeDir="false" afterPath="$PROJECT_DIR$/global.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +84,7 @@
       <updated>1619161821804</updated>
       <workItem from="1619161823056" duration="523000" />
       <workItem from="1619246100040" duration="1140000" />
-      <workItem from="1620023244752" duration="18776000" />
+      <workItem from="1620023244752" duration="19897000" />
     </task>
     <task id="LOCAL-00003" summary="nil checks added">
       <created>1619247024126</created>
@@ -97,7 +100,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620051649047</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="simple loop with depth of one and global index variable working">
+      <created>1620054147474</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1620054147474</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,7 +129,8 @@
     <MESSAGE value="dict_t renamed to Dict" />
     <MESSAGE value="nil checks added" />
     <MESSAGE value="simple loop with depth of one and global index variable not working. jump back fails" />
-    <option name="LAST_COMMIT_MESSAGE" value="simple loop with depth of one and global index variable not working. jump back fails" />
+    <MESSAGE value="simple loop with depth of one and global index variable working" />
+    <option name="LAST_COMMIT_MESSAGE" value="simple loop with depth of one and global index variable working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -131,13 +142,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/basic.c</url>
-          <line>359</line>
+          <line>360</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/basic.c</url>
-          <line>340</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

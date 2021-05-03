@@ -138,6 +138,8 @@ void DO();
 
 void LOOP();
 
+void chooseCorrectLoopVar();
+
 void PUSHONRETURN();
 
 void PEEKFROMRETURN();
@@ -221,6 +223,11 @@ void BRANCH0();
  *
  */
 void LISTWORDS();
+
+/**
+ * Prints a neww line
+ */
+void CR();
 
 /**
  * Sets the interpreter into string-reading mode

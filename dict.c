@@ -138,6 +138,7 @@ void addBasicWordsToDict() {
     addEntry("variable", data, &VAR);
     addEntry("!", data, &ASSIGNVAR);
     addEntry("@", data, &FETCHVAR);
+    addEntry("cr", data, &CR);
 
     addEntry("pushonreturn", data, &PUSHONRETURN);
     addEntry("peekfromreturn", data, &PEEKFROMRETURN);

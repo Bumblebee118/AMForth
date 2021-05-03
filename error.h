@@ -11,6 +11,7 @@
 #define ERR_PARSING_ERROR -4
 #define ERR_TOKEN_SIZE_LIMIT -5
 #define ERR_INTERPRET_COMPILE_ONLY -6
+#define ERR_LOOP_TOO_DEEP -7
 
 void THROW();
 

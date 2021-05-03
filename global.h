@@ -27,6 +27,8 @@
  */
 extern char* token;
 
+int loopDepth;
+
 /**
  * one global dictionary for the whole program
  */
@@ -35,12 +37,12 @@ Dict *dict;
 /**
  * user definitions segment for compiling
  */
-Dict* user_code_base[CODE_SIZE];
+Dict* userCodeBase[CODE_SIZE];
 
 /**
  * save base address
  */
-extern Dict **user_code;
+extern Dict **userCode;
 extern Dict **start;
 
 /**

@@ -5,11 +5,12 @@ Dict *wp = NULL;
 Dict **ip = NULL;
 Dict *cw = NULL;
 Dict **defs = &dict;
-Dict **user_code = user_code_base;
+Dict **userCode = userCodeBase;
 Dict **start = NULL;
 char* token = NULL;
 int isCompileMode = 0;
 int isStringMode = 0;
+int loopDepth = 0;
 
 void printSynopsis(void);
 
@@ -45,7 +46,7 @@ int main(int argc, char **argv) {
     fprintf(stdout, "Type 'bye' to exit\n");
 
     //set instr pointer
-    ip = user_code;
+    ip = userCode;
     start = ip;
 
     compileInterpreter();

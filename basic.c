@@ -299,24 +299,24 @@ void CHECKBRANCH() {
 }
 
 void PREPFORWARDREF() {
-    *user_code = 0;
-    push(parameterStack, (cell_t) user_code);
-    user_code++;
+    *userCode = 0;
+    push(parameterStack, (cell_t) userCode);
+    userCode++;
 }
 
 void PREPBACKWARDREF() {
-    push(parameterStack, (cell_t) user_code);
+    push(parameterStack, (cell_t) userCode);
 }
 
 void RESOLVEFORWARDREF() {
     Dict **ptr = (Dict **) pop(parameterStack);
-    *ptr = (Dict *) user_code;
+    *ptr = (Dict *) userCode;
 }
 
 void RESOLVEBACKWARDREF() {
     Dict **ptr = (Dict **) pop(parameterStack);
-    *user_code = (Dict *) ptr;
-    user_code++;
+    *userCode = (Dict *) ptr;
+    userCode++;
 }
 
 void IF() {
@@ -338,21 +338,22 @@ void THEN() {
 //#########  LOOP  #############
 
 void DO() {
-    compile("i");
+    loopDepth++;
+    chooseCorrectLoopVar();
     compile("!");
     compile("pushonreturn");
     PREPBACKWARDREF();
     compile("peekfromreturn");
-    compile("i");
+    chooseCorrectLoopVar();
     compile("@");
     compile(">");
     compile("?branch");
     PREPFORWARDREF();
     compile("1");
-    compile("i");
+    chooseCorrectLoopVar();
     compile("@");
     compile("+");
-    compile("i");
+    chooseCorrectLoopVar();
     compile("!");
 }
 
@@ -362,9 +363,27 @@ void LOOP() {
     RESOLVEBACKWARDREF();
     RESOLVEFORWARDREF();
     compile("0");
-    compile("i");
+    chooseCorrectLoopVar();
     compile("!");
     compile("popfromreturn");
+    loopDepth--;
+}
+
+void chooseCorrectLoopVar() {
+    switch (loopDepth) {
+        case 1:
+            compile("i");
+            break;
+        case 2:
+            compile("j");
+            break;
+        case 3:
+            compile("k");
+            break;
+        default:
+            push(parameterStack, ERR_LOOP_TOO_DEEP);
+            THROW();
+    }
 }
 
 void PUSHONRETURN() {
@@ -447,7 +466,7 @@ void COLON() {
     }
 
     Data data;
-    data.definition = user_code;
+    data.definition = userCode;
     cw = addEntry(token, data, &DOCOLON);
 
     isCompileMode = 1;
@@ -516,6 +535,10 @@ void LISTWORDS() {
     }
 }
 
+void CR() {
+    fprintf(stdout, "\n");
+}
+
 void STARTSTORESTRING() {
     isStringMode = 1;
 }
@@ -535,8 +558,8 @@ void ENDSTRING() {
             return;
         }
 
-        *user_code = (Dict *) (cell_t) a;
-        user_code++;
+        *userCode = (Dict *) (cell_t) a;
+        userCode++;
         isStringMode = 0;
     } else if (isStringMode == 1) isStringMode = 0;
     else if (isStringMode == 2) {

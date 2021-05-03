@@ -16,8 +16,8 @@ void compile(char *word) {
 
     defs = &dict;
     if ((entry = getEntry(word))) {
-        *user_code = entry;
-        user_code++;
+        *userCode = entry;
+        userCode++;
         return;
     }
 
@@ -27,13 +27,13 @@ void compile(char *word) {
 
     if (strlen(endptr) == 0) {
         compile("dolit");
-        *user_code = (Dict *) num;
-        user_code++;
+        *userCode = (Dict *) num;
+        userCode++;
     } else {
         push(parameterStack, ERR_UNDEFINED_WORD);
         THROW();
         isCompileMode = 0;
-        user_code = cw->data.definition;    //reset user_code pointer
+        userCode = cw->data.definition;    //reset userCode pointer
         removeEntry(cw->word);              //delete word from dictionary
     }
 }
