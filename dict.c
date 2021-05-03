@@ -141,6 +141,7 @@ void addBasicWordsToDict() {
 
     addEntry("pushonreturn", data, &PUSHONRETURN);
     addEntry("peekfromreturn", data, &PEEKFROMRETURN);
+    addEntry("popfromreturn", data, &POPFROMRETURN);
 
     //######## Macros ##########
     defs = &macros;

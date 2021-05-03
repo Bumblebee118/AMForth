@@ -316,6 +316,7 @@ void RESOLVEFORWARDREF() {
 void RESOLVEBACKWARDREF() {
     Dict **ptr = (Dict **) pop(parameterStack);
     *user_code = (Dict *) ptr;
+    user_code++;
 }
 
 void IF() {
@@ -363,6 +364,7 @@ void LOOP() {
     compile("0");
     compile("i");
     compile("!");
+    compile("popfromreturn");
 }
 
 void PUSHONRETURN() {
@@ -371,6 +373,10 @@ void PUSHONRETURN() {
 
 void PEEKFROMRETURN() {
     push(parameterStack, peek(returnStack));
+}
+
+void POPFROMRETURN() {
+    pop(returnStack);
 }
 
 //#########  STACK #############
