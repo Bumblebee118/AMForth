@@ -156,6 +156,11 @@ void addBasicWordsToDict() {
     addEntry("else", data, &ELSE);
     addEntry("do", data, &DO);
     addEntry("loop", data, &LOOP);
+    addEntry("begin", data, &BEGIN);
+    addEntry("until", data, &UNTIL);
+    addEntry("again", data, &AGAIN);
+    addEntry("while", data, &WHILE);
+    addEntry("repeat", data, &REPEAT);
     defs = &dict;
 
     //######## Global Variables ##########

@@ -349,15 +349,15 @@ void DO() {
     compile(">");
     compile("?branch");
     PREPFORWARDREF();
+}
+
+void LOOP() {
     compile("1");
     chooseCorrectLoopVar();
     compile("@");
     compile("+");
     chooseCorrectLoopVar();
     compile("!");
-}
-
-void LOOP() {
     compile("branch");
     SWAP();
     RESOLVEBACKWARDREF();
@@ -367,6 +367,32 @@ void LOOP() {
     compile("!");
     compile("popfromreturn");
     loopDepth--;
+}
+
+void BEGIN() {
+    PREPBACKWARDREF();
+}
+
+void UNTIL() {
+    compile("?branch");
+    RESOLVEBACKWARDREF();
+}
+
+void AGAIN() {
+    compile("branch");
+    RESOLVEBACKWARDREF();
+}
+
+void WHILE() {
+    compile("?branch");
+    PREPFORWARDREF();
+}
+
+void REPEAT() {
+    compile("branch");
+    SWAP();
+    RESOLVEBACKWARDREF();
+    RESOLVEFORWARDREF();
 }
 
 void chooseCorrectLoopVar() {

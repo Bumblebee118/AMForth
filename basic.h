@@ -138,6 +138,16 @@ void DO();
 
 void LOOP();
 
+void BEGIN();
+
+void UNTIL();
+
+void AGAIN();
+
+void WHILE();
+
+void REPEAT();
+
 void chooseCorrectLoopVar();
 
 void PUSHONRETURN();
