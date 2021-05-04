@@ -68,7 +68,7 @@ char getNextChar() {
 }
 
 int nextToken() {
-    if(token == NULL){
+    if (token == NULL) {
         //acquire memory
         token = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
         //check pointer again
@@ -201,6 +201,6 @@ int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread) {
     return len;
 }
 */
-void print_msg(char* msg) {
+void print_msg(char *msg) {
     if (stream == stdin) fprintf(stdout, "%s", msg);
 }

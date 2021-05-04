@@ -292,5 +292,4 @@ void ASSIGNVAR();
 void FETCHVAR();
 
 
-
 #endif //AMFORTH_BASIC_H

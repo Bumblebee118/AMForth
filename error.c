@@ -4,10 +4,10 @@ void THROW() {
     static int error_cnt = 0;
 
     cell_t errno = pop(parameterStack);
-    if(errno == 0) return;
+    if (errno == 0) return;
 
     error_cnt++;
-    char* str;
+    char *str;
     switch (errno) {
         case ERR_UNDEFINED_WORD:
             str = "Undefined word";
@@ -28,7 +28,7 @@ void THROW() {
             str = "Interpreting a compile-only word";
             break;
         default:
-            str= "Undefined error";
+            str = "Undefined error";
             break;
     }
 

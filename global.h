@@ -25,7 +25,7 @@
 /**
  *
  */
-extern char* token;
+extern char *token;
 
 int loopDepth;
 
@@ -37,7 +37,7 @@ Dict *dict;
 /**
  * user definitions segment for compiling
  */
-Dict* userCodeBase[CODE_SIZE];
+Dict *userCodeBase[CODE_SIZE];
 
 /**
  * save base address
