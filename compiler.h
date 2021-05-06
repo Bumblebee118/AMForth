@@ -9,4 +9,6 @@
 #include <stdlib.h>
 
 void compile(char* word);
+
+void stopCompile();
 #endif //AMFORTH_COMPILER_H

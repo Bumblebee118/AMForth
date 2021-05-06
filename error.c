@@ -27,6 +27,12 @@ void THROW() {
         case ERR_INTERPRET_COMPILE_ONLY:
             str = "Interpreting a compile-only word";
             break;
+        case ERR_EXPECTED_CTRL_STRUCTURE:
+            str = "Control structure was expected";
+            break;
+        case ERR_UNSTRUCTURED:
+            str = "Unstructured";
+            break;
         default:
             str = "Undefined error";
             break;
@@ -41,5 +47,8 @@ void THROW() {
     //skip back to start of shell
     skipLine();
     ip = start;
+
+    if (isCompileMode) stopCompile();
+
 }
 

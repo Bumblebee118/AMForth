@@ -5,8 +5,6 @@
 
 typedef long cell_t;
 
-extern long nil;
-
 /**
  * Struct to create a stack
  * 'top' points to the here element in the array 'array'

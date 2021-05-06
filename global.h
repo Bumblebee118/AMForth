@@ -84,4 +84,6 @@ extern Dict *cw;   //current compiled word
 
 extern Dict **defs; //can either point to dict or macro address
 
+extern long nil;
+
 #endif //AMFORTH_GLOBAL_H

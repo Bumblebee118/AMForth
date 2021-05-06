@@ -32,8 +32,12 @@ void compile(char *word) {
     } else {
         push(parameterStack, ERR_UNDEFINED_WORD);
         THROW();
-        isCompileMode = 0;
-        userCode = cw->data.definition;    //reset userCode pointer
-        removeEntry(cw->word);              //delete word from dictionary
+        stopCompile();
     }
+}
+
+void stopCompile(){
+    isCompileMode = 0;
+    userCode = cw->data.definition;    //reset userCode pointer
+    removeEntry(cw->word);              //delete word from dictionary
 }

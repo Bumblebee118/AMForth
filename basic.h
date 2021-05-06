@@ -7,6 +7,10 @@
 
 #include <limits.h>
 
+#define COMP_IF nil-1
+#define COMP_ELSE nil-2
+#define COMP_THEN nil-3
+
 /**
  * typedefs for function pointers
  */
