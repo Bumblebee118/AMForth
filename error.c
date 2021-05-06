@@ -33,6 +33,9 @@ void THROW() {
         case ERR_UNSTRUCTURED:
             str = "Unstructured";
             break;
+        case ERR_NO_MEMORY:
+            str = "No memory";
+            break;
         default:
             str = "Undefined error";
             break;

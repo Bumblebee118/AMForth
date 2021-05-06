@@ -620,8 +620,16 @@ void VAR() {
         THROW();
         return;
     }
+
+    void* ptr = malloc(sizeof(cell_t));
+    if(ptr == NULL){
+        push(parameterStack, ERR_NO_MEMORY);
+        THROW();
+        return;
+    }
+
     Data data;
-    data.value = (cell_t) malloc(sizeof(cell_t));
+    data.value = (cell_t) ptr;
 
     addEntry(token, data, &DOVAR);
 }

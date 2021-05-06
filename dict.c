@@ -76,9 +76,11 @@ void deleteDict() {
     Dict *next;
     while (currentNode != NULL) {
         if (currentNode->word != NULL) free(currentNode->word);
+        if (currentNode->code == &DOVAR) free((int*) currentNode->data.value);
         next = currentNode->link;
         free(currentNode);
         currentNode = next;
+
     }
 
 }

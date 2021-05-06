@@ -14,6 +14,7 @@
 #define ERR_LOOP_TOO_DEEP -7
 #define ERR_EXPECTED_CTRL_STRUCTURE -8
 #define ERR_UNSTRUCTURED -9
+#define ERR_NO_MEMORY -10
 
 void THROW();
 
