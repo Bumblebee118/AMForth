@@ -292,5 +292,9 @@ void ASSIGNVAR();
  */
 void FETCHVAR();
 
+/*
+ * lets you remove the first entry, that matches a given name from the dictionary
+ */
+void FORGET();
 
 #endif //AMFORTH_BASIC_H

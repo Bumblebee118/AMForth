@@ -38,6 +38,7 @@ void freeRes() {
     deleteDict();
     deleteStack(parameterStack);
     deleteStack(returnStack);
+    deleteList(ptrList);
 }
 
 void skipLine() {
@@ -116,6 +117,15 @@ cell_t nextString(char** str){
         current = getNextChar();
     }
     (*str)[len] = '\0';
+
+
+    //store pointer in list
+    ptrList = add(ptrList, *str);
+    if(ptrList==NULL){
+        push(parameterStack, ERR_NO_MEMORY);
+        THROW();
+        exit(EXIT_FAILURE);
+    }
 
     return len;
 }

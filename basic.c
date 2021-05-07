@@ -658,7 +658,7 @@ void STORESTRING() {
     if(str == NULL){
         push(parameterStack, ERR_NO_MEMORY);
         THROW();
-        return;
+        exit(EXIT_FAILURE);
     }
     cell_t len = nextString(&str);
 
@@ -679,11 +679,12 @@ void PRINTSTRING() {
         if(str == NULL){
             push(parameterStack, ERR_NO_MEMORY);
             THROW();
-            return;
+            exit(EXIT_FAILURE);
         }
         cell_t len = nextString(&str);
         compile("doprintstring");
         *(userCode++) = (Dict*) str;
+
     }else{
         char current = getNextChar();
         while((current != '\"') && (current != '\n')){
@@ -753,7 +754,7 @@ void VAR() {
     if(ptr == NULL){
         push(parameterStack, ERR_NO_MEMORY);
         THROW();
-        return;
+        exit(EXIT_FAILURE);
     }
 
     Data data;
@@ -791,4 +792,21 @@ void FETCHVAR() {
         return;
     }
     push(parameterStack, *ptr);
+}
+
+void FORGET(){
+    int len = nextToken();
+
+    if (len >= MAX_WORD_NAME_SIZE) {
+        push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
+        THROW();
+        return;
+    }
+
+    if(removeEntry(token) == 0){
+        fprintf(stdout, "forgot word '%s' ", token);
+    }else{
+        push(parameterStack, ERR_UNDEFINED_WORD);
+        THROW();
+    }
 }

@@ -13,6 +13,7 @@
 #include "dict.h"
 #include "stack.h"
 #include "error.h"
+#include "list.h"
 
 #define MAX_WORD_NAME_SIZE 128          //maximum number of chars one word can have
 #define STANDARD_STACK_CAPACITY 128
@@ -59,6 +60,11 @@ Stack *parameterStack;
  * one global return stack for the whole program
  */
 Stack *returnStack;
+
+/*
+ * list that keeps track of all user allocated memory
+ */
+List* ptrList;
 
 /**
  * specifies the mode the interpreter is currently in
