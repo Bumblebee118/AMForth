@@ -3,47 +3,37 @@
 #include "executor.h"
 
 char lastChar;
+int redefined = 0;
 
 void interpret() {
     int len;
-    char *string = NULL;
-    if (isStringMode) {
-        len = getStringFromInput(&string, &token);
-    } else {
-        len = nextToken();
-    }
+    len = nextToken();
 
     //check if an error occurred or the the user wants to quit
     if (len == -1) {
         push(parameterStack, ERR_PARSING_ERROR);
         THROW();
-        freeRes(string);
+        freeRes();
         exit(1);
     } else if (len == 0) {
         //reached EOF
-        freeRes(string);
-        exit(0);
-    } else if (len >= MAX_WORD_NAME_SIZE && !isStringMode) {
+        freeRes();
+        exit(EXIT_SUCCESS);
+    } else if (len >= MAX_WORD_NAME_SIZE) {
         push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
         THROW();
-    } else if ((strcmp(token, "bye") == 0) && !isStringMode) {
+    } else if ((strcmp(token, "bye") == 0)) {
         fprintf(stdout, "see you later!\n");
-        freeRes(string);
+        freeRes();
         exit(EXIT_SUCCESS);
     } else {
-        if (isStringMode) {
-            push(parameterStack, (cell_t) string);
-            push(parameterStack, (cell_t) token);
-        } else {
-            push(parameterStack, (cell_t) token);
-        }
+        push(parameterStack, (cell_t) token);
     }
 
 }
 
-void freeRes(char *string) {
+void freeRes() {
     if (token != NULL) free(token);
-    if (string != NULL) free(string);
     deleteDict();
     defs = &macros;
     deleteDict();
@@ -60,6 +50,12 @@ void skipLine() {
 
 char getNextChar() {
     if (lastChar == '\n') {
+        if(redefined){
+            char msg [MAX_WORD_NAME_SIZE + 11];
+            sprintf(msg, "redefined %s ", cw->word);
+            print_msg(msg);
+            redefined = 0;
+        }
         if (isCompileMode == 0) print_msg("ok> ");
         else print_msg("compiled> ");
     }
@@ -112,40 +108,24 @@ int nextToken() {
     return len;
 }
 
-int getStringFromInput(char **pString, char **tokenPtr) {
-    *tokenPtr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
-    if (*tokenPtr == NULL) return -1;
-    *tokenPtr[0] = '"';
-    // *tokenPtr[1] = '\0';
 
-    int bufferSize = BASE_STRING_SIZE;
-    *pString = (char *) malloc(sizeof(char) * bufferSize);
-    if (*pString == NULL) return -1;
-
-    char currentChar = getNextChar();
-
-    int len = 0;
-    int singleQuotationMark = 0;
-    while (!singleQuotationMark) {
-        if (currentChar == EOF) return 0;
-
-        if (len + 1 < bufferSize) {
-            (*pString)[len] = currentChar;
-        } else {
-            bufferSize += 2;
-            *pString = realloc(pString, bufferSize);
-            (*pString)[len] = currentChar;
+cell_t nextString(char** str){
+    cell_t len = 0;
+    int size = BASE_STRING_SIZE;
+    char current = getNextChar();
+    while((current != '\"') && (current != '\n')){
+        if(len == size-1){
+            size += 2;
+            (*str) = (char *) realloc(str, sizeof(char)*size);
         }
-
-        currentChar = getNextChar();
-        if ((currentChar == ' ' || currentChar == '\n') && (*pString)[len] == '"') singleQuotationMark = 1;
+        (*str)[len] = current;
         len++;
+        current = getNextChar();
     }
+    (*str)[size] = '\0';
 
-    (*pString)[len - 1] = '\0';
     return len;
 }
-
 
 /*int nextToken(char** token_ptr){
     return nextTokenFromLine(line, token_ptr, nread);

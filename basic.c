@@ -566,25 +566,7 @@ void SEMI() {
 }
 
 void DOLIT() {
-    cell_t lit = (cell_t) *ip;
-    push(parameterStack, lit);
-    ip++;
-}
-
-void DOSTORESTRING() {
-    cell_t a = (cell_t) *ip;
-    if (a == nil) {
-        return;
-    }
-
-    push(parameterStack, a);
-    ip++;
-}
-
-void DOPRINTSTRING() {
-    char *string = (char *) (cell_t) *ip;
-    fprintf(stdout, "%s ", string);
-    ip++;
+    push(parameterStack, (cell_t) *(ip++));
 }
 
 __attribute__((unused)) void NEXT() {
@@ -621,13 +603,48 @@ void CR() {
     fprintf(stdout, "\n");
 }
 
-void STARTSTORESTRING() {
-    isStringMode = 1;
+void DOSTORESTRING() {
+    push(parameterStack, (cell_t) *(ip++));
+    push(parameterStack, (cell_t) *(ip++));
 }
 
-void STARTPRINTSTRING() {
-    isStringMode = 2;
+void DOPRINTSTRING() {
+    char *string = (char *) (cell_t) *(ip++);
+    fprintf(stdout, "%s ", string);
 }
+
+void STORESTRING() {
+    char* str =(char*) malloc(sizeof(char )*BASE_STRING_SIZE);
+    cell_t len = nextString(&str);
+
+    if (isCompileMode){
+       compile("dostorestring");
+        *(userCode++) = (Dict*) str;
+        *(userCode++) = (Dict*) len;
+    }else{
+        push(parameterStack, (cell_t)str);
+        push(parameterStack, len); //TODO check push len
+    }
+
+}
+
+void PRINTSTRING() {
+    if (isCompileMode){
+        char* str =(char*) malloc(sizeof(char )*BASE_STRING_SIZE);
+        cell_t len = nextString(&str);
+        compile("doprintstring");
+        *(userCode++) = (Dict*) str;
+    }else{
+        char current = getNextChar();
+        while((current != '\"') && (current != '\n')){
+            fprintf(stdout, "%c", current);
+            current = getNextChar();
+        }
+        fprintf(stdout, " ");
+    }
+
+}
+
 
 void ENDSTRING() {
     if (isCompileMode) {
@@ -655,8 +672,19 @@ void ENDSTRING() {
 }
 
 void TYPE() {
+    //TODO check if lenght is necessary
+    cell_t len = pop(parameterStack);
+    if (len == nil) {
+        push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
+        THROW();
+        return;
+    }
+
     char *a = (char *) pop(parameterStack);
+
     if ((cell_t) a == nil) {
+        push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
+        THROW();
         return;
     }
     fprintf(stdout, "%s ", a);

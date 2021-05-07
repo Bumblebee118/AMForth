@@ -27,8 +27,7 @@ void compile(char *word) {
 
     if (strlen(endptr) == 0) {
         compile("dolit");
-        *userCode = (Dict *) num;
-        userCode++;
+        *(userCode++) = (Dict *) num;
     } else {
         push(parameterStack, ERR_UNDEFINED_WORD);
         THROW();

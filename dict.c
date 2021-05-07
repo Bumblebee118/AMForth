@@ -5,10 +5,10 @@
 #include "global.h"
 
 Dict *addEntry(char *word, Data data, CODEPOINTER code) {
-    //check if entry already exists and if it is mutable or not
+    //check if entry already exists and write redefined
     Dict *oldEntry = getEntry(word);
     if (oldEntry != NULL && oldEntry->code != NULL) {
-        return NULL;
+        redefined = 1;
     }
 
     Dict *newEntry = (Dict *) malloc(sizeof(Dict));
@@ -71,7 +71,6 @@ int removeEntry(char *word) {
 }
 
 void deleteDict() {
-    //TODO free variable pointers
     Dict *currentNode = *defs;
     Dict *next;
     while (currentNode != NULL) {
@@ -131,9 +130,8 @@ void addBasicWordsToDict() {
     addEntry("execute", data, &EXECUTE);
     addEntry("branch0", data, &BRANCH0);
     addEntry("words", data, &LISTWORDS);
-    addEntry("s\"", data, &STARTSTORESTRING);
-    addEntry(".\"", data, &STARTPRINTSTRING);
-    addEntry("\"", data, &ENDSTRING);
+    addEntry("s\"", data, &STORESTRING);
+    addEntry(".\"", data, &PRINTSTRING);
     addEntry("type", data, &TYPE);
     //######## Constant or Variable ##########
     addEntry("constant", data, &CONST);
@@ -149,9 +147,8 @@ void addBasicWordsToDict() {
     //######## Macros ##########
     defs = &macros;
     addEntry(";", data, &SEMI);
-    addEntry("s\"", data, &STARTSTORESTRING);
-    addEntry(".\"", data, &STARTPRINTSTRING);
-    addEntry("\"", data, &ENDSTRING);
+    addEntry("s\"", data, &STORESTRING);
+    addEntry(".\"", data, &PRINTSTRING);
     //#########  Flow Control #############;
     addEntry("if", data, &IF);
     addEntry("then", data, &THEN);

@@ -20,7 +20,7 @@ void interpret();
 /**
  * frees all allocated memory of token, dict and the stacks
  */
-void freeRes(char *string);
+void freeRes();
 
 /**
  * skips all chars until the next '\n' in input stream
@@ -50,6 +50,8 @@ int nextToken();
  */
 //int nextToken(char** token_ptr);
 
+cell_t nextString(char** str);
+
 /**
  * Reads in the next token from the string 'line'
  * @param line The string from which a new token shall be read
@@ -58,13 +60,6 @@ int nextToken();
  * or 0 if there are new more tokens left in that line
  */
 int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread);
-
-/**
- *
- * @param pString an char** pointer, which will be filled with the next pString
- * @return Returns the length of the token, -1 if an error occurs
- */
-int getStringFromInput(char **pString, char **tokenPtr);
 
 /**
  * Prints the msg to stdin if the interpreter is run in interactive mode

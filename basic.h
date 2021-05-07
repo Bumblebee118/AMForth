@@ -9,7 +9,6 @@
 
 #define COMP_IF nil-1
 #define COMP_ELSE nil-2
-#define COMP_THEN nil-3
 
 /**
  * typedefs for function pointers
@@ -246,17 +245,12 @@ void CR();
 /**
  * Sets the interpreter into string-reading mode
  */
-void STARTSTORESTRING();
+void STORESTRING();
 
 /**
  * Sets the interpreter into string-reading mode and prints the string in the end instead of storing it
  */
-void STARTPRINTSTRING();
-
-/**
- * Exits the interpreter from string-reading mode
- */
-void ENDSTRING();
+void PRINTSTRING();
 
 /**
  * Writes the string on top of the stack to the terminal

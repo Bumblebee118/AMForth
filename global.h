@@ -86,4 +86,6 @@ extern Dict **defs; //can either point to dict or macro address
 
 extern long nil;
 
+extern int redefined;
+
 #endif //AMFORTH_GLOBAL_H
