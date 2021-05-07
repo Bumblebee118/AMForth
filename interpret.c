@@ -29,7 +29,6 @@ void interpret() {
     } else {
         push(parameterStack, (cell_t) token);
     }
-
 }
 
 void freeRes() {

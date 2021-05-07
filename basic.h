@@ -9,6 +9,9 @@
 
 #define COMP_IF nil-1
 #define COMP_ELSE nil-2
+#define COMP_DO nil-3
+#define COMP_BEGIN nil-4
+#define COMP_WHILE nil-5
 
 /**
  * typedefs for function pointers

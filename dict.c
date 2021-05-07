@@ -79,9 +79,7 @@ void deleteDict() {
         next = currentNode->link;
         free(currentNode);
         currentNode = next;
-
     }
-
 }
 
 void addBasicWordsToDict() {

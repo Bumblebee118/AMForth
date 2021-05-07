@@ -36,6 +36,9 @@ void THROW() {
         case ERR_NO_MEMORY:
             str = "No memory";
             break;
+        case ERR_LOOP_TOO_DEEP:
+            str = "Loops deeper than 3 levels are not supported";
+            break;
         default:
             str = "Undefined error";
             break;
@@ -52,6 +55,5 @@ void THROW() {
     ip = start;
 
     if (isCompileMode) stopCompile();
-
 }
 

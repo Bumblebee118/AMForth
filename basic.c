@@ -397,9 +397,16 @@ void DO() {
     compile(">");
     compile("?branch");
     PREPFORWARDREF();
+    push(parameterStack, COMP_DO);
 }
 
 void LOOP() {
+    cell_t doLabel = pop(parameterStack);
+    if (doLabel != COMP_DO) {
+        push(parameterStack, ERR_EXPECTED_CTRL_STRUCTURE);
+        THROW();
+        return;
+    }
     compile("1");
     chooseCorrectLoopVar();
     compile("@");
@@ -419,24 +426,50 @@ void LOOP() {
 
 void BEGIN() {
     PREPBACKWARDREF();
+    push(parameterStack, COMP_BEGIN);
 }
 
 void UNTIL() {
+    cell_t beginLabel = pop(parameterStack);
+    if (beginLabel != COMP_BEGIN) {
+        push(parameterStack, ERR_EXPECTED_CTRL_STRUCTURE);
+        THROW();
+        return;
+    }
     compile("?branch");
     RESOLVEBACKWARDREF();
 }
 
 void AGAIN() {
+    cell_t beginLabel = pop(parameterStack);
+    if (beginLabel != COMP_BEGIN) {
+        push(parameterStack, ERR_EXPECTED_CTRL_STRUCTURE);
+        THROW();
+        return;
+    }
     compile("branch");
     RESOLVEBACKWARDREF();
 }
 
 void WHILE() {
+    cell_t beginLabel = pop(parameterStack);
+    if (beginLabel != COMP_BEGIN) {
+        push(parameterStack, ERR_EXPECTED_CTRL_STRUCTURE);
+        THROW();
+        return;
+    }
     compile("?branch");
     PREPFORWARDREF();
+    push(parameterStack, COMP_WHILE);
 }
 
 void REPEAT() {
+    cell_t beginLabel = pop(parameterStack);
+    if (beginLabel != COMP_WHILE) {
+        push(parameterStack, ERR_EXPECTED_CTRL_STRUCTURE);
+        THROW();
+        return;
+    }
     compile("branch");
     SWAP();
     RESOLVEBACKWARDREF();
