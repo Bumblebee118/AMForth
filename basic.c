@@ -596,6 +596,13 @@ void SEMI() {
     }
     compile("dosemi");
     isCompileMode = 0;
+
+    if(redefined){
+        char msg [MAX_WORD_NAME_SIZE + 11];
+        sprintf(msg, "redefined %s ", cw->word);
+        print_msg(msg);
+        redefined = 0;
+    }
 }
 
 void DOLIT() {

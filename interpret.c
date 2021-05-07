@@ -49,12 +49,6 @@ void skipLine() {
 
 char getNextChar() {
     if (lastChar == '\n') {
-        if(redefined){
-            char msg [MAX_WORD_NAME_SIZE + 11];
-            sprintf(msg, "redefined %s ", cw->word);
-            print_msg(msg);
-            redefined = 0;
-        }
         if (isCompileMode == 0) print_msg("ok> ");
         else print_msg("compiled> ");
     }
