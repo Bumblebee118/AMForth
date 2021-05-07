@@ -9,11 +9,15 @@
 void ADD() {
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -24,11 +28,15 @@ void ADD() {
 void SUBTRACT() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -39,11 +47,15 @@ void SUBTRACT() {
 void MULTIPLY() {
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -54,11 +66,15 @@ void MULTIPLY() {
 void DIVIDE() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -71,11 +87,15 @@ void DIVIDE() {
 void LESS() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -85,11 +105,15 @@ void LESS() {
 void GREATER() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -99,11 +123,15 @@ void GREATER() {
 void EQUAL() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -113,11 +141,15 @@ void EQUAL() {
 void NOTEQUAL() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -127,11 +159,15 @@ void NOTEQUAL() {
 void LESSEQ() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -141,11 +177,15 @@ void LESSEQ() {
 void GREATEREQ() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -155,6 +195,8 @@ void GREATEREQ() {
 void ZEROLESS() {
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -164,6 +206,8 @@ void ZEROLESS() {
 void ZEROGREATER() {
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -173,6 +217,8 @@ void ZEROGREATER() {
 void ZEROEQ() {
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -182,6 +228,8 @@ void ZEROEQ() {
 void ZERONOTEQ() {
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -191,6 +239,8 @@ void ZERONOTEQ() {
 void ZEROLESSEQ() {
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -200,6 +250,8 @@ void ZEROLESSEQ() {
 void ZEROGREATEREQ() {
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -211,11 +263,15 @@ void ZEROGREATEREQ() {
 void AND() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -225,11 +281,15 @@ void AND() {
 void OR() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -239,11 +299,15 @@ void OR() {
 void XOR() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -259,6 +323,8 @@ void BRANCH() {
 void CHECKBRANCH() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -411,11 +477,15 @@ void POPFROMRETURN() {
 void SWAP() {
     cell_t b = pop(parameterStack);
     if (b == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -426,6 +496,8 @@ void SWAP() {
 void DUP() {
     cell_t a = peek(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -436,6 +508,8 @@ void DUP() {
 void PRINTPOPSTACK() {
     cell_t a = pop(parameterStack);
     if (a == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -602,6 +676,8 @@ void CONST() {
     Data data;
     data.value = pop(parameterStack);
     if (data.value == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -641,10 +717,14 @@ void DOVAR() {
 void ASSIGNVAR() {
     cell_t *ptr = (cell_t *) pop(parameterStack);
     if ((cell_t) ptr == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
     cell_t val = pop(parameterStack);
     if (val == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
 
@@ -654,6 +734,8 @@ void ASSIGNVAR() {
 void FETCHVAR() {
     cell_t *ptr = (cell_t *) pop(parameterStack);
     if (*ptr == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
     push(parameterStack, *ptr);

@@ -36,8 +36,6 @@ cell_t push(Stack *stack, cell_t item) {
 //pops the top of the stack
 cell_t pop(Stack *stack) {
     if (isEmpty(stack)) {
-        push(parameterStack, ERR_STACK_UNDERFLOW);
-        THROW();
         return nil;
     }
 
