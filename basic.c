@@ -645,32 +645,6 @@ void PRINTSTRING() {
 
 }
 
-
-void ENDSTRING() {
-    if (isCompileMode) {
-        if (isStringMode == 1) compile("dostorestring");
-        else if (isStringMode == 2) compile("doprintstring");
-
-        char *a = (char *) pop(parameterStack);
-        if ((cell_t) a == nil) {
-            return;
-        }
-
-        *userCode = (Dict *) (cell_t) a;
-        userCode++;
-        isStringMode = 0;
-    } else if (isStringMode == 1) isStringMode = 0;
-    else if (isStringMode == 2) {
-        isStringMode = 0;
-        char *a = (char *) pop(parameterStack);
-        if ((cell_t) a == nil) {
-            return;
-        }
-
-        fprintf(stdout, "%s ", a);
-    }
-}
-
 void TYPE() {
     //TODO check if lenght is necessary
     cell_t len = pop(parameterStack);
