@@ -615,6 +615,11 @@ void DOPRINTSTRING() {
 
 void STORESTRING() {
     char* str =(char*) malloc(sizeof(char )*BASE_STRING_SIZE);
+    if(str == NULL){
+        push(parameterStack, ERR_NO_MEMORY);
+        THROW();
+        return;
+    }
     cell_t len = nextString(&str);
 
     if (isCompileMode){
@@ -631,6 +636,11 @@ void STORESTRING() {
 void PRINTSTRING() {
     if (isCompileMode){
         char* str =(char*) malloc(sizeof(char )*BASE_STRING_SIZE);
+        if(str == NULL){
+            push(parameterStack, ERR_NO_MEMORY);
+            THROW();
+            return;
+        }
         cell_t len = nextString(&str);
         compile("doprintstring");
         *(userCode++) = (Dict*) str;
@@ -649,7 +659,7 @@ void TYPE() {
     //TODO check if lenght is necessary
     cell_t len = pop(parameterStack);
     if (len == nil) {
-        push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
+        push(parameterStack, ERR_STACK_UNDERFLOW);
         THROW();
         return;
     }
@@ -657,7 +667,7 @@ void TYPE() {
     char *a = (char *) pop(parameterStack);
 
     if ((cell_t) a == nil) {
-        push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
+        push(parameterStack, ERR_STACK_UNDERFLOW);
         THROW();
         return;
     }

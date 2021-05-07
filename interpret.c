@@ -122,7 +122,7 @@ cell_t nextString(char** str){
         len++;
         current = getNextChar();
     }
-    (*str)[size] = '\0';
+    (*str)[len] = '\0';
 
     return len;
 }

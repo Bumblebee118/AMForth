@@ -36,7 +36,8 @@ void compile(char *word) {
 }
 
 void stopCompile(){
+    redefined = 0;
     isCompileMode = 0;
     userCode = cw->data.definition;    //reset userCode pointer
-    removeEntry(cw->word);              //delete word from dictionary
+    removeEntry(cw->word);             //delete word from dictionary
 }
