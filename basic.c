@@ -547,6 +547,7 @@ void PRINTPOPSTACK() {
     }
 
     fprintf(stdout, "%ld ", a);
+    fflush(stdout);
 }
 
 void PRINTSTACK() {
@@ -557,6 +558,7 @@ void PRINTSTACK() {
         fprintf(stdout, "%ld ", parameterStack->array[i]);
         i++;
     }
+    fflush(stdout);
 }
 
 
@@ -637,10 +639,12 @@ void LISTWORDS() {
         fprintf(stdout, "%s ", (*pointer).word);
         pointer = (*pointer).link;
     }
+    fflush(stdout);
 }
 
 void CR() {
     fprintf(stdout, "\n");
+    fflush(stdout);
 }
 
 void DOSTORESTRING() {
@@ -651,6 +655,7 @@ void DOSTORESTRING() {
 void DOPRINTSTRING() {
     char *string = (char *) (cell_t) *(ip++);
     fprintf(stdout, "%s ", string);
+    fflush(stdout);
 }
 
 void STORESTRING() {
@@ -693,7 +698,7 @@ void PRINTSTRING() {
         }
         fprintf(stdout, " ");
     }
-
+    fflush(stdout);
 }
 
 void TYPE() {
@@ -713,6 +718,7 @@ void TYPE() {
         return;
     }
     fprintf(stdout, "%s ", a);
+    fflush(stdout);
 }
 
 //#########  VARIABLE AND CONST #############

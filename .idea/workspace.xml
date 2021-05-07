@@ -11,12 +11,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c18945ba-7ee4-49ac-b25a-959d14fc64d4" name="Default Changelist" comment="general loops working">
+    <list default="true" id="c18945ba-7ee4-49ac-b25a-959d14fc64d4" name="Default Changelist" comment="markers for loops added">
+      <change afterPath="$PROJECT_DIR$/testfiles/testfile.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/basic.c" beforeDir="false" afterPath="$PROJECT_DIR$/basic.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basic.h" beforeDir="false" afterPath="$PROJECT_DIR$/basic.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dict.c" beforeDir="false" afterPath="$PROJECT_DIR$/dict.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/error.c" beforeDir="false" afterPath="$PROJECT_DIR$/error.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executor.c" beforeDir="false" afterPath="$PROJECT_DIR$/executor.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interpret.c" beforeDir="false" afterPath="$PROJECT_DIR$/interpret.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,17 +55,50 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/testfiles" />
+    </key>
+  </component>
+  <component name="RunManager" selected="CMake Application.AMForth">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AMForth" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AMForth" TARGET_NAME="AMForth" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AMForth" RUN_TARGET_NAME="AMForth">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="default_target" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/cmake-build-debug/Makefile" target="default_target" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="help" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/cmake-build-debug/Makefile" target="help" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.AMForth" />
+      <item itemvalue="Makefile Target.default_target" />
+      <item itemvalue="Makefile Target.help" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile Target.help" />
+        <item itemvalue="Makefile Target.default_target" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -80,7 +112,8 @@
       <workItem from="1619246100040" duration="1140000" />
       <workItem from="1620023244752" duration="20229000" />
       <workItem from="1620106547233" duration="3172000" />
-      <workItem from="1620368250494" duration="6699000" />
+      <workItem from="1620368250494" duration="7445000" />
+      <workItem from="1620400041126" duration="3344000" />
     </task>
     <task id="LOCAL-00003" summary="nil checks added">
       <created>1619247024126</created>
@@ -124,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620117790417</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="markers for loops added">
+      <created>1620376444677</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1620376444678</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,17 +189,7 @@
     <MESSAGE value="simple loop with depth of one and global index variable working" />
     <MESSAGE value="loop with depth 3 working. deeper loops throw errors" />
     <MESSAGE value="general loops working" />
-    <option name="LAST_COMMIT_MESSAGE" value="general loops working" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/executor.c</url>
-          <line>14</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="markers for loops added" />
+    <option name="LAST_COMMIT_MESSAGE" value="markers for loops added" />
   </component>
 </project>

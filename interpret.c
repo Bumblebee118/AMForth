@@ -24,6 +24,7 @@ void interpret() {
         THROW();
     } else if ((strcmp(token, "bye") == 0)) {
         fprintf(stdout, "see you later!\n");
+        fflush(stdout);
         freeRes();
         exit(EXIT_SUCCESS);
     } else {
@@ -43,8 +44,7 @@ void freeRes() {
 
 void skipLine() {
     if (lastChar != '\n') {
-        char c;
-        while ((c = (char) getc(stream)) != '\n');
+        while ((char) getc(stream) != '\n');
     }
 }
 
@@ -53,7 +53,6 @@ char getNextChar() {
         if (isCompileMode == 0) print_msg("ok> ");
         else print_msg("compiled> ");
     }
-
     return (lastChar = (char) fgetc(stream));
 }
 
@@ -70,7 +69,6 @@ int nextToken() {
 
     int len = 0;
     while (!isspace(currentChar)) {
-
         if (currentChar == EOF) {
             return 0;  //immediately return if the EOF has been reached
         }
@@ -186,4 +184,5 @@ int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread) {
 */
 void print_msg(char *msg) {
     if (stream == stdin) fprintf(stdout, "%s", msg);
+    fflush(stdout);
 }

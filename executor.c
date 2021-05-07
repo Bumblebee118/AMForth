@@ -32,6 +32,4 @@ void execute(char *word) {
             THROW();
         }
     }
-
 }
-
