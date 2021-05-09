@@ -23,8 +23,7 @@ void interpret() {
         push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
         THROW();
     } else if ((strcmp(token, "bye") == 0)) {
-        fprintf(stdout, "see you later!\n");
-        fflush(stdout);
+        print_msg("see you later!\n");
         freeRes();
         exit(EXIT_SUCCESS);
     } else {
