@@ -6,7 +6,7 @@
 #include "list.h"
 
 List* add(List* list, void* ptr){
-    List* newEntry = (List*) malloc(sizeof(List*));
+    List* newEntry = (List*) malloc(sizeof(List));
     if (newEntry == NULL) return NULL;
 
     newEntry->ptr = ptr;

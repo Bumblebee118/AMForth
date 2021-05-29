@@ -7,11 +7,11 @@
 
 #include <limits.h>
 
-#define COMP_IF nil-1
-#define COMP_ELSE nil-2
-#define COMP_DO nil-3
-#define COMP_BEGIN nil-4
-#define COMP_WHILE nil-5
+#define COMP_IF nil+1
+#define COMP_ELSE nil+2
+#define COMP_DO nil+3
+#define COMP_BEGIN nil+4
+#define COMP_WHILE nil+5
 
 /**
  * typedefs for function pointers
@@ -119,23 +119,49 @@ void OR();
 void XOR();
 
 //#########  Flow Control #############
-
+/**
+ * branch to address that comes next in the dict
+ */
 void BRANCH();
 
+/**
+ * check if the number on the stack not 0 and then branch to the address next in the dict
+ */
 void CHECKBRANCH();
 
+/**
+ * prepare for a forward jump
+ */
 void PREPFORWARDREF();
 
+/**
+ * prepare for a backward jump
+ */
 void PREPBACKWARDREF();
 
+/**
+ * add the the address to the branch spot
+ */
 void RESOLVEFORWARDREF();
 
+/**
+ * add the the address to the branch spot
+ */
 void RESOLVEBACKWARDREF();
 
+/**
+ * perform the part after if when there is number unqual to 0 on the stack
+ */
 void IF();
 
+/**
+ * else part of the if
+ */
 void ELSE();
 
+/**
+ * then closes an if then else -> like end
+ */
 void THEN();
 
 //#########  LOOP  #############
@@ -169,6 +195,9 @@ void POPFROMRETURN();
  */
 void SWAP();
 
+/**
+ * duplicates the number on top of the stack
+ */
 void DUP();
 
 /**
@@ -292,9 +321,19 @@ void ASSIGNVAR();
  */
 void FETCHVAR();
 
-/*
+/**
  * lets you remove the first entry, that matches a given name from the dictionary
  */
 void FORGET();
+
+/**
+ * takes the number from the top of the stack and converts it to a char
+ */
+void EMIT();
+
+/**
+ * takes the number i from top of the stack and duplicates the i-th element on the top of stack
+ */
+void PICK();
 
 #endif //AMFORTH_BASIC_H

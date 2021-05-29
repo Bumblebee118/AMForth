@@ -66,3 +66,10 @@ int numberOfElements(Stack *stack) {
     return (stack->top + 1);
 }
 
+cell_t pickElement(Stack *stack, int index){
+    if(numberOfElements(stack) <= index){
+        return nil;
+    }
+    return (stack->array[stack->top - index]);
+}
+

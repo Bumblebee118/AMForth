@@ -2,7 +2,7 @@
 #include "interpret.h"
 #include "executor.h"
 
-char lastChar;
+char lastChar= 0;
 int redefined = 0;
 
 void interpret() {
@@ -48,9 +48,12 @@ void skipLine() {
 }
 
 char getNextChar() {
+    //print input when reading from file
+    if(stream!=stdin && lastChar>0) fprintf(stdout, "%c", lastChar);
+
     if (lastChar == '\n') {
-        if (isCompileMode == 0) print_msg("ok> ");
-        else print_msg("compiled> ");
+        if (isCompileMode == 0) print_msg(" ok> ");
+        else print_msg(" compiled> ");
     }
     return (lastChar = (char) fgetc(stream));
 }
@@ -182,6 +185,6 @@ int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread) {
 }
 */
 void print_msg(char *msg) {
-    if (stream == stdin) fprintf(stdout, "%s", msg);
+    fprintf(stdout, "%s", msg);
     fflush(stdout);
 }

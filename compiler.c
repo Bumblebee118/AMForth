@@ -31,7 +31,7 @@ void compile(char *word) {
     } else {
         push(parameterStack, ERR_UNDEFINED_WORD);
         THROW();
-        stopCompile();
+        //stopCompile();
     }
 }
 

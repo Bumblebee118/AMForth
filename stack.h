@@ -79,4 +79,13 @@ void clearStack(Stack *stack);
  */
 int numberOfElements(Stack *stack);
 
+/**
+ * Returns the element which is 'index' places from the top of the stack
+ * or nil if there are not enough elements
+ * @param stack
+ * @param index
+ * @return
+ */
+cell_t pickElement(Stack *stack, int index);
+
 #endif //AMFORTH_STACK_H

@@ -591,7 +591,7 @@ void DOSEMI() {
 
 void SEMI() {
     cell_t fcc = peek(parameterStack);
-    if ((fcc == COMP_IF) || (fcc == COMP_ELSE)){
+    if ((fcc == COMP_IF) || (fcc == COMP_ELSE) || (fcc == COMP_DO) || (fcc == COMP_BEGIN)){
         push(parameterStack, ERR_UNSTRUCTURED);
         THROW();
         return;
@@ -600,8 +600,8 @@ void SEMI() {
     isCompileMode = 0;
 
     if(redefined){
-        char msg [MAX_WORD_NAME_SIZE + 11];
-        sprintf(msg, "redefined %s ", cw->word);
+        char msg [MAX_WORD_NAME_SIZE + 12];
+        sprintf(msg, "redefined %s", cw->word);
         print_msg(msg);
         redefined = 0;
     }
@@ -696,6 +696,7 @@ void PRINTSTRING() {
             fprintf(stdout, "%c", current);
             current = getNextChar();
         }
+
         fprintf(stdout, " ");
     }
     fflush(stdout);
@@ -810,9 +811,39 @@ void FORGET(){
     }
 
     if(removeEntry(token) == 0){
-        fprintf(stdout, "forgot word '%s' ", token);
+        fprintf(stdout, "forgot word '%s'", token);
     }else{
         push(parameterStack, ERR_UNDEFINED_WORD);
         THROW();
     }
+}
+
+void EMIT(){
+    cell_t num = pop(parameterStack);
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    fprintf(stdout, "%c", (char) num);
+}
+
+void PICK(){
+    cell_t u = pop(parameterStack);
+    if(u == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    cell_t num = pickElement(parameterStack, u);
+
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    push(parameterStack, num);
 }
