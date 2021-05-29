@@ -42,7 +42,7 @@ Dict* addEntry(char *word, Data data, CODEPOINTER code);
  * @param word the name of the function to search for
  * @return a pointer to the element or NULL if no element was found with the given name
  */
-Dict *getEntry(const char *word);
+Dict *getEntry(char *word);
 
 /**
  * deletes an entry from the dictionary
@@ -62,5 +62,10 @@ void deleteDict();
  * @param dict
  */
 void addBasicWordsToDict();
+
+/**
+ * convert the input string to all lowercase letters
+ */
+void toLowerCase(char** word);
 
 #endif //AMFORTH_DICT_H

@@ -5,6 +5,7 @@
 #include "global.h"
 
 Dict *addEntry(char *word, Data data, CODEPOINTER code) {
+    toLowerCase(&word);
     //check if entry already exists and write redefined
     Dict *oldEntry = getEntry(word);
     if (oldEntry != NULL && oldEntry->code != NULL) {
@@ -32,7 +33,8 @@ Dict *addEntry(char *word, Data data, CODEPOINTER code) {
 }
 
 
-Dict *getEntry(const char *word) {
+Dict *getEntry(char *word) {
+    toLowerCase(&word);
     Dict *currentNode = *defs;
     while (currentNode != NULL) {
         if (strcmp(currentNode->word, word) == 0) {
@@ -45,6 +47,7 @@ Dict *getEntry(const char *word) {
 
 
 int removeEntry(char *word) {
+    toLowerCase(&word);
     Dict *currentNode = *defs;
     Dict *nextNode = NULL;
 
@@ -79,6 +82,19 @@ void deleteDict() {
         next = currentNode->link;
         free(currentNode);
         currentNode = next;
+    }
+}
+
+void toLowerCase(char** word){
+    size_t len = strlen(*word);
+    char currentChar;
+    int offset = 'a'-'A';
+    for(int i  = 0; i< len; i++){
+        currentChar = (*word)[i];
+        if((currentChar >= 'A') && (currentChar<='Z')){
+            currentChar = currentChar+offset;
+            (*word)[i] = currentChar;
+        }
     }
 }
 
