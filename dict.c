@@ -156,6 +156,7 @@ void addBasicWordsToDict() {
     addEntry("forget", data, &FORGET);
     addEntry("emit", data, &EMIT);
     addEntry("pick", data, &PICK);
+    addEntry("drop", data, &DROP);
 
     addEntry("pushonreturn", data, &PUSHONRETURN);
     addEntry("peekfromreturn", data, &PEEKFROMRETURN);

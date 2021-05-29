@@ -86,6 +86,14 @@ int numberOfElements(Stack *stack);
  * @param index
  * @return
  */
-cell_t pickElement(Stack *stack, int index);
+cell_t pickElement(Stack *stack, cell_t index);
+
+/**
+ * Drops the elemnt on the "index" place from the stack an returns it
+ * @param stack
+ * @param index
+ * @return
+ */
+cell_t dropElement(Stack *stack, cell_t index);
 
 #endif //AMFORTH_STACK_H

@@ -831,19 +831,22 @@ void EMIT(){
 
 void PICK(){
     cell_t u = pop(parameterStack);
-    if(u == nil){
+    cell_t num;
+    if((u == nil) || ((num = pickElement(parameterStack, u)) == nil)){
         push(parameterStack, ERR_STACK_UNDERFLOW);
         THROW();
         return;
     }
-
-    cell_t num = pickElement(parameterStack, u);
-
-    if(num == nil){
-        push(parameterStack, ERR_STACK_UNDERFLOW);
-        THROW();
-        return;
-    }
-
     push(parameterStack, num);
+}
+
+
+void DROP(){
+    cell_t u = pop(parameterStack);
+    if((u == nil) || (dropElement(parameterStack, u) == nil)){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
 }

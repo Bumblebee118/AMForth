@@ -66,10 +66,21 @@ int numberOfElements(Stack *stack) {
     return (stack->top + 1);
 }
 
-cell_t pickElement(Stack *stack, int index){
+cell_t pickElement(Stack *stack, cell_t index){
     if(numberOfElements(stack) <= index){
         return nil;
     }
     return (stack->array[stack->top - index]);
+}
+
+cell_t dropElement(Stack *stack, cell_t index){
+    if(numberOfElements(stack) <= index){
+        return nil;
+    }
+
+    for(cell_t i = index; i>0; i--){
+        stack->array[stack->top - i] = stack->array[stack->top - i +1];
+    }
+    stack->top--;
 }
 

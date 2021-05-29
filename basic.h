@@ -336,4 +336,9 @@ void EMIT();
  */
 void PICK();
 
+/**
+ * drops the x element from the stack
+ */
+void DROP();
+
 #endif //AMFORTH_BASIC_H
