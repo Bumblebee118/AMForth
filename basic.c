@@ -636,7 +636,17 @@ void BRANCH0() {
 void LISTWORDS() {
     Dict *pointer = dict;
     while (pointer != NULL) {
-        fprintf(stdout, "%s ", (*pointer).word);
+        if(((*pointer).code != &DOVAR) && ((*pointer).code != &DOCONST)){
+            fprintf(stdout, "%s ", (*pointer).word);
+        }
+        pointer = (*pointer).link;
+    }
+
+    pointer = macros;
+    while (pointer != NULL) {
+        if(((*pointer).code != &DOVAR) && ((*pointer).code != &DOCONST)){
+            fprintf(stdout, "%s ", (*pointer).word);
+        }
         pointer = (*pointer).link;
     }
     fflush(stdout);
@@ -842,11 +852,38 @@ void PICK(){
 
 
 void DROP(){
-    cell_t u = pop(parameterStack);
+    /*cell_t u = pop(parameterStack);
     if((u == nil) || (dropElement(parameterStack, u) == nil)){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }*/
+
+    if((dropElement(parameterStack, 0) == nil)){
         push(parameterStack, ERR_STACK_UNDERFLOW);
         THROW();
         return;
     }
 
+}
+
+void OVER(){
+    cell_t num;
+    if((num = pickElement(parameterStack, 1)) == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+    push(parameterStack, num);
+}
+
+void ROT(){
+    cell_t num;
+    if((num = dropElement(parameterStack, 2)) == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    push(parameterStack, num);
 }

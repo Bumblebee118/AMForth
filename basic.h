@@ -341,4 +341,16 @@ void PICK();
  */
 void DROP();
 
+/**
+ * copies second item to top
+ */
+ void OVER();
+
+ /**
+  * rotates third item to top
+  */
+  void ROT();
+
+
+
 #endif //AMFORTH_BASIC_H

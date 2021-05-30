@@ -77,10 +77,13 @@ cell_t dropElement(Stack *stack, cell_t index){
     if(numberOfElements(stack) <= index){
         return nil;
     }
+    cell_t num = stack->array[stack->top - index];
 
     for(cell_t i = index; i>0; i--){
         stack->array[stack->top - i] = stack->array[stack->top - i +1];
     }
     stack->top--;
+
+    return num;
 }
 

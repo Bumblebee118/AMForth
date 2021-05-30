@@ -17,8 +17,13 @@ void interpret() {
         exit(1);
     } else if (len == 0) {
         //reached EOF
-        freeRes();
-        exit(EXIT_SUCCESS);
+        if(stream == stdin){
+            freeRes();
+            exit(EXIT_SUCCESS);
+        }
+        fclose(stream);
+        ip = start; //reset ip
+        stream = stdin;
     } else if (len >= MAX_WORD_NAME_SIZE) {
         push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
         THROW();
