@@ -38,7 +38,6 @@ cell_t pop(Stack *stack) {
     if (isEmpty(stack)) {
         return nil;
     }
-
     return stack->array[stack->top--];
 }
 
