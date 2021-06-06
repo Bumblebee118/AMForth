@@ -3,9 +3,13 @@
 void execute(Dict* word) {
     wp = word; //set current word pointer
 
-    if ((wp >= dict_begin) && (wp <= dict)){
+    if ((wp >= dict_begin) && (wp <= dict)) {
         //valid address
-        wp->code(); //execute code
+        //ignore if word is dolit
+        if(word != dolit_wp) wp->code(); //execute code
+    }else  if((wp >= macros_begin) && (wp <= macros)){
+        push(parameterStack, ERR_INTERPRET_COMPILE_ONLY);
+        THROW();
     }else{
         push(parameterStack, ERR_INVALID_ADDR);
         THROW();

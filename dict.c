@@ -150,6 +150,8 @@ void addBasicWordsToDict() {
     //######## Constant or Variable ##########
     addEntry("constant", data, &CONST);
     addEntry("variable", data, &VAR);
+    addEntry("dovar", data, &DOVAR);
+
     assignvar_wp = addEntry("!", data, &ASSIGNVAR);
     fetchvar_wp = addEntry("@", data, &FETCHVAR);
     addEntry("cr", data, &CR);
@@ -190,5 +192,9 @@ void addBasicWordsToDict() {
     j_wp = addEntry("j", d, &DOVAR);
     d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
     k_wp = addEntry("k", d, &DOVAR);
+    d.value = (cell_t) &isCompileMode;
+    addEntry("compilemode", d, &DOVAR);
+    d.value = (cell_t) dict;
+    addEntry("here", d, &DOVAR);
 }
 

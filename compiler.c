@@ -11,10 +11,11 @@ void compile(Dict* word) {
         //is macro
         wp->code();
     }else if ((wp >= dict_begin) && (wp <= dict)){
-        //is defs
+        //is dict
         *userCode = wp;
         userCode++;
 
+        // if dolit is on top compile literal
         if(wp == dolit_wp){
             cell_t num = pop(parameterStack);
             if (num == nil) {

@@ -37,14 +37,7 @@ void interpret() {
         defs = &macros;
         if ((wp = getEntry(token))) {
             defs = &dict;
-            if (isCompileMode) {
-                push(parameterStack, (cell_t) wp);
-                COMPILE();
-            }
-            else {
-                push(parameterStack, ERR_INTERPRET_COMPILE_ONLY);
-                THROW();
-            }
+            push(parameterStack, (cell_t) wp);
             return;
         }
         defs = &dict;
@@ -52,8 +45,6 @@ void interpret() {
         //if the word exists in the dictionary, execute the definition
         if ((wp = getEntry(token))) {
             push(parameterStack, (cell_t) wp);
-            if (isCompileMode) COMPILE();
-            else EXECUTE();
             return;
         }
 
@@ -63,10 +54,7 @@ void interpret() {
 
         if (strlen(endptr) == 0) {
             push(parameterStack, num);
-            if (isCompileMode) {
-                push(parameterStack, (cell_t) dolit_wp);
-                COMPILE();
-            }
+            push(parameterStack, (cell_t) dolit_wp);
         } else {
             push(parameterStack, ERR_UNDEFINED_WORD);
             THROW();

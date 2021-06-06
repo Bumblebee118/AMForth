@@ -66,10 +66,49 @@ _Noreturn void virtualMachine(void) {
 }
 
 void compileInterpreter(void) {
-    // word - execute - branch //
-    Dict* word = getEntry("'");
+    // : inner-interpreter begin 1 while ' compilemode @ if compile else execute then repeat ;
+    Data data;
+    data.definition = userCode;
+    cw = addEntry("inner-interpreter", data, &DOCOLON);
+
+    defs=&macros;
+    Dict* word = getEntry("begin");
+    defs=&dict;
     compile(word);
-    //compile("execute");
-    word = getEntry("branch0");
+    push(parameterStack, 1);
+    word = getEntry("dolit");
+    compile(word);
+    defs=&macros;
+    word = getEntry("while");
+    defs=&dict;
+    compile(word);
+    word = getEntry("'");
+    compile(word);
+    word = getEntry("compilemode");
+    compile(word);
+    word = getEntry("@");
+    compile(word);
+    defs=&macros;
+    word = getEntry("if");
+    defs=&dict;
+    compile(word);
+    word = getEntry("compile");
+    compile(word);
+    defs=&macros;
+    word = getEntry("else");
+    defs=&dict;
+    compile(word);
+    word = getEntry("execute");
+    compile(word);
+    defs=&macros;
+    word = getEntry("then");
+    defs=&dict;
+    compile(word);
+    defs=&macros;
+    word = getEntry("repeat");
+    defs=&dict;
+    compile(word);
+
+    word = getEntry("dosemi");
     compile(word);
 }
