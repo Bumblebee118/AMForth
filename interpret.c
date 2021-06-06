@@ -33,6 +33,22 @@ void interpret() {
         exit(EXIT_SUCCESS);
     } else {
 
+        //check if it is a macro
+        defs = &macros;
+        if ((wp = getEntry(token))) {
+            defs = &dict;
+            if (isCompileMode) {
+                push(parameterStack, (cell_t) wp);
+                COMPILE();
+            }
+            else {
+                push(parameterStack, ERR_INTERPRET_COMPILE_ONLY);
+                THROW();
+            }
+            return;
+        }
+        defs = &dict;
+
         //if the word exists in the dictionary, execute the definition
         if ((wp = getEntry(token))) {
             push(parameterStack, (cell_t) wp);
@@ -40,19 +56,6 @@ void interpret() {
             else EXECUTE();
             return;
         }
-
-        //check if it is a macro
-        defs = &macros;
-        if ((wp = getEntry(token))) {
-            if (isCompileMode) COMPILE();
-            else {
-                defs = &dict;
-                push(parameterStack, ERR_INTERPRET_COMPILE_ONLY);
-                THROW();
-            }
-            return;
-        }
-        defs = &dict;
 
         //check if it is a number
         char *endptr;

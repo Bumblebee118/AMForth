@@ -4,7 +4,6 @@
 Dict *wp = NULL;
 Dict **ip = NULL;
 Dict *cw = NULL;
-Dict* dolit_wp = NULL;
 Dict **defs = &dict;
 Dict **userCode = userCodeBase;
 Dict **start = NULL;
@@ -72,5 +71,5 @@ void compileInterpreter(void) {
     compile(word);
     //compile("execute");
     word = getEntry("branch0");
-    compile("branch0");
+    compile(word);
 }

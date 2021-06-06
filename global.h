@@ -34,7 +34,7 @@ int loopDepth;
  * one global dictionary for the whole program
  */
 Dict *dict;
-Dict *dict_begin;
+Dict *dict_begin; //begin of dictionary
 
 /**
  * user definitions segment for compiling
@@ -45,13 +45,13 @@ Dict *userCodeBase[CODE_SIZE];
  * save base address
  */
 extern Dict **userCode;
-extern Dict **start;
+extern Dict **start; //start of user code
 
 /**
  * one global macros for the whole program
  */
 Dict *macros;
-Dict* macros_begin;
+Dict* macros_begin; //begin of macro definition
 
 /**
  * one global parameter stack for the whole program
@@ -90,12 +90,33 @@ extern Dict *wp;    //current word pointer
 extern Dict **ip;   //current instr pointer
 extern Dict *cw;   //current compiled word
 
-extern Dict* dolit_wp; //pointer to dolit
-
 extern Dict **defs; //can either point to dict or macro address
 
 extern long nil;
 
 extern int redefined;
+
+/**
+ * dictionary pointer to important words
+ */
+Dict* dolit_wp; //pointer to dolit
+Dict* checkbranch_wp;
+Dict* branch_wp;
+Dict* assignvar_wp;
+Dict* por_wp;
+Dict* pfr_wp;
+Dict* fetchvar_wp;
+Dict* gt_wp;
+Dict* add_wp;
+Dict* dosemi_wp;
+Dict* dostorestring_wp;
+Dict* doprintstring_wp;
+
+/**
+ * variable pointer
+ */
+Dict* i_wp;
+Dict* k_wp;
+Dict* j_wp;
 
 #endif //AMFORTH_GLOBAL_H

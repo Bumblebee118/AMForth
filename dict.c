@@ -103,13 +103,13 @@ void addBasicWordsToDict() {
 
     dict_begin = addEntry("throw", data, &THROW);
     //######## Arithmetic ##########
-    addEntry("+", data, &ADD);
+    add_wp = addEntry("+", data, &ADD);
     addEntry("-", data, &SUBTRACT);
     addEntry("*", data, &MULTIPLY);
     addEntry("/", data, &DIVIDE);
     //######## Conditional ##########
     addEntry("<", data, &LESS);
-    addEntry(">", data, &GREATER);
+    gt_wp = addEntry(">", data, &GREATER);
     addEntry("=", data, &EQUAL);
     addEntry("<>", data, &NOTEQUAL);
     addEntry("<=", data, &LESSEQ);
@@ -125,8 +125,8 @@ void addBasicWordsToDict() {
     addEntry("or", data, &OR);
     addEntry("xor", data, &XOR);
     //#########  Flow Control #############
-    addEntry("branch", data, &BRANCH);
-    addEntry("?branch", data, &CHECKBRANCH);
+    branch_wp = addEntry("branch", data, &BRANCH);
+    checkbranch_wp = addEntry("?branch", data, &CHECKBRANCH);
     //######## Stack ##########
     addEntry("swap", data, &SWAP);
     addEntry("dup", data, &DUP);
@@ -135,10 +135,10 @@ void addBasicWordsToDict() {
     //######## Compile ##########
     addEntry(":", data, &COLON);
     addEntry("docol", data, &DOCOLON);
-    addEntry("dosemi", data, &DOSEMI);
+    dosemi_wp = addEntry("dosemi", data, &DOSEMI);
     dolit_wp = addEntry("dolit", data, &DOLIT);
-    addEntry("dostorestring", data, &DOSTORESTRING);
-    addEntry("doprintstring", data, &DOPRINTSTRING);
+    dostorestring_wp = addEntry("dostorestring", data, &DOSTORESTRING);
+    doprintstring_wp = addEntry("doprintstring", data, &DOPRINTSTRING);
     addEntry("'", data, &INTERPRET);
     addEntry("execute", data, &EXECUTE);
     addEntry("compile", data, &COMPILE);
@@ -150,8 +150,8 @@ void addBasicWordsToDict() {
     //######## Constant or Variable ##########
     addEntry("constant", data, &CONST);
     addEntry("variable", data, &VAR);
-    addEntry("!", data, &ASSIGNVAR);
-    addEntry("@", data, &FETCHVAR);
+    assignvar_wp = addEntry("!", data, &ASSIGNVAR);
+    fetchvar_wp = addEntry("@", data, &FETCHVAR);
     addEntry("cr", data, &CR);
     addEntry("forget", data, &FORGET);
     addEntry("emit", data, &EMIT);
@@ -160,8 +160,8 @@ void addBasicWordsToDict() {
     addEntry("over", data, &OVER);
     addEntry("rot", data, &ROT);
 
-    addEntry("pushonreturn", data, &PUSHONRETURN);
-    addEntry("peekfromreturn", data, &PEEKFROMRETURN);
+    por_wp = addEntry("pushonreturn", data, &PUSHONRETURN);
+    pfr_wp = addEntry("peekfromreturn", data, &PEEKFROMRETURN);
     addEntry("popfromreturn", data, &POPFROMRETURN);
 
     //######## Macros ##########
@@ -185,10 +185,10 @@ void addBasicWordsToDict() {
     //######## Global Variables ##########
     Data d;
     d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
-    addEntry("i", d, &DOVAR);
+    i_wp = addEntry("i", d, &DOVAR);
     d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
-    addEntry("j", d, &DOVAR);
+    j_wp = addEntry("j", d, &DOVAR);
     d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
-    addEntry("k", d, &DOVAR);
+    k_wp = addEntry("k", d, &DOVAR);
 }
 

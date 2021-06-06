@@ -353,13 +353,13 @@ void RESOLVEBACKWARDREF() {
 }
 
 void IF() {
-    compile("?branch");
+    compile(checkbranch_wp);
     PREPFORWARDREF();
     push(parameterStack, COMP_IF);
 }
 
 void ELSE() {
-    compile("branch");
+    compile(branch_wp);
 
     cell_t ite = pop(parameterStack);
     if (ite != COMP_IF) {
@@ -388,14 +388,14 @@ void THEN() {
 void DO() {
     loopDepth++;
     chooseCorrectLoopVar();
-    compile("!");
-    compile("pushonreturn");
+    compile(assignvar_wp);
+    compile(por_wp);
     PREPBACKWARDREF();
-    compile("peekfromreturn");
+    compile(pfr_wp);
     chooseCorrectLoopVar();
-    compile("@");
-    compile(">");
-    compile("?branch");
+    compile(fetchvar_wp);
+    compile(gt_wp);
+    compile(checkbranch_wp);
     PREPFORWARDREF();
     push(parameterStack, COMP_DO);
 }
@@ -407,20 +407,22 @@ void LOOP() {
         THROW();
         return;
     }
-    compile("1");
+    push(parameterStack, 1);
+    compile(dolit_wp);
     chooseCorrectLoopVar();
-    compile("@");
-    compile("+");
+    compile(fetchvar_wp);
+    compile(add_wp);
     chooseCorrectLoopVar();
-    compile("!");
-    compile("branch");
+    compile(assignvar_wp);
+    compile(branch_wp);
     SWAP();
     RESOLVEBACKWARDREF();
     RESOLVEFORWARDREF();
-    compile("0");
+    push(parameterStack, 0);
+    compile(dolit_wp);
     chooseCorrectLoopVar();
-    compile("!");
-    compile("popfromreturn");
+    compile(assignvar_wp);
+    compile(pfr_wp);
     loopDepth--;
 }
 
@@ -436,7 +438,7 @@ void UNTIL() {
         THROW();
         return;
     }
-    compile("?branch");
+    compile(checkbranch_wp);
     RESOLVEBACKWARDREF();
 }
 
@@ -447,7 +449,7 @@ void AGAIN() {
         THROW();
         return;
     }
-    compile("branch");
+    compile(branch_wp);
     RESOLVEBACKWARDREF();
 }
 
@@ -458,7 +460,7 @@ void WHILE() {
         THROW();
         return;
     }
-    compile("?branch");
+    compile(checkbranch_wp);
     PREPFORWARDREF();
     push(parameterStack, COMP_WHILE);
 }
@@ -470,7 +472,7 @@ void REPEAT() {
         THROW();
         return;
     }
-    compile("branch");
+    compile(branch_wp);
     SWAP();
     RESOLVEBACKWARDREF();
     RESOLVEFORWARDREF();
@@ -479,13 +481,13 @@ void REPEAT() {
 void chooseCorrectLoopVar() {
     switch (loopDepth) {
         case 1:
-            compile("i");
+            compile(i_wp);
             break;
         case 2:
-            compile("j");
+            compile(j_wp);
             break;
         case 3:
-            compile("k");
+            compile(k_wp);
             break;
         default:
             push(parameterStack, ERR_LOOP_TOO_DEEP);
@@ -596,7 +598,7 @@ void SEMI() {
         THROW();
         return;
     }
-    compile("dosemi");
+    compile(dosemi_wp);
     isCompileMode = 0;
 
     if(redefined){
@@ -690,7 +692,7 @@ void STORESTRING() {
     cell_t len = nextString(&str);
 
     if (isCompileMode){
-       compile("dostorestring");
+       compile(dostorestring_wp);
         *(userCode++) = (Dict*) str;
         *(userCode++) = (Dict*) len;
     }else{
@@ -709,7 +711,7 @@ void PRINTSTRING() {
             exit(EXIT_FAILURE);
         }
         cell_t len = nextString(&str);
-        compile("doprintstring");
+        compile(doprintstring_wp);
         *(userCode++) = (Dict*) str;
 
     }else{
