@@ -63,7 +63,7 @@ Stack *parameterStack;
  */
 Stack *returnStack;
 
-/*
+/**
  * list that keeps track of all user allocated memory
  */
 List* ptrList;
@@ -72,11 +72,6 @@ List* ptrList;
  * specifies the mode the interpreter is currently in
  */
 extern int isCompileMode;
-
-/**
- * specifies if the interpreter is reading a string from the stream
- */
-extern int isStringMode;
 
 /**
  * Input stream of the program definitions

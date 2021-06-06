@@ -9,7 +9,7 @@ Dict **userCode = userCodeBase;
 Dict **start = NULL;
 char *token = NULL;
 int isCompileMode = 0;
-int isStringMode = 0;
+int isStringMode = 0; // DO NOT DELETE !!!!
 int loopDepth = 0;
 
 void printSynopsis(void);

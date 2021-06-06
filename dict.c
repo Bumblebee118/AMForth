@@ -31,6 +31,13 @@ Dict *addEntry(char *word, Data data, CODEPOINTER code) {
     return newEntry;
 }
 
+Dict *addVariable(char* name){
+    Data d;
+    void* ptr = malloc(sizeof(cell_t));
+    d.value = (cell_t) ptr;
+    return addEntry(name, d, &DOVAR);
+}
+
 
 Dict *getEntry(char *word) {
     toLowerCase(&word);
@@ -77,7 +84,7 @@ void deleteDict() {
     Dict *next;
     while (currentNode != NULL) {
         if (currentNode->word != NULL) free(currentNode->word);
-        if (currentNode->code == &DOVAR) free((int*) currentNode->data.value);
+        //if (currentNode->code == &DOVAR) free((int*) currentNode->data.value);
         next = currentNode->link;
         free(currentNode);
         currentNode = next;
@@ -185,13 +192,11 @@ void addBasicWordsToDict() {
     defs = &dict;
 
     //######## Global Variables ##########
+    i_wp = addVariable("i");
+    j_wp = addVariable("j");
+    k_wp = addVariable("k");
+
     Data d;
-    d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
-    i_wp = addEntry("i", d, &DOVAR);
-    d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
-    j_wp = addEntry("j", d, &DOVAR);
-    d.value = (cell_t) malloc(sizeof(cell_t)); // this simply has to work :P
-    k_wp = addEntry("k", d, &DOVAR);
     d.value = (cell_t) &isCompileMode;
     addEntry("compilemode", d, &DOVAR);
     d.value = (cell_t) dict;

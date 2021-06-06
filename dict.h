@@ -37,6 +37,13 @@ typedef struct Dict {
 Dict* addEntry(char *word, Data data, CODEPOINTER code);
 
 /**
+ * add a new variable to the dictionary
+ * @param name
+ * @return
+ */
+Dict *addVariable(char* name);
+
+/**
  * searches the dictionary for the function name given as a parameter
  * @param dict the dictionary to search through
  * @param word the name of the function to search for
