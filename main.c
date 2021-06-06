@@ -48,9 +48,7 @@ int main(int argc, char **argv) {
     //set instr pointer
     ip = userCode;
     start = ip;
-
     compileInterpreter();
-
     virtualMachine();
 }
 
@@ -72,43 +70,29 @@ void compileInterpreter(void) {
     cw = addEntry("inner-interpreter", data, &DOCOLON);
 
     defs=&macros;
-    Dict* word = getEntry("begin");
+    compile(getEntry("begin"));
     defs=&dict;
-    compile(word);
     push(parameterStack, 1);
-    word = getEntry("dolit");
-    compile(word);
+    compile(getEntry("dolit"));
     defs=&macros;
-    word = getEntry("while");
+    compile(getEntry("while"));
     defs=&dict;
-    compile(word);
-    word = getEntry("'");
-    compile(word);
-    word = getEntry("compilemode");
-    compile(word);
-    word = getEntry("@");
-    compile(word);
+    compile(getEntry("'"));
+    compile(getEntry("compilemode"));
+    compile(getEntry("@"));
     defs=&macros;
-    word = getEntry("if");
+    compile(getEntry("if"));
     defs=&dict;
-    compile(word);
-    word = getEntry("compile");
-    compile(word);
+    compile(getEntry("compile"));
     defs=&macros;
-    word = getEntry("else");
+    compile(getEntry("else"));
     defs=&dict;
-    compile(word);
-    word = getEntry("execute");
-    compile(word);
+    compile(getEntry("execute"));
     defs=&macros;
-    word = getEntry("then");
-    defs=&dict;
-    compile(word);
+    compile(getEntry("then"));
     defs=&macros;
-    word = getEntry("repeat");
+    compile(getEntry("repeat"));
     defs=&dict;
-    compile(word);
 
-    word = getEntry("dosemi");
-    compile(word);
+    compile(getEntry("dosemi"));
 }

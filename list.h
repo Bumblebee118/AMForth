@@ -10,7 +10,7 @@ typedef struct List{
     struct List* link;
 }List;
 
-List* add(List* list, void* ptr);
+List* add(List** list, void* ptr);
 
 void deleteList(List* list);
 

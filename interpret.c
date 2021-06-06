@@ -151,7 +151,7 @@ cell_t nextString(char** str){
 
 
     //store pointer in list
-    ptrList = add(ptrList, *str);
+    ptrList = add(&ptrList, *str);
     if(ptrList==NULL){
         push(parameterStack, ERR_NO_MEMORY);
         THROW();

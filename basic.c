@@ -788,9 +788,10 @@ void VAR() {
         exit(EXIT_FAILURE);
     }
 
+    add(&ptrList, ptr);
+
     Data data;
     data.value = (cell_t) ptr;
-
     addEntry(token, data, &DOVAR);
 }
 

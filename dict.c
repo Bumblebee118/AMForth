@@ -34,6 +34,7 @@ Dict *addEntry(char *word, Data data, CODEPOINTER code) {
 Dict *addVariable(char* name){
     Data d;
     void* ptr = malloc(sizeof(cell_t));
+    add(&ptrList, ptr);
     d.value = (cell_t) ptr;
     return addEntry(name, d, &DOVAR);
 }
