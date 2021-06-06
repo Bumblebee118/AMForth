@@ -34,6 +34,7 @@ int loopDepth;
  * one global dictionary for the whole program
  */
 Dict *dict;
+Dict *dict_begin;
 
 /**
  * user definitions segment for compiling
@@ -50,6 +51,7 @@ extern Dict **start;
  * one global macros for the whole program
  */
 Dict *macros;
+Dict* macros_begin;
 
 /**
  * one global parameter stack for the whole program
@@ -87,6 +89,8 @@ FILE *stream;
 extern Dict *wp;    //current word pointer
 extern Dict **ip;   //current instr pointer
 extern Dict *cw;   //current compiled word
+
+extern Dict* dolit_wp; //pointer to dolit
 
 extern Dict **defs; //can either point to dict or macro address
 

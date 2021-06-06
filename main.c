@@ -4,6 +4,7 @@
 Dict *wp = NULL;
 Dict **ip = NULL;
 Dict *cw = NULL;
+Dict* dolit_wp = NULL;
 Dict **defs = &dict;
 Dict **userCode = userCodeBase;
 Dict **start = NULL;
@@ -67,7 +68,9 @@ _Noreturn void virtualMachine(void) {
 
 void compileInterpreter(void) {
     // word - execute - branch //
-    compile("'");
-    compile("execute");
+    Dict* word = getEntry("'");
+    compile(word);
+    //compile("execute");
+    word = getEntry("branch0");
     compile("branch0");
 }

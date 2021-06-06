@@ -39,6 +39,9 @@ void THROW() {
         case ERR_LOOP_TOO_DEEP:
             str = "Loops deeper than 3 levels are not supported";
             break;
+        case ERR_INVALID_ADDR:
+            str = "Invalid memory address";
+            break;
         default:
             str = "Undefined error";
             break;

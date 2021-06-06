@@ -260,6 +260,11 @@ void INTERPRET();
 void EXECUTE();
 
 /**
+ * Pops the address of the current token of the stack and compiles it
+ */
+void COMPILE();
+
+/**
  * Test branch
  */
 void BRANCH0();

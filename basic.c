@@ -619,17 +619,29 @@ void INTERPRET() {
 }
 
 void EXECUTE() {
-    char *word = (char *) pop(parameterStack);
+    Dict* word = (Dict *) pop(parameterStack);
     if ((cell_t) word == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
         return;
     }
     execute(word);
 }
 
+void COMPILE() {
+    Dict* word = (Dict *) pop(parameterStack);
+    if ((cell_t) word == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+    compile(word);
+}
+
 void BRANCH0() {
     //cell_t val = pop(parameterStack);
     //if(val == 0){
-    ip = ip - 3;
+    ip = ip - 2;
     //}
 }
 

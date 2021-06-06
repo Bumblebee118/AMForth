@@ -25,7 +25,6 @@ Dict *addEntry(char *word, Data data, CODEPOINTER code) {
     }
     newEntry->data = data;
     newEntry->code = code;
-
     newEntry->link = *defs;     // link to previous element
     *defs = newEntry;           // update Dict entry
 
@@ -102,7 +101,7 @@ void addBasicWordsToDict() {
     Data data;
     data.value = 0;
 
-    addEntry("throw", data, &THROW);
+    dict_begin = addEntry("throw", data, &THROW);
     //######## Arithmetic ##########
     addEntry("+", data, &ADD);
     addEntry("-", data, &SUBTRACT);
@@ -137,11 +136,12 @@ void addBasicWordsToDict() {
     addEntry(":", data, &COLON);
     addEntry("docol", data, &DOCOLON);
     addEntry("dosemi", data, &DOSEMI);
-    addEntry("dolit", data, &DOLIT);
+    dolit_wp = addEntry("dolit", data, &DOLIT);
     addEntry("dostorestring", data, &DOSTORESTRING);
     addEntry("doprintstring", data, &DOPRINTSTRING);
     addEntry("'", data, &INTERPRET);
     addEntry("execute", data, &EXECUTE);
+    addEntry("compile", data, &COMPILE);
     addEntry("branch0", data, &BRANCH0);
     addEntry("words", data, &LISTWORDS);
     addEntry("s\"", data, &STORESTRING);
@@ -166,7 +166,7 @@ void addBasicWordsToDict() {
 
     //######## Macros ##########
     defs = &macros;
-    addEntry(";", data, &SEMI);
+    macros_begin = addEntry(";", data, &SEMI);
     addEntry("s\"", data, &STORESTRING);
     addEntry(".\"", data, &PRINTSTRING);
     //#########  Flow Control #############;

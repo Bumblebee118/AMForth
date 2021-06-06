@@ -4,9 +4,32 @@
 
 #include "global.h"
 
-void compile(char *word) {
-    Dict *entry;
+void compile(Dict* word) {
+    wp = word;
 
+    if((wp >= macros_begin) && (wp <= macros)){
+        //is macro
+        wp->code();
+    }else if ((wp >= dict_begin) && (wp <= dict)){
+        //is defs
+        *userCode = wp;
+        userCode++;
+
+        if(wp == dolit_wp){
+            cell_t num = pop(parameterStack);
+            if (num == nil) {
+                push(parameterStack, ERR_STACK_UNDERFLOW);
+                THROW();
+                return;
+            }
+            *(userCode++) = (Dict *) num;
+        }
+    }else{
+        push(parameterStack, ERR_INVALID_ADDR);
+        THROW();
+    }
+
+    /*
     defs = &macros;
     if ((entry = getEntry(word))) {
         defs = &dict;
@@ -33,11 +56,17 @@ void compile(char *word) {
         THROW();
         //stopCompile();
     }
+
+     */
 }
 
 void stopCompile(){
     redefined = 0;
     isCompileMode = 0;
-    userCode = cw->data.definition;    //reset userCode pointer
-    removeEntry(cw->word);             //delete word from dictionary
+    if(cw != NULL){
+        userCode = cw->data.definition;    //reset userCode pointer
+        removeEntry(cw->word);             //delete word from dictionary
+        cw = NULL;
+    }
+
 }

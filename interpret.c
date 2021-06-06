@@ -32,7 +32,42 @@ void interpret() {
         freeRes();
         exit(EXIT_SUCCESS);
     } else {
-        push(parameterStack, (cell_t) token);
+
+        //if the word exists in the dictionary, execute the definition
+        if ((wp = getEntry(token))) {
+            push(parameterStack, (cell_t) wp);
+            if (isCompileMode) COMPILE();
+            else EXECUTE();
+            return;
+        }
+
+        //check if it is a macro
+        defs = &macros;
+        if ((wp = getEntry(token))) {
+            if (isCompileMode) COMPILE();
+            else {
+                defs = &dict;
+                push(parameterStack, ERR_INTERPRET_COMPILE_ONLY);
+                THROW();
+            }
+            return;
+        }
+        defs = &dict;
+
+        //check if it is a number
+        char *endptr;
+        cell_t num = (cell_t) strtol(token, &endptr, 10);
+
+        if (strlen(endptr) == 0) {
+            push(parameterStack, num);
+            if (isCompileMode) {
+                push(parameterStack, (cell_t) dolit_wp);
+                COMPILE();
+            }
+        } else {
+            push(parameterStack, ERR_UNDEFINED_WORD);
+            THROW();
+        }
     }
 }
 
