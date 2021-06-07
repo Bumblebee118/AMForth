@@ -170,9 +170,9 @@ void addBasicWordsToDict() {
     addEntry("over", data, &OVER);
     addEntry("rot", data, &ROT);
 
-    por_wp = addEntry("pushonreturn", data, &PUSHONRETURN);
-    pfr_wp = addEntry("peekfromreturn", data, &PEEKFROMRETURN);
-    addEntry("popfromreturn", data, &POPFROMRETURN);
+    pushonreturn_wp = addEntry("pushonreturn", data, &PUSHONRETURN);
+    peekfromreturn_wp = addEntry("peekfromreturn", data, &PEEKFROMRETURN);
+    popfromreturn_wp = addEntry("popfromreturn", data, &POPFROMRETURN);
 
     //######## Macros ##########
     defs = &macros;

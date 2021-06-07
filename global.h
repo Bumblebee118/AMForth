@@ -93,13 +93,15 @@ extern int redefined;
 
 /**
  * dictionary pointer to important words
+ * used for compiling
  */
-Dict* dolit_wp; //pointer to dolit
+Dict* dolit_wp;
 Dict* checkbranch_wp;
 Dict* branch_wp;
 Dict* assignvar_wp;
-Dict* por_wp;
-Dict* pfr_wp;
+Dict* pushonreturn_wp;
+Dict* popfromreturn_wp;
+Dict* peekfromreturn_wp;
 Dict* fetchvar_wp;
 Dict* gt_wp;
 Dict* add_wp;

@@ -389,9 +389,9 @@ void DO() {
     loopDepth++;
     chooseCorrectLoopVar();
     compile(assignvar_wp);
-    compile(por_wp);
+    compile(pushonreturn_wp);
     PREPBACKWARDREF();
-    compile(pfr_wp);
+    compile(peekfromreturn_wp);
     chooseCorrectLoopVar();
     compile(fetchvar_wp);
     compile(gt_wp);
@@ -422,7 +422,7 @@ void LOOP() {
     compile(dolit_wp);
     chooseCorrectLoopVar();
     compile(assignvar_wp);
-    compile(pfr_wp);
+    compile(popfromreturn_wp);
     loopDepth--;
 }
 
