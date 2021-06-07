@@ -568,6 +568,7 @@ void PRINTSTACK() {
 
 void DOCOLON() {
     push(returnStack, (cell_t) ip);
+    push(returnStack, (cell_t) wp); //push current executed word
     ip = wp->data.definition;
 }
 
@@ -588,6 +589,7 @@ void COLON() {
 }
 
 void DOSEMI() {
+    pop(returnStack);   //pop current executed word
     ip = (Dict **) pop(returnStack);
 }
 
