@@ -833,6 +833,13 @@ void FETCHVAR() {
         THROW();
         return;
     }
+
+    /*if((ptr >= variable_space+HEAP_SIZE) || (ptr < variable_space)){
+        push(parameterStack, ERR_INVALID_ADDR);
+        THROW();
+        return;
+    }*/
+
     push(parameterStack, *ptr);
 }
 
