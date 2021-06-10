@@ -1,7 +1,1 @@
-Gforth 0.7.3, Copyright (C) 1995-2008 Free Software Foundation, Inc.
-Gforth comes with ABSOLUTELY NO WARRANTY; for details type `license'
-Type `bye' to exit
-: 2dup 1 pick 1 pick ;  ok
-: gcd 1 pick 0 = if swap drop . else dup 0 = if drop . else begin 2dup > if 2dup - rot drop swap else 1 pick - then dup 0 = until drop . then then ;  ok
-1 12345678 gcd 1  ok
-
+9227465 
