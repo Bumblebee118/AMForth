@@ -194,6 +194,9 @@ void addBasicWordsToDict() {
     addEntry("drop", data, &DROP);
     addEntry("over", data, &OVER);
     addEntry("rot", data, &ROT);
+    addEntry("allot", data, &ALLOT);
+    addEntry(",", data, &STOREONHEAP);
+    addEntry("create", data, &CREATE);
 
     pushonreturn_wp = addEntry("pushonreturn", data, &PUSHONRETURN);
     peekfromreturn_wp = addEntry("peekfromreturn", data, &PEEKFROMRETURN);
@@ -207,7 +210,7 @@ void addBasicWordsToDict() {
     Data d;
     d.value = (cell_t) &isCompileMode;
     addEntry("compilemode", d, &DOVAR);
-    d.value = (cell_t) dict;
+    d.value = (cell_t) &heapptr;
     addEntry("here", d, &DOVAR);
 }
 

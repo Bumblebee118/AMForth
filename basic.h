@@ -356,6 +356,12 @@ void DROP();
   */
   void ROT();
 
+  void ALLOT();
+
+  void STOREONHEAP();
+
+  void CREATE();
+
 
 
 #endif //AMFORTH_BASIC_H

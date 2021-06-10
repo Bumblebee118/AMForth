@@ -912,3 +912,59 @@ void ROT(){
 
     push(parameterStack, num);
 }
+
+void ALLOT(){
+    cell_t num = pop(parameterStack);
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    if(((heapptr+num) - variable_space) >= HEAP_SIZE){
+        push(parameterStack, ERR_NO_MEMORY);
+        THROW();
+        exit(EXIT_FAILURE);
+    }
+
+    heapptr += num;
+}
+
+void STOREONHEAP(){
+    cell_t num = pop(parameterStack);
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    if((heapptr - variable_space) >= HEAP_SIZE){
+        push(parameterStack, ERR_NO_MEMORY);
+        THROW();
+        exit(EXIT_FAILURE);
+    }
+
+    *heapptr = num;
+    heapptr++;
+}
+
+void CREATE(){
+    int len = nextToken();
+
+    if (len >= MAX_WORD_NAME_SIZE) {
+        push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
+        THROW();
+        return;
+    }
+
+    if((heapptr - variable_space) >= HEAP_SIZE){
+        push(parameterStack, ERR_NO_MEMORY);
+        THROW();
+        exit(EXIT_FAILURE);
+    }
+
+    cell_t *ptr = heapptr;
+    Data data;
+    data.value = (cell_t) ptr;
+    addEntry(token, data, &DOVAR);
+}
