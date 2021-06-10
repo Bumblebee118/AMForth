@@ -17,7 +17,8 @@
 
 #define MAX_WORD_NAME_SIZE 128          //maximum number of chars one word can have
 #define STANDARD_STACK_CAPACITY 128
-#define CODE_SIZE  32768
+#define CODE_SIZE 32768
+#define HEAP_SIZE 32768
 #define BASE_STRING_SIZE 128
 
 #define FALSE 0
@@ -28,18 +29,25 @@
  */
 extern char *token;
 
-int loopDepth;
+extern int loopDepth;
 
 /**
  * one global dictionary for the whole program
  */
-Dict *dict;
-Dict *dict_begin; //begin of dictionary
+extern Dict *dict;
+extern Dict *dict_begin; //begin of dictionary
 
 /**
  * user definitions segment for compiling
  */
-Dict *userCodeBase[CODE_SIZE];
+extern Dict *user_code_base[CODE_SIZE];
+
+/**
+ * heap for variables
+ */
+extern cell_t variable_space[HEAP_SIZE];
+extern cell_t* heapptr;
+
 
 /**
  * save base address
@@ -50,23 +58,23 @@ extern Dict **start; //start of user code
 /**
  * one global macros for the whole program
  */
-Dict *macros;
-Dict* macros_begin; //begin of macro definition
+extern Dict *macros;
+extern Dict* macros_begin; //begin of macro definition
 
 /**
  * one global parameter stack for the whole program
  */
-Stack *parameterStack;
+extern Stack *parameterStack;
 
 /**
  * one global return stack for the whole program
  */
-Stack *returnStack;
+extern Stack *returnStack;
 
 /**
  * list that keeps track of all user allocated memory
  */
-List* ptrList;
+extern List* ptrList;
 
 /**
  * specifies the mode the interpreter is currently in
@@ -76,7 +84,7 @@ extern int isCompileMode;
 /**
  * Input stream of the program definitions
  */
-FILE *stream;
+extern FILE *stream;
 
 /**
  * direct threaded definitions pointers
@@ -95,25 +103,25 @@ extern int redefined;
  * dictionary pointer to important words
  * used for compiling
  */
-Dict* dolit_wp;
-Dict* checkbranch_wp;
-Dict* branch_wp;
-Dict* assignvar_wp;
-Dict* pushonreturn_wp;
-Dict* popfromreturn_wp;
-Dict* peekfromreturn_wp;
-Dict* fetchvar_wp;
-Dict* gt_wp;
-Dict* add_wp;
-Dict* dosemi_wp;
-Dict* dostorestring_wp;
-Dict* doprintstring_wp;
+extern Dict* dolit_wp;
+extern Dict* checkbranch_wp;
+extern Dict* branch_wp;
+extern Dict* assignvar_wp;
+extern Dict* pushonreturn_wp;
+extern Dict* popfromreturn_wp;
+extern Dict* peekfromreturn_wp;
+extern Dict* fetchvar_wp;
+extern Dict* gt_wp;
+extern Dict* add_wp;
+extern Dict* dosemi_wp;
+extern Dict* dostorestring_wp;
+extern Dict* doprintstring_wp;
 
 /**
  * variable pointer
  */
-Dict* i_wp;
-Dict* k_wp;
-Dict* j_wp;
+extern Dict* i_wp;
+extern Dict* k_wp;
+extern Dict* j_wp;
 
 #endif //AMFORTH_GLOBAL_H

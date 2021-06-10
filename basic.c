@@ -783,7 +783,7 @@ void VAR() {
         return;
     }
 
-    void* ptr = malloc(sizeof(cell_t));
+   /* void* ptr = malloc(sizeof(cell_t));
     if(ptr == NULL){
         push(parameterStack, ERR_NO_MEMORY);
         THROW();
@@ -791,7 +791,15 @@ void VAR() {
     }
 
     add(&ptrList, ptr);
+*/
+   if((heapptr - variable_space) >= HEAP_SIZE){
+       push(parameterStack, ERR_NO_MEMORY);
+       THROW();
+       exit(EXIT_FAILURE);
+   }
 
+    cell_t *ptr = heapptr;
+    heapptr++;
     Data data;
     data.value = (cell_t) ptr;
     addEntry(token, data, &DOVAR);

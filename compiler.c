@@ -10,7 +10,7 @@ void compile(Dict* word) {
     if((wp >= macros_begin) && (wp <= macros)){
         //is macro
         wp->code();
-    }else if ((wp >= dict_begin) && (wp <= dict)){
+    } else if ((wp >= dict_begin) && (wp <= dict)){
         //is dict
         *userCode = wp;
         userCode++;

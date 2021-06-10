@@ -1,16 +1,42 @@
 #include "global.h"
 
 //init extern variable
-Dict *wp = NULL;
-Dict **ip = NULL;
-Dict *cw = NULL;
+Dict *dict;
+Dict *dict_begin;
+Dict *macros;
+Dict *macros_begin;
+Dict *wp ;
+Dict **ip;
+Dict *cw;
 Dict **defs = &dict;
-Dict **userCode = userCodeBase;
-Dict **start = NULL;
-char *token = NULL;
+Dict **userCode = user_code_base;
+Dict **start;
+Stack* parameterStack;
+Stack* returnStack;
+List* ptrList;
+FILE* stream;
+char *token;
 int isCompileMode = 0;
-int isStringMode = 0; // DO NOT DELETE !!!!
 int loopDepth = 0;
+Dict *user_code_base[CODE_SIZE];
+cell_t variable_space[HEAP_SIZE];
+cell_t* heapptr = variable_space;
+Dict* dolit_wp;
+Dict* checkbranch_wp;
+Dict* branch_wp;
+Dict* assignvar_wp;
+Dict* pushonreturn_wp;
+Dict* popfromreturn_wp;
+Dict* peekfromreturn_wp;
+Dict* fetchvar_wp;
+Dict* gt_wp;
+Dict* add_wp;
+Dict* dosemi_wp;
+Dict* dostorestring_wp;
+Dict* doprintstring_wp;
+Dict* i_wp;
+Dict* k_wp;
+Dict* j_wp;
 
 void printSynopsis(void);
 

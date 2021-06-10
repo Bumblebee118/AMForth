@@ -33,8 +33,12 @@ Dict *addEntry(char *word, Data data, CODEPOINTER code) {
 
 Dict *addVariable(char* name){
     Data d;
-    void* ptr = malloc(sizeof(cell_t));
+    /*void* ptr = malloc(sizeof(cell_t));
     add(&ptrList, ptr);
+    d.value = (cell_t) ptr;
+    return addEntry(name, d, &DOVAR);*/
+    cell_t *ptr = heapptr;
+    heapptr++;
     d.value = (cell_t) ptr;
     return addEntry(name, d, &DOVAR);
 }
@@ -107,7 +111,28 @@ void toLowerCase(char** word){
 
 void addBasicWordsToDict() {
     Data data;
-    data.value = 0;
+
+    //#################### Macros ###########################
+
+    defs = &macros;
+    macros_begin = addEntry(";", data, &SEMI);
+    addEntry("s\"", data, &STORESTRING);
+    addEntry(".\"", data, &PRINTSTRING);
+    //#########  Flow Control #############;
+    addEntry("if", data, &IF);
+    addEntry("then", data, &THEN);
+    addEntry("else", data, &ELSE);
+    addEntry("do", data, &DO);
+    addEntry("loop", data, &LOOP);
+    addEntry("begin", data, &BEGIN);
+    addEntry("until", data, &UNTIL);
+    addEntry("again", data, &AGAIN);
+    addEntry("while", data, &WHILE);
+    addEntry("repeat", data, &REPEAT);
+    defs = &dict;
+
+
+    //################### Dictionary ########################
 
     dict_begin = addEntry("throw", data, &THROW);
     //######## Arithmetic ##########
@@ -173,24 +198,6 @@ void addBasicWordsToDict() {
     pushonreturn_wp = addEntry("pushonreturn", data, &PUSHONRETURN);
     peekfromreturn_wp = addEntry("peekfromreturn", data, &PEEKFROMRETURN);
     popfromreturn_wp = addEntry("popfromreturn", data, &POPFROMRETURN);
-
-    //######## Macros ##########
-    defs = &macros;
-    macros_begin = addEntry(";", data, &SEMI);
-    addEntry("s\"", data, &STORESTRING);
-    addEntry(".\"", data, &PRINTSTRING);
-    //#########  Flow Control #############;
-    addEntry("if", data, &IF);
-    addEntry("then", data, &THEN);
-    addEntry("else", data, &ELSE);
-    addEntry("do", data, &DO);
-    addEntry("loop", data, &LOOP);
-    addEntry("begin", data, &BEGIN);
-    addEntry("until", data, &UNTIL);
-    addEntry("again", data, &AGAIN);
-    addEntry("while", data, &WHILE);
-    addEntry("repeat", data, &REPEAT);
-    defs = &dict;
 
     //######## Global Variables ##########
     i_wp = addVariable("i");
