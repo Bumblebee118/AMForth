@@ -7,7 +7,7 @@
 void compile(Dict* word) {
     wp = word;
 
-    if((wp >= macros_begin) && (wp <= macros)){
+    if((wp >= macros_begin) && (wp <= macros)) {
         //is macro
         wp->code();
     } else if ((wp >= dict_begin) && (wp <= dict)){
