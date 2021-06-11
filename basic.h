@@ -376,5 +376,12 @@ void DROP();
 
   void DECR();
 
+  void PARTORET();
+
+  void RETTOPAR();
+
+  void INCRCELL();
+
+  void DROP2();
 
 #endif //AMFORTH_BASIC_H

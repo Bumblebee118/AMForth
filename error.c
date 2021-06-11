@@ -42,6 +42,9 @@ void THROW() {
         case ERR_INVALID_ADDR:
             str = "Invalid memory address";
             break;
+        case ERR_NULL_POINTER:
+            str = "NULL pointer";
+            break;
         default:
             str = "Undefined error";
             break;
@@ -66,6 +69,6 @@ void THROW() {
     skipLine();
     ip = start;
 
-    if (isCompileMode) stopCompile();
+    if (*isCompileMode) stopCompile();
 }
 

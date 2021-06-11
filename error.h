@@ -16,6 +16,7 @@
 #define ERR_UNSTRUCTURED -9
 #define ERR_NO_MEMORY -10
 #define ERR_INVALID_ADDR -11
+#define ERR_NULL_POINTER -12
 
 void THROW();
 

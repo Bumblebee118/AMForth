@@ -83,7 +83,7 @@ char getNextChar() {
     if(stream!=stdin && lastChar>0) fprintf(stdout, "%c", lastChar);
 
     if (lastChar == '\n') {
-        if (isCompileMode == 0) print_msg(" ok> ");
+        if (*isCompileMode == 0) print_msg(" ok> ");
         else print_msg(" compiled> ");
     }
     return (lastChar = (char) fgetc(stream));

@@ -16,11 +16,12 @@ Stack* returnStack;
 List* ptrList;
 FILE* stream;
 char *token;
-int isCompileMode = 0;
+cell_t * isCompileMode = variable_space;
 int loopDepth = 0;
 Dict *user_code_base[CODE_SIZE];
 cell_t variable_space[HEAP_SIZE];
-cell_t* heapptr = variable_space;
+cell_t* heapptr = variable_space+2;
+cell_t* heap = variable_space+1;
 Dict* dolit_wp;
 Dict* checkbranch_wp;
 Dict* branch_wp;
@@ -45,6 +46,9 @@ _Noreturn void virtualMachine(void);
 void compileInterpreter(void);
 
 int main(int argc, char **argv) {
+
+    // bisschen tricky
+    *heap = (cell_t) heapptr;
 
     //initialize stacks
     parameterStack = createStack(STANDARD_STACK_CAPACITY);

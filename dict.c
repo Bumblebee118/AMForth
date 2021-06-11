@@ -207,6 +207,10 @@ void addBasicWordsToDict() {
     addEntry(",", data, &STOREONHEAP);
     addEntry("create", data, &CREATE);
     addEntry("cells", data, &CELLS);
+    addEntry(">r", data, &PARTORET);
+    addEntry("r>", data, &RETTOPAR);
+    addEntry("cell+", data, &INCRCELL);
+    addEntry("2drop", data, &DROP2);
 
     pushonreturn_wp = addEntry("pushonreturn", data, &PUSHONRETURN);
     peekfromreturn_wp = addEntry("peekfromreturn", data, &PEEKFROMRETURN);
@@ -218,9 +222,9 @@ void addBasicWordsToDict() {
     k_wp = addLoopVariable("k");
 
     Data d;
-    d.value = (cell_t) &isCompileMode;
+    d.value = (cell_t) isCompileMode;
     addEntry("compilemode", d, &DOVAR);
-    d.value = (cell_t) &heapptr;
+    d.value = (cell_t) heap;
     addEntry("here", d, &DOVAR);
 }
 

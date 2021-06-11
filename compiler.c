@@ -63,7 +63,7 @@ void compile(Dict* word) {
 
 void stopCompile(){
     redefined = 0;
-    isCompileMode = 0;
+    *isCompileMode = 0;
     if(cw != NULL){
         userCode = cw->data.definition;    //reset userCode pointer
         removeEntry(cw->word);             //delete word from dictionary

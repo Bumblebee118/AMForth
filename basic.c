@@ -592,7 +592,7 @@ void PRINTSTACK() {
 
 void DOCOLON() {
     push(returnStack, (cell_t) ip);
-    push(returnStack, (cell_t) wp); //push current executed word
+    //push(returnStack, (cell_t) wp); //push current executed word
     ip = wp->data.definition;
 }
 
@@ -609,11 +609,11 @@ void COLON() {
     data.definition = userCode;
     cw = addEntry(token, data, &DOCOLON);
 
-    isCompileMode = 1;
+    *isCompileMode = 1;
 }
 
 void DOSEMI() {
-    pop(returnStack);   //pop current executed word
+    //pop(returnStack);   //pop current executed word
     ip = (Dict **) pop(returnStack);
 }
 
@@ -625,7 +625,7 @@ void SEMI() {
         return;
     }
     compile(dosemi_wp);
-    isCompileMode = 0;
+    *isCompileMode = 0;
 
     if(redefined){
         char msg [MAX_WORD_NAME_SIZE + 12];
@@ -717,7 +717,7 @@ void STORESTRING() {
     }
     cell_t len = nextString(&str);
 
-    if (isCompileMode){
+    if (*isCompileMode){
        compile(dostorestring_wp);
         *(userCode++) = (Dict*) str;
         *(userCode++) = (Dict*) len;
@@ -729,7 +729,7 @@ void STORESTRING() {
 }
 
 void PRINTSTRING() {
-    if (isCompileMode){
+    if (*isCompileMode){
         char* str =(char*) malloc(sizeof(char )*BASE_STRING_SIZE);
         if(str == NULL){
             push(parameterStack, ERR_NO_MEMORY);
@@ -844,6 +844,19 @@ void ASSIGNVAR() {
         THROW();
         return;
     }
+
+    if (ptr == NULL) {
+        push(parameterStack, ERR_NULL_POINTER);
+        THROW();
+        return;
+    }
+
+    if((ptr >= variable_space+HEAP_SIZE) || (ptr < variable_space)){
+        push(parameterStack, ERR_INVALID_ADDR);
+        THROW();
+        return;
+    }
+
     cell_t val = pop(parameterStack);
     if (val == nil) {
         push(parameterStack, ERR_STACK_UNDERFLOW);
@@ -863,6 +876,18 @@ void DOUBLEASSIGN(){
     }
 
     cell_t *ptr2 = ptr1+1;
+
+    if ((ptr1 == NULL) || (ptr2 == NULL)) {
+        push(parameterStack, ERR_NULL_POINTER);
+        THROW();
+        return;
+    }
+
+    if((ptr1 >= variable_space+HEAP_SIZE) || (ptr1 < variable_space) || (ptr2 >= variable_space+HEAP_SIZE) || (ptr2 < variable_space)){
+        push(parameterStack, ERR_INVALID_ADDR);
+        THROW();
+        return;
+    }
 
 
     cell_t val2 = pop(parameterStack);
@@ -885,36 +910,47 @@ void DOUBLEASSIGN(){
 
 void FETCHVAR() {
     cell_t *ptr = (cell_t *) pop(parameterStack);
-    if (*ptr == nil) {
+
+    if (((cell_t) ptr) == nil) {
         push(parameterStack, ERR_STACK_UNDERFLOW);
         THROW();
         return;
     }
 
-    //problem that compilemode and here are defined elsewhere -> fails
-    /*if((ptr >= variable_space+HEAP_SIZE) || (ptr < variable_space)){
+    if (ptr == NULL) {
+        push(parameterStack, ERR_NULL_POINTER);
+        THROW();
+        return;
+    }
+
+    if((ptr >= variable_space+HEAP_SIZE) || (ptr < variable_space)){
         push(parameterStack, ERR_INVALID_ADDR);
         THROW();
         return;
-    }*/
+    }
 
     push(parameterStack, *ptr);
 }
 
 void DOUBLEFETCH(){
     cell_t *ptr = (cell_t *) pop(parameterStack);
-    if (*ptr == nil) {
+    if ((cell_t) ptr == nil) {
         push(parameterStack, ERR_STACK_UNDERFLOW);
         THROW();
         return;
     }
 
-    //problem that compilemode and here are defined elsewhere -> fails
-    /*if((ptr >= variable_space+HEAP_SIZE) || (ptr < variable_space)){
+    if ((ptr == NULL) || (ptr+1 == NULL)) {
+        push(parameterStack, ERR_NULL_POINTER);
+        THROW();
+        return;
+    }
+
+    if((ptr >= variable_space+HEAP_SIZE) || (ptr < variable_space) || (ptr+1 >= variable_space+HEAP_SIZE) || (ptr+1 < variable_space)){
         push(parameterStack, ERR_INVALID_ADDR);
         THROW();
         return;
-    }*/
+    }
 
     push(parameterStack, *ptr);
     push(parameterStack, *(ptr+1));
@@ -961,12 +997,6 @@ void PICK(){
 
 
 void DROP(){
-    /*cell_t u = pop(parameterStack);
-    if((u == nil) || (dropElement(parameterStack, u) == nil)){
-        push(parameterStack, ERR_STACK_UNDERFLOW);
-        THROW();
-        return;
-    }*/
 
     if((dropElement(parameterStack, 0) == nil)){
         push(parameterStack, ERR_STACK_UNDERFLOW);
@@ -974,6 +1004,20 @@ void DROP(){
         return;
     }
 
+}
+
+void DROP2(){
+    if((dropElement(parameterStack, 0) == nil)){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    if((dropElement(parameterStack, 0) == nil)){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
 }
 
 void OVER(){
@@ -1069,3 +1113,37 @@ void DECR(){
 
     push(parameterStack, num-1);
 }
+
+void PARTORET(){
+    cell_t num = pop(parameterStack);
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    push(returnStack, num);
+}
+
+void RETTOPAR(){
+    cell_t num = pop(returnStack);
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    push(parameterStack, num);
+}
+
+void INCRCELL(){
+    cell_t num = pop(parameterStack);
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    push(parameterStack, num+sizeof(cell_t));
+}
+

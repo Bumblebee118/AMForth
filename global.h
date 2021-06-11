@@ -18,7 +18,7 @@
 #define MAX_WORD_NAME_SIZE 128          //maximum number of chars one word can have
 #define STANDARD_STACK_CAPACITY 128
 #define CODE_SIZE 32768
-#define HEAP_SIZE 32768
+#define HEAP_SIZE 32768*100
 #define BASE_STRING_SIZE 128
 
 #define FALSE 0
@@ -47,6 +47,7 @@ extern Dict *user_code_base[CODE_SIZE];
  */
 extern cell_t variable_space[HEAP_SIZE];
 extern cell_t* heapptr;
+extern cell_t* heap;
 
 
 /**
@@ -79,7 +80,7 @@ extern List* ptrList;
 /**
  * specifies the mode the interpreter is currently in
  */
-extern int isCompileMode;
+extern cell_t* isCompileMode;
 
 /**
  * Input stream of the program definitions
