@@ -50,13 +50,13 @@ void THROW() {
     fprintf(stdout, ":%d: %s (errno %ld)\n>>>%s<<<\n", error_cnt, str, errno, token);
 
     //#### just an idea ####
-    if (!isEmpty(returnStack)) fprintf(stdout, "Backtrace:\n");
+   /*if (!isEmpty(returnStack)) fprintf(stdout, "Backtrace:\n");
     Dict* trace;
     while (!isEmpty(returnStack)){
         trace = (Dict*) pop(returnStack);   //pop last executed word
         pop(returnStack);                   //pop return address
         fprintf(stdout, "$%ld %s\n", (cell_t) trace, trace->word);
-    }
+    }*/
     //#### just an idea ####
 
     clearStack(parameterStack);

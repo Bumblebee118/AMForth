@@ -170,6 +170,8 @@ void DO();
 
 void LOOP();
 
+void ADDLOOP();
+
 void BEGIN();
 
 void UNTIL();
@@ -316,15 +318,21 @@ void VAR();
  */
 void DOVAR();
 
+void DOLOOPVAR();
+
 /**
  * pops the address of the variable and new value of the stack and assigns the variable that value
  */
 void ASSIGNVAR();
 
+void DOUBLEASSIGN();
+
 /**
  * pops the address of the variable of the stack and pushes the value of the variable on the stack
  */
 void FETCHVAR();
+
+void DOUBLEFETCH();
 
 /**
  * lets you remove the first entry, that matches a given name from the dictionary
@@ -362,6 +370,11 @@ void DROP();
 
   void CREATE();
 
+  void CELLS();
+
+  void INCR();
+
+  void DECR();
 
 
 #endif //AMFORTH_BASIC_H

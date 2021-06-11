@@ -41,7 +41,7 @@ Dict* addEntry(char *word, Data data, CODEPOINTER code);
  * @param name
  * @return
  */
-Dict *addVariable(char* name);
+Dict *addLoopVariable(char* name);
 
 /**
  * searches the dictionary for the function name given as a parameter

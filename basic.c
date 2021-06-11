@@ -426,6 +426,30 @@ void LOOP() {
     loopDepth--;
 }
 
+void ADDLOOP(){
+    cell_t doLabel = pop(parameterStack);
+    if (doLabel != COMP_DO) {
+        push(parameterStack, ERR_EXPECTED_CTRL_STRUCTURE);
+        THROW();
+        return;
+    }
+    chooseCorrectLoopVar();
+    compile(fetchvar_wp);
+    compile(add_wp);
+    chooseCorrectLoopVar();
+    compile(assignvar_wp);
+    compile(branch_wp);
+    SWAP();
+    RESOLVEBACKWARDREF();
+    RESOLVEFORWARDREF();
+    push(parameterStack, 0);
+    compile(dolit_wp);
+    chooseCorrectLoopVar();
+    compile(assignvar_wp);
+    compile(popfromreturn_wp);
+    loopDepth--;
+}
+
 void BEGIN() {
     PREPBACKWARDREF();
     push(parameterStack, COMP_BEGIN);
@@ -809,6 +833,10 @@ void DOVAR() {
     push(parameterStack, wp->data.value);
 }
 
+void DOLOOPVAR(){
+    push(parameterStack, *((cell_t*) wp->data.value));
+}
+
 void ASSIGNVAR() {
     cell_t *ptr = (cell_t *) pop(parameterStack);
     if ((cell_t) ptr == nil) {
@@ -826,6 +854,35 @@ void ASSIGNVAR() {
     *ptr = val;
 }
 
+void DOUBLEASSIGN(){
+    cell_t *ptr1 = (cell_t *) pop(parameterStack);
+    if ((cell_t) ptr1 == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    cell_t *ptr2 = ptr1+1;
+
+
+    cell_t val2 = pop(parameterStack);
+    if (val2 == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    cell_t val1 = pop(parameterStack);
+    if (val1 == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    *ptr1 = val1;
+    *ptr2 = val2;
+}
+
 void FETCHVAR() {
     cell_t *ptr = (cell_t *) pop(parameterStack);
     if (*ptr == nil) {
@@ -834,6 +891,7 @@ void FETCHVAR() {
         return;
     }
 
+    //problem that compilemode and here are defined elsewhere -> fails
     /*if((ptr >= variable_space+HEAP_SIZE) || (ptr < variable_space)){
         push(parameterStack, ERR_INVALID_ADDR);
         THROW();
@@ -841,6 +899,25 @@ void FETCHVAR() {
     }*/
 
     push(parameterStack, *ptr);
+}
+
+void DOUBLEFETCH(){
+    cell_t *ptr = (cell_t *) pop(parameterStack);
+    if (*ptr == nil) {
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    //problem that compilemode and here are defined elsewhere -> fails
+    /*if((ptr >= variable_space+HEAP_SIZE) || (ptr < variable_space)){
+        push(parameterStack, ERR_INVALID_ADDR);
+        THROW();
+        return;
+    }*/
+
+    push(parameterStack, *ptr);
+    push(parameterStack, *(ptr+1));
 }
 
 void FORGET(){
@@ -956,22 +1033,39 @@ void STOREONHEAP(){
 }
 
 void CREATE(){
-    int len = nextToken();
+   VAR();
+   heapptr--;
+}
 
-    if (len >= MAX_WORD_NAME_SIZE) {
-        push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
+void CELLS(){
+    cell_t num = pop(parameterStack);
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
         THROW();
         return;
     }
 
-    if((heapptr - variable_space) >= HEAP_SIZE){
-        push(parameterStack, ERR_NO_MEMORY);
+    push(parameterStack, num*sizeof(cell_t));
+}
+
+void INCR(){
+    cell_t num = pop(parameterStack);
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
         THROW();
-        exit(EXIT_FAILURE);
+        return;
     }
 
-    cell_t *ptr = heapptr;
-    Data data;
-    data.value = (cell_t) ptr;
-    addEntry(token, data, &DOVAR);
+    push(parameterStack, num+1);
+}
+
+void DECR(){
+    cell_t num = pop(parameterStack);
+    if(num == nil){
+        push(parameterStack, ERR_STACK_UNDERFLOW);
+        THROW();
+        return;
+    }
+
+    push(parameterStack, num-1);
 }

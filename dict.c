@@ -31,7 +31,7 @@ Dict *addEntry(char *word, Data data, CODEPOINTER code) {
     return newEntry;
 }
 
-Dict *addVariable(char* name){
+Dict *addLoopVariable(char* name){
     Data d;
     /*void* ptr = malloc(sizeof(cell_t));
     add(&ptrList, ptr);
@@ -40,7 +40,10 @@ Dict *addVariable(char* name){
     cell_t *ptr = heapptr;
     heapptr++;
     d.value = (cell_t) ptr;
-    return addEntry(name, d, &DOVAR);
+    addEntry(name, d, &DOLOOPVAR);
+    char str [3];
+    sprintf(str, "%s_", name);
+    return addEntry(str, d, &DOVAR);
 }
 
 
@@ -124,6 +127,7 @@ void addBasicWordsToDict() {
     addEntry("else", data, &ELSE);
     addEntry("do", data, &DO);
     addEntry("loop", data, &LOOP);
+    addEntry("+loop", data, &ADDLOOP);
     addEntry("begin", data, &BEGIN);
     addEntry("until", data, &UNTIL);
     addEntry("again", data, &AGAIN);
@@ -184,9 +188,12 @@ void addBasicWordsToDict() {
     addEntry("constant", data, &CONST);
     addEntry("variable", data, &VAR);
     addEntry("dovar", data, &DOVAR);
+    addEntry("doloopvar", data, &DOLOOPVAR);
 
     assignvar_wp = addEntry("!", data, &ASSIGNVAR);
+    addEntry("2!", data, &DOUBLEASSIGN);
     fetchvar_wp = addEntry("@", data, &FETCHVAR);
+    addEntry("2@", data, &DOUBLEFETCH);
     addEntry("cr", data, &CR);
     addEntry("forget", data, &FORGET);
     addEntry("emit", data, &EMIT);
@@ -194,18 +201,21 @@ void addBasicWordsToDict() {
     addEntry("drop", data, &DROP);
     addEntry("over", data, &OVER);
     addEntry("rot", data, &ROT);
+    addEntry("1-", data, &DECR);
+    addEntry("1+", data, &INCR);
     addEntry("allot", data, &ALLOT);
     addEntry(",", data, &STOREONHEAP);
     addEntry("create", data, &CREATE);
+    addEntry("cells", data, &CELLS);
 
     pushonreturn_wp = addEntry("pushonreturn", data, &PUSHONRETURN);
     peekfromreturn_wp = addEntry("peekfromreturn", data, &PEEKFROMRETURN);
     popfromreturn_wp = addEntry("popfromreturn", data, &POPFROMRETURN);
 
     //######## Global Variables ##########
-    i_wp = addVariable("i");
-    j_wp = addVariable("j");
-    k_wp = addVariable("k");
+    i_wp = addLoopVariable("i");
+    j_wp = addLoopVariable("j");
+    k_wp = addLoopVariable("k");
 
     Data d;
     d.value = (cell_t) &isCompileMode;
