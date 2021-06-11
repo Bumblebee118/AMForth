@@ -42,7 +42,7 @@ Dict *addLoopVariable(char* name){
     d.value = (cell_t) ptr;
     addEntry(name, d, &DOLOOPVAR);
     char str [3];
-    sprintf(str, "%s_", name);
+    sprintf(str, "&%s", name);
     return addEntry(str, d, &DOVAR);
 }
 
