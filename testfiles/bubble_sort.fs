@@ -55,3 +55,6 @@ variable index
 : main
 	bubble-sort
 ;
+
+main
+bye

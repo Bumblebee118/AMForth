@@ -12,11 +12,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c18945ba-7ee4-49ac-b25a-959d14fc64d4" name="Default Changelist" comment="markers for loops added">
-      <change afterPath="$PROJECT_DIR$/testfiles/fib_rec_gforth.f" afterDir="false" />
+    <list default="true" id="c18945ba-7ee4-49ac-b25a-959d14fc64d4" name="Default Changelist" comment="benchmark changed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testfiles/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/benchmark.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testfiles/fib_rec.f" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/fib_rec.f" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testfiles/bubble_sort.fs" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/bubble_sort.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testfiles/gcd.fs" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/gcd.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testfiles/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/output.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,11 +73,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="default_target" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/cmake-build-debug/Makefile" target="default_target" workingDirectory="" arguments="">
         <envs />
@@ -116,6 +111,11 @@
       <workItem from="1620106547233" duration="3172000" />
       <workItem from="1620368250494" duration="7445000" />
       <workItem from="1620400041126" duration="3344000" />
+      <workItem from="1623392845542" duration="1961000" />
+      <workItem from="1623398954938" duration="1992000" />
+      <workItem from="1623487073680" duration="112000" />
+      <workItem from="1623583921603" duration="272000" />
+      <workItem from="1623757613774" duration="4326000" />
     </task>
     <task id="LOCAL-00003" summary="nil checks added">
       <created>1619247024126</created>
@@ -166,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620376444678</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="benchmark changed">
+      <created>1623343667741</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1623343667741</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,6 +212,7 @@
     <MESSAGE value="loop with depth 3 working. deeper loops throw errors" />
     <MESSAGE value="general loops working" />
     <MESSAGE value="markers for loops added" />
-    <option name="LAST_COMMIT_MESSAGE" value="markers for loops added" />
+    <MESSAGE value="benchmark changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="benchmark changed" />
   </component>
 </project>
