@@ -58,3 +58,6 @@ create imr mat-byte-size allot
         i @ .
    cell +loop
 ;
+
+main
+bye

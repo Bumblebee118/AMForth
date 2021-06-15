@@ -35,3 +35,12 @@ res2=$(avg_time 5 gforth bubblesort.fs)
 echo "BubbleSort Gforth Avg: $res2 seconds"
 factor=$( bc -l <<< "$res1 / $res2;")
 echo "AMForth execution time was $factor times longer"
+
+echo "-----------------"
+
+res1=$(avg_time 5 ../cmake-build-release/AMForth matrix_mult.fs)
+echo "Matrix Multiplication AMForth Avg: $res1 seconds"
+res2=$(avg_time 5 gforth matrix_mult.fs)
+echo "Matrix Multiplication Gforth Avg: $res2 seconds"
+factor=$( bc -l <<< "$res1 / $res2;")
+echo "AMForth execution time was $factor times longer"
