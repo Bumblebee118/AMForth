@@ -2,88 +2,113 @@
 #include "interpret.h"
 #include "executor.h"
 
-char lastChar;
+char lastChar= 0;
+int redefined = 0;
 
 void interpret() {
     int len;
-    char *string = NULL;
-    char *token = NULL;
-    if (isStringMode) {
-        len = getStringFromInput(&string, &token);
-    } else {
-        len = nextToken(&token);
-    }
+    len = nextToken();
 
     //check if an error occurred or the the user wants to quit
     if (len == -1) {
-        ERROR("Token parsing failed", UNKNOWN_TOKEN);
-        freeRes(token, string);
+        push(parameterStack, ERR_PARSING_ERROR);
+        THROW();
+        freeRes();
         exit(1);
     } else if (len == 0) {
         //reached EOF
-        freeRes(token, string);
-        exit(0);
-    } else if (len >= MAX_WORD_NAME_SIZE && !isStringMode) {
-        WORD_SIZE_LIMIT(token);
-    } else if ((strcmp(token, "bye") == 0) && !isStringMode) {
-        fprintf(stdout, "see you later!\n");
-        freeRes(token, string);
+        if(stream == stdin){
+            freeRes();
+            exit(EXIT_SUCCESS);
+        }
+        fclose(stream);
+        ip = start; //reset ip
+        stream = stdin;
+    } else if (len >= MAX_WORD_NAME_SIZE) {
+        push(parameterStack, ERR_TOKEN_SIZE_LIMIT);
+        THROW();
+    } else if ((strcmp(token, "bye") == 0)) {
+        print_msg("see you later!\n");
+        freeRes();
         exit(EXIT_SUCCESS);
     } else {
-        if (isStringMode) {
-            push(parameterStack, (cell_t) string);
-            push(parameterStack, (cell_t) token);
+
+        //check if it is a macro
+        defs = &macros;
+        if ((wp = getEntry(token))) {
+            defs = &dict;
+            push(parameterStack, (cell_t) wp);
+            return;
+        }
+        defs = &dict;
+
+        //if the word exists in the dictionary, execute the definition
+        if ((wp = getEntry(token))) {
+            push(parameterStack, (cell_t) wp);
+            return;
+        }
+
+        //check if it is a number
+        char *endptr;
+        cell_t num = (cell_t) strtol(token, &endptr, 10);
+
+        if (strlen(endptr) == 0) {
+            push(parameterStack, num);
+            push(parameterStack, (cell_t) dolit_wp);
         } else {
-            push(parameterStack, (cell_t) token);
+            push(parameterStack, ERR_UNDEFINED_WORD);
+            THROW();
         }
     }
-
 }
 
-void freeRes(char *token, char *string) {
+void freeRes() {
     if (token != NULL) free(token);
-    if (string != NULL) free(string);
     deleteDict();
     defs = &macros;
     deleteDict();
     deleteStack(parameterStack);
     deleteStack(returnStack);
+    deleteList(ptrList);
 }
 
 void skipLine() {
     if (lastChar != '\n') {
-        char c;
-        while ((c = (char) getc(stream)) != '\n');
+        while ((char) getc(stream) != '\n');
     }
 }
 
 char getNextChar() {
-    if (lastChar == '\n') {
-        PRINT_INPUT_OK();
-    }
+    //print input when reading from file
+    if(stream!=stdin && lastChar>0) fprintf(stdout, "%c", lastChar);
 
+    if (lastChar == '\n') {
+        if (*isCompileMode == 0) print_msg(" ok> ");
+        else print_msg(" compiled> ");
+    }
     return (lastChar = (char) fgetc(stream));
 }
 
-int nextToken(char **tokenPtr) {
-    //acquire memory
-    *tokenPtr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
-    //check pointer again
-    if (*tokenPtr == NULL) return -1;
+int nextToken() {
+    if (token == NULL) {
+        //acquire memory
+        token = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
+        //check pointer again
+        if (token == NULL) return -1;
+    }
 
     //get next char from stream
     char currentChar = getNextChar();
 
     int len = 0;
     while (!isspace(currentChar)) {
-
         if (currentChar == EOF) {
             return 0;  //immediately return if the EOF has been reached
         }
 
         //only add new chars to string, it MAX_WORD_NAME_SIZE has not been exceeded
         if (len < MAX_WORD_NAME_SIZE - 1) {
-            (*tokenPtr)[len] = currentChar;
+            token[len] = currentChar;
         }
 
         len++;
@@ -94,54 +119,47 @@ int nextToken(char **tokenPtr) {
     //getting rid of whitespaces by recursively calling nextToken
     //until a string with len > 0 is found
     if (len == 0) {
-        return nextToken(tokenPtr);
+        return nextToken();
     }
 
     //add zero delimiter at the end of string
     //special handling string with size bigger than MAX_WORD_NAME_SIZE
     if (len < MAX_WORD_NAME_SIZE - 1) {
-        (*tokenPtr)[len] = '\0';
+        token[len] = '\0';
     } else {
-        (*tokenPtr)[MAX_WORD_NAME_SIZE - 1] = '\0';
+        token[MAX_WORD_NAME_SIZE - 1] = '\0';
     }
 
     return len;
 }
 
-int getStringFromInput(char **pString, char **tokenPtr) {
-    *tokenPtr = malloc(sizeof(char) * MAX_WORD_NAME_SIZE);
-    if (*tokenPtr == NULL) return -1;
-    *tokenPtr[0] = '"';
-    // *tokenPtr[1] = '\0';
 
-    int bufferSize = BASE_STRING_SIZE;
-    *pString = (char *) malloc(sizeof(char) * bufferSize);
-    if (*pString == NULL) return -1;
-
-    char currentChar = getNextChar();
-
-    int len = 0;
-    int singleQuotationMark = 0;
-    while (!singleQuotationMark) {
-        if (currentChar == EOF) return 0;
-
-        if (len + 1 < bufferSize) {
-            (*pString)[len] = currentChar;
-        } else {
-            bufferSize += 2;
-            *pString = realloc(pString, bufferSize);
-            (*pString)[len] = currentChar;
+cell_t nextString(char** str){
+    cell_t len = 0;
+    int size = BASE_STRING_SIZE;
+    char current = getNextChar();
+    while((current != '\"') && (current != '\n')){
+        if(len == size-1){
+            size += 2;
+            (*str) = (char *) realloc(str, sizeof(char)*size);
         }
-
-        currentChar = getNextChar();
-        if ((currentChar == ' ' || currentChar == '\n') && (*pString)[len] == '"') singleQuotationMark = 1;
+        (*str)[len] = current;
         len++;
+        current = getNextChar();
+    }
+    (*str)[len] = '\0';
+
+
+    //store pointer in list
+    ptrList = add(&ptrList, *str);
+    if(ptrList==NULL){
+        push(parameterStack, ERR_NO_MEMORY);
+        THROW();
+        exit(EXIT_FAILURE);
     }
 
-    (*pString)[len - 1] = '\0';
     return len;
 }
-
 
 /*int nextToken(char** token_ptr){
     return nextTokenFromLine(line, token_ptr, nread);
@@ -197,10 +215,7 @@ int nextTokenFromLine(char *line, char **token_ptr, ssize_t nread) {
     return len;
 }
 */
-void PRINT_INPUT_OK() {
-    if (stream == stdin) fprintf(stdout, "ok> ");
-}
-
-void WORD_SIZE_LIMIT(char *token) {
-    ERROR("Token exceeds number of chars", token);
+void print_msg(char *msg) {
+    fprintf(stdout, "%s", msg);
+    fflush(stdout);
 }

@@ -7,17 +7,24 @@
 
 #include <string.h>
 #include "stack.h"
-#include "basicFunctions.h"
+#include "basic.h"
+
+
+struct Dict;
+
+typedef union Data{
+    cell_t value;
+    struct Dict** definition;
+} Data;
 
 /**
  *
  */
 typedef struct Dict {
-    char *word;                     //name of the definition
-    struct Dict *link;              //link reference to previous Dict
-    cell_t value;                      // value of constant or address of variable
-    struct Dict **definitions;      //array of other function def, which build up this function definition
-    BASICFUNC basicfunc;            //pointer to a basic function, if no basic function, then this pointer is NULL
+    char *word;             //name of the word
+    struct Dict *link;      //link reference to previous dictionary entry
+    Data data;              //data field of dictionary entry
+    CODEPOINTER code;       //pointer to a code that shall be executed
 } Dict;
 
 /**
@@ -27,7 +34,14 @@ typedef struct Dict {
  * @param functionAddress the address of the first function to be called in this function
  * @return NULL on failure, otherwise the new entry
  */
-Dict* addEntry(char *word, cell_t value, Dict **definitions, BASICFUNC basicfunc);
+Dict* addEntry(char *word, Data data, CODEPOINTER code);
+
+/**
+ * add a new variable to the dictionary
+ * @param name
+ * @return
+ */
+Dict *addLoopVariable(char* name);
 
 /**
  * searches the dictionary for the function name given as a parameter
@@ -35,7 +49,7 @@ Dict* addEntry(char *word, cell_t value, Dict **definitions, BASICFUNC basicfunc
  * @param word the name of the function to search for
  * @return a pointer to the element or NULL if no element was found with the given name
  */
-Dict *getEntry(const char *word);
+Dict *getEntry(char *word);
 
 /**
  * deletes an entry from the dictionary
@@ -55,5 +69,10 @@ void deleteDict();
  * @param dict
  */
 void addBasicWordsToDict();
+
+/**
+ * convert the input string to all lowercase letters
+ */
+void toLowerCase(char** word);
 
 #endif //AMFORTH_DICT_H

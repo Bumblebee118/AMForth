@@ -8,5 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-void compile(char* word);
+void compile(Dict* word);
+
+void stopCompile();
 #endif //AMFORTH_COMPILER_H

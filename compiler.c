@@ -4,20 +4,44 @@
 
 #include "global.h"
 
-void compile(char *word) {
-    Dict *entry;
+void compile(Dict* word) {
+    wp = word;
 
+    if((wp >= macros_begin) && (wp <= macros)) {
+        //is macro
+        wp->code();
+    } else if ((wp >= dict_begin) && (wp <= dict)){
+        //is dict
+        *userCode = wp;
+        userCode++;
+
+        // if dolit is on top compile literal
+        if(wp == dolit_wp){
+            cell_t num = pop(parameterStack);
+            if (num == nil) {
+                push(parameterStack, ERR_STACK_UNDERFLOW);
+                THROW();
+                return;
+            }
+            *(userCode++) = (Dict *) num;
+        }
+    }else{
+        push(parameterStack, ERR_INVALID_ADDR);
+        THROW();
+    }
+
+    /*
     defs = &macros;
     if ((entry = getEntry(word))) {
         defs = &dict;
-        entry->basicfunc();
+        entry->code();
         return;
     }
 
     defs = &dict;
     if ((entry = getEntry(word))) {
-        *user_code = entry;
-        user_code++;
+        *userCode = entry;
+        userCode++;
         return;
     }
 
@@ -27,12 +51,23 @@ void compile(char *word) {
 
     if (strlen(endptr) == 0) {
         compile("dolit");
-        *user_code = (Dict *) num;
-        user_code++;
+        *(userCode++) = (Dict *) num;
     } else {
-        ERROR("Undefined word", word);
-        isCompileMode = 0;
-        user_code = cw->definitions;
-        removeEntry(cw->word);
+        push(parameterStack, ERR_UNDEFINED_WORD);
+        THROW();
+        //stopCompile();
     }
+
+     */
+}
+
+void stopCompile(){
+    redefined = 0;
+    *isCompileMode = 0;
+    if(cw != NULL){
+        userCode = cw->data.definition;    //reset userCode pointer
+        removeEntry(cw->word);             //delete word from dictionary
+        cw = NULL;
+    }
+
 }

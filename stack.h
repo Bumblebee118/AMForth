@@ -5,8 +5,6 @@
 
 typedef long cell_t;
 
-extern long nil;
-
 /**
  * Struct to create a stack
  * 'top' points to the here element in the array 'array'
@@ -29,14 +27,14 @@ Stack *createStack(unsigned capacity);
 /**
  * Checks if the specified stack is full
  * @param stack The stack which shall be checked
- * @return Returns 0 if the stack is not full and otherwise a non-zero value
+ * @return Returns 0 if the stack is not full and otherwise a non-zero data
  */
 int isFull(Stack *stack);
 
 /**
  * Checks if the specified stack is empty
  * @param stack The stack which shall be checked
- * @return Returns 0 if the stack is not empty and otherwise a non-zero value
+ * @return Returns 0 if the stack is not empty and otherwise a non-zero data
  */
 int isEmpty(Stack *stack);
 
@@ -80,5 +78,22 @@ void clearStack(Stack *stack);
  * @return
  */
 int numberOfElements(Stack *stack);
+
+/**
+ * Returns the element which is 'index' places from the top of the stack
+ * or nil if there are not enough elements
+ * @param stack
+ * @param index
+ * @return
+ */
+cell_t pickElement(Stack *stack, cell_t index);
+
+/**
+ * Drops the elemnt on the "index" place from the stack an returns it
+ * @param stack
+ * @param index
+ * @return
+ */
+cell_t dropElement(Stack *stack, cell_t index);
 
 #endif //AMFORTH_STACK_H

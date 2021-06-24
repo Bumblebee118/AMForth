@@ -1,43 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="AMForth" targetName="AMForth" />
     </generated>
   </component>
-  <component name="CMakeSettings" AUTO_RELOAD="true">
+  <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" TOOLCHAIN_NAME="Default" ENABLED="true" />
+      <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" TOOLCHAIN_NAME="Default" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb289b34-ba48-483f-8b06-d8e9acc2da44" name="Default Changelist" comment="name of compiled function is not found when executing">
+    <list default="true" id="c18945ba-7ee4-49ac-b25a-959d14fc64d4" name="Default Changelist" comment="benchmark improved">
+      <change afterPath="$PROJECT_DIR$/testfiles/bubble_sort_orig.fs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testfiles/matrix_mult_orig.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicFunctions.c" beforeDir="false" afterPath="$PROJECT_DIR$/basicFunctions.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicFunctions.h" beforeDir="false" afterPath="$PROJECT_DIR$/basicFunctions.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dict.c" beforeDir="false" afterPath="$PROJECT_DIR$/dict.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dict.h" beforeDir="false" afterPath="$PROJECT_DIR$/dict.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/error.c" beforeDir="false" afterPath="$PROJECT_DIR$/error.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global.h" beforeDir="false" afterPath="$PROJECT_DIR$/global.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testfiles/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/benchmark.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,60 +26,191 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release" />
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="alex" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectId" id="1rYnxrDIzzrZ8t912W5fVR3OvMC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/testfiles" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
-  <component name="RunManager">
-    <configuration name="AMForth" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AMForth" TARGET_NAME="AMForth" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AMForth" RUN_TARGET_NAME="AMForth">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/testfiles" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/testfiles" />
+    </key>
   </component>
+  <component name="RunManager" selected="CMake Application.AMForth">
+    <configuration name="AMForth" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AMForth" TARGET_NAME="AMForth" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="AMForth" RUN_TARGET_NAME="AMForth">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="default_target" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/cmake-build-debug/Makefile" target="default_target" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="help" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/cmake-build-debug/Makefile" target="help" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.AMForth" />
+      <item itemvalue="Makefile Target.default_target" />
+      <item itemvalue="Makefile Target.help" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile Target.help" />
+        <item itemvalue="Makefile Target.default_target" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="dict_t renamed to Dict">
-      <created>1618945849784</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1618945849785</updated>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c18945ba-7ee4-49ac-b25a-959d14fc64d4" name="Default Changelist" comment="" />
+      <created>1619162140237</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1619161821804</updated>
+      <workItem from="1619161823056" duration="523000" />
+      <workItem from="1619246100040" duration="1140000" />
+      <workItem from="1620023244752" duration="20229000" />
+      <workItem from="1620106547233" duration="3172000" />
+      <workItem from="1620368250494" duration="7445000" />
+      <workItem from="1620400041126" duration="3344000" />
+      <workItem from="1623392845542" duration="1961000" />
+      <workItem from="1623398954938" duration="1992000" />
+      <workItem from="1623487073680" duration="112000" />
+      <workItem from="1623583921603" duration="272000" />
+      <workItem from="1623757613774" duration="6377000" />
+      <workItem from="1623825524729" duration="516000" />
     </task>
-    <task id="LOCAL-00002" summary="dict_t renamed to Dict">
-      <created>1618946367669</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
+    <task id="LOCAL-00003" summary="nil checks added">
+      <created>1619247024126</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1618946367669</updated>
+      <updated>1619247024126</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00004" summary="simple loop with depth of one and global index variable not working. jump back fails">
+      <created>1620051649047</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1620051649047</updated>
+    </task>
+    <task id="LOCAL-00005" summary="simple loop with depth of one and global index variable working">
+      <created>1620054147474</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1620054147474</updated>
+    </task>
+    <task id="LOCAL-00006" summary="loop with depth 3 working. deeper loops throw errors">
+      <created>1620055527035</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1620055527035</updated>
+    </task>
+    <task id="LOCAL-00007" summary="general loops working">
+      <created>1620117708766</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1620117708766</updated>
+    </task>
+    <task id="LOCAL-00008" summary="general loops working">
+      <created>1620117790417</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1620117790417</updated>
+    </task>
+    <task id="LOCAL-00009" summary="markers for loops added">
+      <created>1620376444677</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1620376444678</updated>
+    </task>
+    <task id="LOCAL-00010" summary="benchmark changed">
+      <created>1623343667741</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1623343667741</updated>
+    </task>
+    <task id="LOCAL-00011" summary="benchmark changed">
+      <created>1623764763939</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1623764763939</updated>
+    </task>
+    <task id="LOCAL-00012" summary="benchmark improved">
+      <created>1623771993008</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1623771993008</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="testing" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -108,25 +218,16 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="dict_t renamed to Dict" />
-    <option name="LAST_COMMIT_MESSAGE" value="dict_t renamed to Dict" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state width="2005" height="304" key="GridCell.Tab.0.bottom" timestamp="1619112825098">
-      <screen x="-2560" y="-356" width="2048" height="1112" />
-    </state>
-    <state width="2005" height="304" key="GridCell.Tab.0.bottom/0.0.1536.824/-2560.-356.2048.1112@-2560.-356.2048.1112" timestamp="1619112825098" />
-    <state width="2005" height="304" key="GridCell.Tab.0.center" timestamp="1619112825098">
-      <screen x="-2560" y="-356" width="2048" height="1112" />
-    </state>
-    <state width="2005" height="304" key="GridCell.Tab.0.center/0.0.1536.824/-2560.-356.2048.1112@-2560.-356.2048.1112" timestamp="1619112825098" />
-    <state width="2005" height="304" key="GridCell.Tab.0.left" timestamp="1619112825097">
-      <screen x="-2560" y="-356" width="2048" height="1112" />
-    </state>
-    <state width="2005" height="304" key="GridCell.Tab.0.left/0.0.1536.824/-2560.-356.2048.1112@-2560.-356.2048.1112" timestamp="1619112825097" />
-    <state width="2005" height="304" key="GridCell.Tab.0.right" timestamp="1619112825098">
-      <screen x="-2560" y="-356" width="2048" height="1112" />
-    </state>
-    <state width="2005" height="304" key="GridCell.Tab.0.right/0.0.1536.824/-2560.-356.2048.1112@-2560.-356.2048.1112" timestamp="1619112825098" />
+    <MESSAGE value="nil checks added" />
+    <MESSAGE value="simple loop with depth of one and global index variable not working. jump back fails" />
+    <MESSAGE value="simple loop with depth of one and global index variable working" />
+    <MESSAGE value="loop with depth 3 working. deeper loops throw errors" />
+    <MESSAGE value="general loops working" />
+    <MESSAGE value="markers for loops added" />
+    <MESSAGE value="benchmark changed" />
+    <MESSAGE value="benchmark improved" />
+    <option name="LAST_COMMIT_MESSAGE" value="benchmark improved" />
   </component>
 </project>

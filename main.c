@@ -1,11 +1,43 @@
 #include "global.h"
 
-Dict *wp = NULL;
-Dict **ip = NULL;
-Dict *cw = NULL;
+//init extern variable
+Dict *dict;
+Dict *dict_begin;
+Dict *macros;
+Dict *macros_begin;
+Dict *wp ;
+Dict **ip;
+Dict *cw;
 Dict **defs = &dict;
-Dict **user_code = user_code_base;
-Dict **start = NULL;
+Dict **userCode = user_code_base;
+Dict **start;
+Stack* parameterStack;
+Stack* returnStack;
+List* ptrList;
+FILE* stream;
+char *token;
+cell_t * isCompileMode = variable_space;
+int loopDepth = 0;
+Dict *user_code_base[CODE_SIZE];
+cell_t variable_space[HEAP_SIZE];
+cell_t* heapptr = variable_space+2;
+cell_t* heap = variable_space+1;
+Dict* dolit_wp;
+Dict* checkbranch_wp;
+Dict* branch_wp;
+Dict* assignvar_wp;
+Dict* pushonreturn_wp;
+Dict* popfromreturn_wp;
+Dict* peekfromreturn_wp;
+Dict* fetchvar_wp;
+Dict* gt_wp;
+Dict* add_wp;
+Dict* dosemi_wp;
+Dict* dostorestring_wp;
+Dict* doprintstring_wp;
+Dict* i_wp;
+Dict* k_wp;
+Dict* j_wp;
 
 void printSynopsis(void);
 
@@ -13,9 +45,10 @@ _Noreturn void virtualMachine(void);
 
 void compileInterpreter(void);
 
-void tests();
-
 int main(int argc, char **argv) {
+
+    // bisschen tricky
+    *heap = (cell_t) heapptr;
 
     //initialize stacks
     parameterStack = createStack(STANDARD_STACK_CAPACITY);
@@ -43,112 +76,53 @@ int main(int argc, char **argv) {
     fprintf(stdout, "Type 'bye' to exit\n");
 
     //set instr pointer
-    ip = user_code;
+    ip = userCode;
     start = ip;
-
     compileInterpreter();
-
     virtualMachine();
 }
 
 void printSynopsis(void) {
-    fprintf(stdout, "Usage: ./forth [FILE]\n");
+    fprintf(stdout, "Usage: ./AMForth [FILE]\n");
 }
 
 _Noreturn void virtualMachine(void) {
     for (;;) {
         wp = *ip++;
-        wp->basicfunc();
+        wp->code();
     }
 }
 
 void compileInterpreter(void) {
-    // word - execute - branch //
+    // : inner-interpreter begin 1 while ' compilemode @ if compile else execute then repeat ;
+    Data data;
+    data.definition = userCode;
+    cw = addEntry("inner-interpreter", data, &DOCOLON);
 
-    compile("interpret");
-    compile("execute");
-    compile("branch0");
-}
+    defs=&macros;
+    compile(getEntry("begin"));
+    defs=&dict;
+    push(parameterStack, 1);
+    compile(getEntry("dolit"));
+    defs=&macros;
+    compile(getEntry("while"));
+    defs=&dict;
+    compile(getEntry("'"));
+    compile(getEntry("compilemode"));
+    compile(getEntry("@"));
+    defs=&macros;
+    compile(getEntry("if"));
+    defs=&dict;
+    compile(getEntry("compile"));
+    defs=&macros;
+    compile(getEntry("else"));
+    defs=&dict;
+    compile(getEntry("execute"));
+    defs=&macros;
+    compile(getEntry("then"));
+    defs=&macros;
+    compile(getEntry("repeat"));
+    defs=&dict;
 
-
-void tests() {
-    push(parameterStack, 10);
-    push(parameterStack, 2100);
-    push(parameterStack, -1);
-    push(parameterStack, 13);
-    // printf("%d\n", peek(stack));
-
-//    printf("%d popped from stack\n", pop(stack));
-//    printf("%d popped from stack\n", pop(stack));
-//    printf("%d popped from stack\n", pop(stack));
-
-    addEntry("+", 0, NULL, &ADD);
-    addEntry("-", 0, NULL, &SUBTRACT);
-    addEntry("*", 0, NULL, &MULTIPLY);
-    addEntry("/", 0, NULL, &DIVIDE);
-    addEntry(".", 0, NULL, &PRINTPOPSTACK);
-    addEntry(".s", 0, NULL, &PRINTSTACK);
-    addEntry(":", 0, NULL, &DOCOLON);
-    addEntry(";", 0, NULL, NULL);
-//    Dict **entries = (Dict **) malloc(3 * sizeof(Dict *));
-//    entries[0] = getEntry("+");
-//    entries[1] = getEntry("-");
-//    entries[2] = getEntry(";");
-//    addEntry("addsub", 0, NULL, entries, NULL);
-
-    getEntry("+")->basicfunc(parameterStack);
-
-    //printf("%d\n", peek(stack));
-
-    getEntry("-")->basicfunc(parameterStack);
-
-    //  printf("%d\n", peek(stack));
-
-
-    /*removeEntry(Dict, "add");
-
-    if (getEntry(Dict, "add")==NULL){
-        printf("Yep this is Null!\n");
-    }
-
-    getEntry(Dict, "sub")->basicfunc(stack);
-
-    printf("%d\n", peek(stack));*/
-
-//    addEntry(Dict, "test1", 4);
-//    addEntry(Dict, "test2", 8);
-//    addEntry(Dict, "test3", 12);
-//    addEntry(Dict, "test1", 13);
-
-//    Dict *d = searchEntry(Dict, "test2");
-//    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//    d = searchEntry(Dict, "test1");
-//    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//    d = searchEntry(Dict, "test3");
-//    printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//
-//    int r = removeEntry(Dict, "test1");
-//    printf("%d was returned from the delete function\n", r);
-//    r = removeEntry(Dict, "test1");
-//    printf("%d was returned from the delete function\n", r);
-//
-//    d = searchEntry(Dict, "test1");
-//    if (d != NULL) {
-//        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//    } else {
-//        printf("This element was not found in the list.\n");
-//    }
-//
-//    d = searchEntry(Dict, "test2");
-//    if (d != NULL) {
-//        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//    } else {
-//        printf("This element was not found in the list.\n");
-//    }
-//    d = searchEntry(Dict, "test3");
-//    if (d != NULL) {
-//        printf("%s was found in the dictionary with address %d\n", d->word, d->functionAddress);
-//    } else {
-//        printf("This element was not found in the list.\n");
-//    }
+    compile(getEntry("dosemi"));
 }
